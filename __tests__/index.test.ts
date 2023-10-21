@@ -3,9 +3,11 @@
  */
 
 import * as main from '../src/main'
+import * as setup from '../src/setup-action'
 
 // Mock the action's entrypoint
 const runMock = jest.spyOn(main, 'run').mockImplementation()
+const setupMock = jest.spyOn(setup, 'run').mockImplementation()
 
 describe('index', () => {
   it('calls run when imported', async () => {
@@ -13,5 +15,6 @@ describe('index', () => {
     require('../src/index')
 
     expect(runMock).toHaveBeenCalled()
+    expect(setupMock).toHaveBeenCalled()
   })
 })
