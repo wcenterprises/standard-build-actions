@@ -1,7 +1,7 @@
 {
-  "name": "action-template",
+  "name": "standar-build-actions",
   "description": "GitHub Actions TypeScript template",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "Brian Welsh (@brian-welsh)",
   "private": true,
   "homepage": "https://github.com/wcenterprises/action-template",
