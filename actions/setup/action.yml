@@ -17,7 +17,7 @@ inputs:
       should be self-evident what this is. Normally this would need no other value.
 
   config-file:
-    required: false
+    required: true
     description: >
       path to a YAML config file 
       TBD format TBD
