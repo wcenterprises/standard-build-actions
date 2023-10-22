@@ -2722,6 +2722,121 @@ exports["default"] = _default;
 
 /***/ }),
 
+/***/ 903:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ActionEnvironment = exports.ActionOutput = exports.ActionInput = exports.EnvVar = void 0;
+const core = __importStar(__nccwpck_require__(186));
+const process_1 = __importDefault(__nccwpck_require__(282));
+var EnvVar;
+(function (EnvVar) {
+    EnvVar["TIMESTAMP"] = "__TIMESTAMP";
+    EnvVar["ARTIFACTDIRECORY"] = "__ARTIFACTDIRECORY";
+    EnvVar["STAGINGDIRECTORY"] = "__STAGINGDIRECTORY";
+    EnvVar["PACKAGEDIRECTORY"] = "__PACKAGEDIRECTORY";
+    EnvVar["COPYRIGHT"] = "__COPYRIGHT";
+    EnvVar["AUTHORS"] = "__AUTHORS";
+    EnvVar["COMPANY"] = "__COMPANY";
+    EnvVar["CHANNEL"] = "__CHANNEL";
+    EnvVar["VERSION"] = "__VERSION";
+    EnvVar["INFORMATIONALVERSION"] = "__INFORMATIONALVERSION";
+    EnvVar["REVISION"] = "__REVISION";
+    EnvVar["PRODUCT"] = "__PRODUCT";
+    EnvVar["GITHUB_REPO"] = "GITHUB_REPO";
+    EnvVar["GITHUB_TOKEN"] = "GITHUB_TOKEN";
+})(EnvVar || (exports.EnvVar = EnvVar = {}));
+var ActionInput;
+(function (ActionInput) {
+    ActionInput["REPOSITORY"] = "repository";
+    ActionInput["TOKEN"] = "token";
+    ActionInput["SHA"] = "sha";
+    ActionInput["NAME"] = "name";
+    ActionInput["CONFIGFILE"] = "config-file";
+    ActionInput["TIMESTAMP"] = "timestamp";
+    ActionInput["ARTIFACTDIRECORY"] = "artifact-directory";
+    ActionInput["STAGINGDIRECTORY"] = "staging-directory";
+    ActionInput["PACKAGEDIRECTORY"] = "packaging-directory";
+    ActionInput["COPYRIGHT"] = "copyright";
+    ActionInput["AUTHORS"] = "authors";
+    ActionInput["COMPANY"] = "company";
+    ActionInput["CHANNEL"] = "channel";
+    ActionInput["VERSION"] = "version";
+    ActionInput["INFORMATIONALVERSION"] = "informational-version";
+    ActionInput["REVISION"] = "revision";
+    ActionInput["PRODUCT"] = "product";
+    ActionInput["WORKSPACE"] = "workspace";
+})(ActionInput || (exports.ActionInput = ActionInput = {}));
+var ActionOutput;
+(function (ActionOutput) {
+    ActionOutput["TIMESTAMP"] = "timestamp";
+    ActionOutput["ARTIFACTDIRECORY"] = "artifact-directory";
+    ActionOutput["STAGINGDIRECTORY"] = "staging-directory";
+    ActionOutput["PACKAGEDIRECTORY"] = "packaging-directory";
+    ActionOutput["COPYRIGHT"] = "copyright";
+    ActionOutput["AUTHORS"] = "authors";
+    ActionOutput["COMPANY"] = "company";
+    ActionOutput["CHANNEL"] = "channel";
+    ActionOutput["VERSION"] = "version";
+    ActionOutput["INFORMATIONALVERSION"] = "informational-version";
+    ActionOutput["REVISION"] = "revision";
+    ActionOutput["PRODUCT"] = "product";
+    ActionOutput["WORKSPACE"] = "workspace";
+})(ActionOutput || (exports.ActionOutput = ActionOutput = {}));
+class ActionEnvironment {
+    repository;
+    token;
+    artifactDirectory;
+    stagingDirectory;
+    packageDirectory;
+    constructor() {
+        this.repository = this.getInput(ActionInput.REPOSITORY, EnvVar.GITHUB_REPO);
+        this.token = this.getInput(ActionInput.TOKEN, EnvVar.GITHUB_TOKEN);
+        this.artifactDirectory = this.getInput(ActionInput.ARTIFACTDIRECORY, EnvVar.ARTIFACTDIRECORY);
+        this.stagingDirectory = this.getInput(ActionInput.STAGINGDIRECTORY, EnvVar.STAGINGDIRECTORY);
+        this.packageDirectory = this.getInput(ActionInput.PACKAGEDIRECTORY, EnvVar.PACKAGEDIRECTORY);
+    }
+    getInput(key, defaultValue) {
+        const coreResult = core.getInput(key, { required: false });
+        if (!coreResult) {
+            return process_1.default.env[String(defaultValue)];
+        }
+        return coreResult;
+    }
+}
+exports.ActionEnvironment = ActionEnvironment;
+
+
+/***/ }),
+
 /***/ 155:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -2753,6 +2868,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
 const core = __importStar(__nccwpck_require__(186));
+const environment_1 = __nccwpck_require__(903);
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -2761,6 +2877,8 @@ async function run() {
     try {
         const isRequired = { required: true };
         const notRequired = { required: false };
+        const env = new environment_1.ActionEnvironment();
+        console.log(env);
         const repo = core.getInput('repository', isRequired);
         const token = core.getInput('token', isRequired);
         const configFile = core.getInput('config-file', notRequired);
@@ -2848,6 +2966,14 @@ module.exports = require("os");
 
 "use strict";
 module.exports = require("path");
+
+/***/ }),
+
+/***/ 282:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("process");
 
 /***/ }),
 

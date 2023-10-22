@@ -26,9 +26,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "build:main": "ncc build src/main.ts -o dist/main --license licenses.txt",
     "build:setup": "ncc build src/setup-action.ts -o dist/setup-action --license licenses.txt",
-    "build": "npm run build:main && npm run build:setup",
+    "build": "npm run build:setup",
     "bundle": "npm run format:write && npm run package",
     "ci-test": "jest",
     "format:write": "prettier --write **/*.ts",
