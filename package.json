@@ -1,5 +1,5 @@
 {
-  "name": "standar-build-actions",
+  "name": "standard-build-actions",
   "description": "GitHub Actions TypeScript template",
   "version": "1.0.0",
   "author": "Brian Welsh (@brian-welsh)",
@@ -26,6 +26,9 @@
     "node": ">=20"
   },
   "scripts": {
+    "build:main": "ncc build src/main.ts -o dist/main --license licenses.txt",
+    "build:setup": "ncc build src/setup-action.ts -o dist/setup --license licenses.txt",
+    "build": "concurrently 'npm:build:main' 'npm:build:setup'",
     "bundle": "npm run format:write && npm run package",
     "ci-test": "jest",
     "format:write": "prettier --write **/*.ts",
@@ -34,8 +37,7 @@
     "package": "ncc build src/index.ts --license licenses.txt",
     "package:watch": "npm run package -- --watch",
     "test": "(jest && make-coverage-badge --output-path ./badges/coverage.svg) || make-coverage-badge --output-path ./badges/coverage.svg",
-    "all": "npm run format:write && npm run lint && npm run test && npm run build",
-    "build": "tsc && ncc build dist/**/*"
+    "all": "npm run format:write && npm run lint && npm run test && npm run build"
   },
   "license": "MIT",
   "jest": {
@@ -76,6 +78,7 @@
     "@typescript-eslint/eslint-plugin": "^6.8.0",
     "@typescript-eslint/parser": "^6.8.0",
     "@vercel/ncc": "^0.38.1",
+    "concurrently": "^8.2.2",
     "eslint": "^8.52.0",
     "eslint-plugin-github": "^4.10.1",
     "eslint-plugin-jest": "^27.4.3",
