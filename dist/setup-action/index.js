@@ -2881,7 +2881,7 @@ async function run() {
         console.log(`environment: ${JSON.stringify(env)}`);
         const repo = core.getInput('repository', isRequired);
         const token = core.getInput('token', isRequired);
-        const configFile = core.getInput('config-file', isRequired);
+        const configFile = core.getInput('config-file', notRequired);
         console.log(`repo: ${repo}`);
         console.log(`token: ${token}`);
         console.log(`configFile: ${configFile}`);
