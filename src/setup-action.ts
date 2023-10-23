@@ -18,7 +18,7 @@ export async function run(): Promise<void> {
 
     const repo: string = core.getInput('repository', isRequired)
     const token: string = core.getInput('token', isRequired)
-    const configFile: string = core.getInput('config-file', isRequired)
+    const configFile: string = core.getInput('config-file', notRequired)
 
     console.log(`repo: ${repo}`)
     console.log(`token: ${token}`)
