@@ -155,9 +155,9 @@ which should be a bit more involved than beginner issues.
 Working on your first open source project or pull request? Here are some
 helpful tutorials:
 
-* [How to Contribute to an Open Source Project on GitHub][2]
-* [Make a Pull Request][3]
-* [First Timers Only][4]
+- [How to Contribute to an Open Source Project on GitHub][2]
+- [Make a Pull Request][3]
+- [First Timers Only][4]
 
 ### Getting Started
 
@@ -184,7 +184,7 @@ be working on multiple topics at the same time.
 commits, a topic branch should be limited in scope to a single issue
 
 ```
-# Checkout the master branch - you want your new branch to come from master
+# Checkout the master branch - you want your new branch to come from main
 git checkout master
 
 # Create a new branch named newfeature (give your branch its own simple informative name)
@@ -215,13 +215,13 @@ and may include new feature development
 
 What is your development process?
 
-> This project follows the [git flow](http://nvie.com/posts/a-successful-git-branching-model/) 
+> This project follows the [git flow](http://nvie.com/posts/a-successful-git-branching-model/)
 branching model of product development.
 
 Talk about branches people should work on. Specifically, where is the starting
-point? `master`, `development`, etc.
+point? `main`, `development`, etc.
 
-> You should be using the master branch for the most stable release;
+> You should be using the main branch for the most stable release;
 please review [release notes](https://github.com/openopps/openopps-platform/releases)
 regularly. We do releases every week or two and send out notes. If you want to keep
 up with the latest changes, we work in the `dev` branch.  If you are using dev, keep
@@ -247,8 +247,8 @@ Keep your tests as simple as possible.
 
 ### Testing
 
-If you add code you need to add tests! We’ve learned the hard way that code 
-without tests is undependable. If your pull request reduces our test coverage 
+If you add code you need to add tests! We’ve learned the hard way that code
+without tests is undependable. If your pull request reduces our test coverage
 because it lacks tests then it will be rejected.
 
 Provide instructions for adding new tests. Provide instructions for running tests.
@@ -259,13 +259,13 @@ with examples
 
 ### Style Guidelines
 
-If your code has any style guidelines, add them here or provide links to 
-relevant documents. If you have an automated checker, make sure to provide 
+If your code has any style guidelines, add them here or provide links to
+relevant documents. If you have an automated checker, make sure to provide
 instructions on how to run it.
 
 ### Code Formatting
 
-If your code has any formatting guidelines that aren't covered in the 
+If your code has any formatting guidelines that aren't covered in the
 style guidelines above, add them here.
 
 If you're using an auto-formatting tool like clang-format
@@ -276,8 +276,8 @@ Provide instructions for running the formatting tool
 
 ### Whitespace Cleanup
 
-Don’t mix code changes with whitespace cleanup! If you are fixing whitespace, 
-include those changes separately from your code changes. If your request is 
+Don’t mix code changes with whitespace cleanup! If you are fixing whitespace,
+include those changes separately from your code changes. If your request is
 unreadable due to whitespace changes, it will be rejected.
 
 > Please submit whitespace cleanups in a separate pull request.
@@ -309,8 +309,8 @@ Do you have any labeling conventions?
 
 Add notes for pushing your branch:
 
-> When you are ready to generate a pull request, either for preliminary 
-review, or for consideration of merging into the project you must first 
+> When you are ready to generate a pull request, either for preliminary
+review, or for consideration of merging into the project you must first
 push your local topic branch back up to GitHub:
 
 ```
@@ -319,60 +319,60 @@ git push origin newfeature
 
 Include a note about submitting the PR:
 
-> Once you've committed and pushed all of your changes to GitHub, 
-go to the page for your fork on GitHub, select your development branch, 
-and click the pull request button. If you need to make any adjustments 
-to your pull request, just push the updates to your branch. Your pull 
-request will automatically track the changes on your development branch 
+> Once you've committed and pushed all of your changes to GitHub,
+go to the page for your fork on GitHub, select your development branch,
+and click the pull request button. If you need to make any adjustments
+to your pull request, just push the updates to your branch. Your pull
+request will automatically track the changes on your development branch
 and update.
 
-1. Ensure any install or build dependencies are removed before the end of 
+1. Ensure any install or build dependencies are removed before the end of
    the layer when doing a build.
-2. Update the README.md with details of changes to the interface, this 
-   includes new environment variables, exposed ports, useful file 
+2. Update the README.md with details of changes to the interface, this
+   includes new environment variables, exposed ports, useful file
    locations and container parameters.
-3. Increase the version numbers in any examples files and the 
-   README.md to the new version that this Pull Request would represent. 
+3. Increase the version numbers in any examples files and the
+   README.md to the new version that this Pull Request would represent.
    The versioning scheme we use is [SemVer](http://semver.org/).
-4. You may merge the Pull Request in once you have the sign-off of two 
-   other developers, or if you do not have permission to do that, you 
+4. You may merge the Pull Request in once you have the sign-off of two
+   other developers, or if you do not have permission to do that, you
    may request the second reviewer to merge it for you.
 
 ### Review Process
 
-Who reviews it? Who needs to sign off before it’s accepted? When should 
-a contributor expect to hear from you? How can contributors get 
+Who reviews it? Who needs to sign off before it’s accepted? When should
+a contributor expect to hear from you? How can contributors get
 commit access, if at all?
 
-> The core team looks at Pull Requests on a regular basis in a weekly 
-triage meeting that we hold in a public Google Hangout. The hangout is 
-announced in the weekly status updates that are sent to the puppet-dev 
-list. Notes are posted to the Puppet Community community-triage repo and 
-include a link to a YouTube recording of the hangout. After feedback has 
-been given we expect responses within two weeks. After two weeks we may 
+> The core team looks at Pull Requests on a regular basis in a weekly
+triage meeting that we hold in a public Google Hangout. The hangout is
+announced in the weekly status updates that are sent to the puppet-dev
+list. Notes are posted to the Puppet Community community-triage repo and
+include a link to a YouTube recording of the hangout. After feedback has
+been given we expect responses within two weeks. After two weeks we may
 close the pull request if it isn't showing any activity.
 
-> Except for critical, urgent or very small fixes, we try to leave pull 
-requests open for most of the day or overnight if something comes in late in 
-the day, so that multiple people have the chance to review/comment.  Anyone 
-who reviews a pull request should leave a note to let others know that someone 
-has looked at it.  For larger commits, we like to have a +1 from someone 
-else on the core team and/or from other contributor(s).  Please note if you 
-reviewed the code or tested locally -- a +1 by itself will typically be 
+> Except for critical, urgent or very small fixes, we try to leave pull
+requests open for most of the day or overnight if something comes in late in
+the day, so that multiple people have the chance to review/comment.  Anyone
+who reviews a pull request should leave a note to let others know that someone
+has looked at it.  For larger commits, we like to have a +1 from someone
+else on the core team and/or from other contributor(s).  Please note if you
+reviewed the code or tested locally -- a +1 by itself will typically be
 interpreted as your thinking its a good idea, but not having reviewed in detail.
 
-Perhaps also provide the steps your team will use for checking a PR. Or discuss 
-the steps run on your CI server if you have one. This will help developers 
+Perhaps also provide the steps your team will use for checking a PR. Or discuss
+the steps run on your CI server if you have one. This will help developers
 understand how to investigate any failures or test the process on their own.
 
 ### Addressing Feedback
 
-Once a PR has been submitted, your changes will be reviewed and constructive 
-feedback may be provided. Feedback isn't meant as an attack, but to help make 
-sure the highest-quality code makes it into our project. Changes will be approved 
+Once a PR has been submitted, your changes will be reviewed and constructive
+feedback may be provided. Feedback isn't meant as an attack, but to help make
+sure the highest-quality code makes it into our project. Changes will be approved
 once required feedback has been addressed.
 
-If a maintainer asks you to "rebase" your PR, they're saying that a lot of code 
+If a maintainer asks you to "rebase" your PR, they're saying that a lot of code
 has changed, and that you need to update your fork so it's easier to merge.
 
 To update your forked repository, follow these steps:
@@ -388,41 +388,41 @@ git checkout newfeature
 git rebase master
 ```
 
-If too much code has changed for git to automatically apply your branches 
-changes to the new master, you will need to manually resolve the merge 
+If too much code has changed for git to automatically apply your branches
+changes to the new master, you will need to manually resolve the merge
 conflicts yourself.
 
-Once your new branch has no conflicts and works correctly, you can 
+Once your new branch has no conflicts and works correctly, you can
 override your old branch using this command:
 
 ```
 git push -f
 ```
 
-Note that this will overwrite the old branch on the server, so make sure 
+Note that this will overwrite the old branch on the server, so make sure
 you are happy with your changes first!
 
 ## Community
 
-Do you have a mailing list, Google group, slack channel, 
+Do you have a mailing list, Google group, slack channel,
 IRC channel? Link to them here.
 
-> Anyone actively contributing to or using OpenOpps should join our 
+> Anyone actively contributing to or using OpenOpps should join our
 [Mailing List](https://groups.google.com/forum/#!forum/openopps-platform).
-We also have a public Slack chat team. If you're interested in following 
-along with the development process or have questions, feel free to 
+We also have a public Slack chat team. If you're interested in following
+along with the development process or have questions, feel free to
 [join us](https://openopps.slack.com).
 
 Include Other Notes on how people can contribute
 
-* You can help us answer questions our users have here:
-* You can help build and design our website here:
-* You can help write blog posts about the project by:
-* You can help with newsletters and internal communications by:
+- You can help us answer questions our users have here:
+- You can help build and design our website here:
+- You can help write blog posts about the project by:
+- You can help with newsletters and internal communications by:
 
-* Create an example of the project in real world by building something or
+- Create an example of the project in real world by building something or
 showing what others have built.
-* Write about other people’s projects based on this project. Show how
+- Write about other people’s projects based on this project. Show how
 it’s used in daily life. Take screenshots and make videos!
 
 [0]: CODE_OF_CONDUCT.md
