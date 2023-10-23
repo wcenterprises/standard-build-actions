@@ -4,15 +4,23 @@
 
 **Taken From: [embeddedartistry/templates](https://github.com/embeddedartistry/templates/blob/master/oss_docs/CONTRIBUTING.md)**
 
-Write something nice and instructive as an intro. Talk about what kind of contributions you are interested in.
+Write something nice and instructive as an intro. Talk about what kind of contributions
+you are interested in.
 
-> Welcome! We love receiving contributions from our community, so thanks for stopping by! There are many ways to contribute, including submitting bug reports, improving documentation, submitting feature requests, reviewing new submissions, or contributing code that can be incorporated into the project.
+> Welcome! We love receiving contributions from our community, so thanks for stopping
+by! There are many ways to contribute, including submitting bug reports, improving
+documentation, submitting feature requests, reviewing new submissions, or contributing
+code that can be incorporated into the project.
 
-This document describes our development process. Following these guidelines shows that you respect the time and effort of the developers managing this project. In return, you will be shown respect in addressing your issue, reviewing your changes, and incorporating your contributions.
+This document describes our development process. Following these guidelines shows
+that you respect the time and effort of the developers managing this project. In
+return, you will be shown respect in addressing your issue, reviewing your changes,
+and incorporating your contributions.
 
 If you're not looking for some kinds of contributions, note that up front:
 
-> Please, don't use the issue tracker for support questions. Instead use: a, b, or Stack Overflow.
+> Please, don't use the issue tracker for support questions. Instead use: a,
+b, or Stack Overflow.
 
 **Table of Contents:**
 
@@ -41,8 +49,8 @@ If you're not looking for some kinds of contributions, note that up front:
 
 If you have a code of conduct document:
 
-> By participating in this project, you agree to abide by our 
-[Code of Conduct][0]. We expect all contributors to follow the 
+> By participating in this project, you agree to abide by our
+[Code of Conduct][0]. We expect all contributors to follow the
 [Code of Conduct][0] and to treat fellow humans with respect.
 
 If not, lay some ground rules down up front.
@@ -51,58 +59,59 @@ If not, lay some ground rules down up front.
 
 Include Short Links to Important Resources:
 
-* docs: handbook / road map
-* bugs: issue tracker / bug report tool
-* comms: forum link, developer list, IRC/email
-* wiki
+- docs: handbook / road map
+- bugs: issue tracker / bug report tool
+- comms: forum link, developer list, IRC/email
+- wiki
 
 ## Questions
 
-How do you prefer people to ask questions? Via an issue? Is there an IRC 
-channel, Google group, or other way to get help? Should issues that are 
+How do you prefer people to ask questions? Via an issue? Is there an IRC
+channel, Google group, or other way to get help? Should issues that are
 questions get a specific label? Can they email you directly?
 
 ## Feature Requests
 
-Provide information on the process for requesting new features. Do you 
+Provide information on the process for requesting new features. Do you
 have a specific label that should be applied? Is sign-off needed?
 
-If you have a road map, goals, works in progress, or a development 
-philosophy, make sure to share the information. Try to make sure that 
-users have enough information to evaluate whether a feature request is 
+If you have a road map, goals, works in progress, or a development
+philosophy, make sure to share the information. Try to make sure that
+users have enough information to evaluate whether a feature request is
 appropriate for your project up front. Examples:
 
-> Please create a new GitHub issue for any major changes and 
-enhancements that you wish to make. Please provide the feature you 
-would like to see, why you need it, and how it will work. Discuss your 
+> Please create a new GitHub issue for any major changes and
+enhancements that you wish to make. Please provide the feature you
+would like to see, why you need it, and how it will work. Discuss your
 ideas transparently and get community feedback before proceeding.
 
-> Major Changes that you wish to contribute to the project should be 
-discussed first in an GitHub issue that clearly outlines the changes 
+> Major Changes that you wish to contribute to the project should be
+discussed first in an GitHub issue that clearly outlines the changes
 and benefits of the feature.
 
-> Small Changes can directly be crafted and submitted to the GitHub 
-Repository as a Pull Request. See the section about Pull Request 
-Submission Guidelines, and for detailed information the core development 
+> Small Changes can directly be crafted and submitted to the GitHub
+Repository as a Pull Request. See the section about Pull Request
+Submission Guidelines, and for detailed information the core development
 documentation.
 
 ## Reporting Bugs
 
-**If you find a security vulnerability, do NOT open an issue. Email EMAIL@DOMAIN.COM instead.**
+**If you find a security vulnerability, do NOT open an issue. Email
+EMAIL@DOMAIN.COM instead.**
 
-Ask contributors to check before filing a new issue. Also, provide any references 
+Ask contributors to check before filing a new issue. Also, provide any references
 to FAQs or debugging guides that you might have.
 
-> Before you submit your issue, please [search the issue archive][6] - 
+> Before you submit your issue, please [search the issue archive][6] -
 maybe your question or issue has already been identified or addressed.
 
-Tell contributors how to file a useful bug report. What information do you 
+Tell contributors how to file a useful bug report. What information do you
 need? (e.g. version, architecture, log files, expected behavior, observed behavior).
 
-> If you find a bug in the source code, you can help us by [submitting an issue 
+> If you find a bug in the source code, you can help us by [submitting an issue
 to our GitHub issue tracker][6]. Even better, you can submit a Pull Request with a fix.
 
-Does your project use an issue template? Provide instructions and expectations 
+Does your project use an issue template? Provide instructions and expectations
 for filling it out.
 
 Have you seen an awesome issue report? Link to it for others to view!
@@ -111,18 +120,18 @@ Have you seen an awesome issue report? Link to it for others to view!
 
 Include notes for how users can improve the documentation.
 
-> Should you have a suggestion for the documentation, you can open an issue 
-and outline the problem or improvement you have - however, creating the doc 
+> Should you have a suggestion for the documentation, you can open an issue
+and outline the problem or improvement you have - however, creating the doc
 fix yourself is much better!
 
-> If you want to help improve the docs, it's a good idea to let others know 
-what you're working on to minimize duplication of effort. Create a new issue 
-(or comment on a related existing one) to let others know what you're working 
-on. If you're making a small change (typo, phrasing) don't worry about filing 
+> If you want to help improve the docs, it's a good idea to let others know
+what you're working on to minimize duplication of effort. Create a new issue
+(or comment on a related existing one) to let others know what you're working
+on. If you're making a small change (typo, phrasing) don't worry about filing
 an issue first.
 
-> For large fixes, please build and test the documentation before submitting 
-the PR to be sure you haven't accidentally introduced any layout or formatting 
+> For large fixes, please build and test the documentation before submitting
+the PR to be sure you haven't accidentally introduced any layout or formatting
 issues.
 
 ```
@@ -131,19 +140,20 @@ Provide instructions on building and viewing documentation
 
 ## Contributing Code
 
-This section is used to get new contributors up and running with dependencies, 
-development, testing, style rules, formatting rules, and other things they 
+This section is used to get new contributors up and running with dependencies,
+development, testing, style rules, formatting rules, and other things they
 should know.
 
-If you have a label for beginner issues, talk about that here so they know 
+If you have a label for beginner issues, talk about that here so they know
 where to look:
 
-> Unsure where to begin contributing to Atom? You can start by looking through 
-these beginner and help-wanted issues: Beginner issues - issues which should 
-only require a few lines of code, and a test or two. Help wanted issues - issues 
+> Unsure where to begin contributing to Atom? You can start by looking through
+these beginner and help-wanted issues: Beginner issues - issues which should
+only require a few lines of code, and a test or two. Help wanted issues - issues
 which should be a bit more involved than beginner issues.
 
-Working on your first open source project or pull request? Here are some helpful tutorials:
+Working on your first open source project or pull request? Here are some
+helpful tutorials:
 
 * [How to Contribute to an Open Source Project on GitHub][2]
 * [Make a Pull Request][3]
@@ -159,18 +169,18 @@ with some examples
 
 Provide some instructions for your work flow (e.g. fork the repository)
 
-> You will need to fork the main repository to work on your changes. 
-Simply navigate to our GitHub page and click the "Fork" button at the top. 
-Once you've forked the repository, you can clone your new repository and 
+> You will need to fork the main repository to work on your changes.
+Simply navigate to our GitHub page and click the "Fork" button at the top.
+Once you've forked the repository, you can clone your new repository and
 start making edits.
 
-> In git it is best to isolate each topic or feature into a “topic branch”. 
-While individual commits allow you control over how small individual changes 
-are made to the code, branches are a great way to group a set of commits all 
-related to one feature together, or to isolate different efforts when you might 
+> In git it is best to isolate each topic or feature into a “topic branch”.
+While individual commits allow you control over how small individual changes
+are made to the code, branches are a great way to group a set of commits all
+related to one feature together, or to isolate different efforts when you might
 be working on multiple topics at the same time.
 
-> While it takes some experience to get the right feel about how to break up 
+> While it takes some experience to get the right feel about how to break up
 commits, a topic branch should be limited in scope to a single issue
 
 ```
@@ -184,20 +194,20 @@ git branch newfeature
 git checkout newfeature
 ```
 
-For more information on the GitHub fork and pull-request processes, 
+For more information on the GitHub fork and pull-request processes,
 [please see this helpful guide][5].
 
 ### Finding an Issue
 
-The list of outstanding feature requests and bugs can be found on our 
-on our [GitHub issue tracker][6]. Pick an unassigned issue that you think 
+The list of outstanding feature requests and bugs can be found on our
+on our [GitHub issue tracker][6]. Pick an unassigned issue that you think
 you can accomplish and add a comment that you are attempting to do it.
 
 Provide notes on different kinds of issues or labels
 
-> `starter` labeled issues are deemed to be good low-hanging fruit for 
+> `starter` labeled issues are deemed to be good low-hanging fruit for
 newcomers to the project
-> `help-wanted` labeled issues may be more difficult than `starter` 
+> `help-wanted` labeled issues may be more difficult than `starter`
 and may include new feature development
 > `doc` labeled issues must only touch content in the `docs` folder.
 
@@ -208,13 +218,13 @@ What is your development process?
 > This project follows the [git flow](http://nvie.com/posts/a-successful-git-branching-model/) 
 branching model of product development.
 
-Talk about branches people should work on. Specifically, where is the starting 
+Talk about branches people should work on. Specifically, where is the starting
 point? `master`, `development`, etc.
 
-> You should be using the master branch for the most stable release; 
-please review [release notes](https://github.com/openopps/openopps-platform/releases) 
-regularly. We do releases every week or two and send out notes. If you want to keep 
-up with the latest changes, we work in the `dev` branch.  If you are using dev, keep 
+> You should be using the master branch for the most stable release;
+please review [release notes](https://github.com/openopps/openopps-platform/releases)
+regularly. We do releases every week or two and send out notes. If you want to keep
+up with the latest changes, we work in the `dev` branch.  If you are using dev, keep
 an eagle-eye on commits and/or join our daily stand-up.
 
 ### Building the Project
