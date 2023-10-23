@@ -12,9 +12,9 @@ export async function run(): Promise<void> {
   try {
     const isRequired = { required: true }
     const notRequired = { required: false }
-    const env:ActionEnvironment = new ActionEnvironment()
+    const env: ActionEnvironment = new ActionEnvironment()
 
-    console.log(env)
+    console.log(`environment: ${JSON.stringify(env)}`)
 
     const repo: string = core.getInput('repository', isRequired)
     const token: string = core.getInput('token', isRequired)

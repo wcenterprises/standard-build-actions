@@ -2878,7 +2878,7 @@ async function run() {
         const isRequired = { required: true };
         const notRequired = { required: false };
         const env = new environment_1.ActionEnvironment();
-        console.log(env);
+        console.log(`environment: ${JSON.stringify(env)}`);
         const repo = core.getInput('repository', isRequired);
         const token = core.getInput('token', isRequired);
         const configFile = core.getInput('config-file', notRequired);
