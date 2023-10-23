@@ -6,7 +6,6 @@ import * as toolrunner from '@actions/exec/lib/toolrunner'
 import * as safeWhich from '@chrisgavin/safe-which'
 //import { JSONSchemaForNPMPackageJsonFiles } from "@schemastore/package";
 
-import * as yaml from 'js-yaml'
 
 import {
   doesDirectoryExist,
@@ -105,20 +104,6 @@ export async function getCommitOid(
 
     return getOptionalInput('sha') || getRequiredEnvParam('GITHUB_SHA')
   }
-}
-
-export function getYamlConfig(configPath: string): UserConfig {
-  if (doesFileExist(configPath)) {
-    return yaml.load(fs.readFileSync(configPath, 'utf8')) as UserConfig
-  }
-  throw new UserError(`Config file does not exist ${configPath}`)
-}
-
-export function getYamlConfigRaw(configPath: string): string | unknown {
-  if (doesFileExist(configPath)) {
-    return yaml.load(fs.readFileSync(configPath, 'utf8'))
-  }
-  throw new UserError(`Config file does not exist ${configPath}`)
 }
 
 /**

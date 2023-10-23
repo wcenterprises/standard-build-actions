@@ -1,8 +1,7 @@
 import * as core from '@actions/core'
 
 import { ActionEnvironment } from './helpers/environment'
-
-
+import { TimeStamp } from './helpers/version-helpers'
 
 /**
  * The main function for the action.
@@ -10,26 +9,11 @@ import { ActionEnvironment } from './helpers/environment'
  */
 export async function run(): Promise<void> {
   try {
-    const isRequired = { required: true }
-    const notRequired = { required: false }
-    const env: ActionEnvironment = new ActionEnvironment()
-
-    console.log(`environment: ${JSON.stringify(env)}`)
-
-    const repo: string = core.getInput('repository', isRequired)
-    const token: string = core.getInput('token', isRequired)
-    const configFile: string = core.getInput('config-file', notRequired)
-
-    console.log(`repo: ${repo}`)
-    console.log(`token: ${token}`)
-    console.log(`configFile: ${configFile}`)
-
-    core.debug(`repository: ${repo}`)
-    core.debug(`token: ${token}`)
-    core.debug(`config-file: ${configFile}`)
+    const env: ActionEnvironment = new ActionEnvironment(TimeStamp)
+    console.log(env)
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)
   }
-} 
+}
 run()
