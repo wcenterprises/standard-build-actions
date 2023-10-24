@@ -1,0 +1,26 @@
+name: 'Setup Action'
+description: 'Setup Action' # TODO: Better description needed!
+author: 'Brian Welsh (@brian-welsh)'
+
+# Define your inputs here.
+inputs:
+  repository: 
+    default: ${{ github.repository }}
+    required: true
+    description: > 
+      should be self-evident what this is. Normally this would need no other value.
+
+  token:
+    default: ${{ github.token }}
+    required: true
+    description: > 
+      should be self-evident what this is. Normally this would need no other value.
+
+# Define your outputs here.
+# outputs:
+#   time:
+#     description: 'Your output description here'
+
+runs:
+  using: node20
+  main: ../../dist/vstest-action/index.js
