@@ -4412,14 +4412,19 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
+const os = __importStar(__nccwpck_require__(37));
 const core = __importStar(__nccwpck_require__(186));
 const action_util_1 = __nccwpck_require__(412);
+const utility_1 = __nccwpck_require__(570);
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
 async function run() {
     try {
+        if (os.platform() === 'win32') {
+            throw new utility_1.UserError('This action can only be executed on Windows.');
+        }
         console.log(await (0, action_util_1.getVstestPath)());
     }
     catch (error) {
