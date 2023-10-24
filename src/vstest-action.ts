@@ -1,5 +1,7 @@
+import * as os from 'os'
 import * as core from '@actions/core'
 import { getVstestPath } from './helpers/action-util'
+import { UserError } from './helpers/utility'
 
 
 /**
@@ -8,6 +10,9 @@ import { getVstestPath } from './helpers/action-util'
  */
 export async function run(): Promise<void> {
   try {
+    if (os.platform() === 'win32') {
+      throw new UserError('This action can only be executed on Windows.')
+    }
     console.log(await getVstestPath())
   } catch (error) {
     // Fail the workflow run if an error occurs
