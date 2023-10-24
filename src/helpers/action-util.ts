@@ -6,15 +6,12 @@ import * as toolrunner from '@actions/exec/lib/toolrunner'
 import * as safeWhich from '@chrisgavin/safe-which'
 //import { JSONSchemaForNPMPackageJsonFiles } from "@schemastore/package";
 
-
 import {
   doesDirectoryExist,
   doesFileExist,
-  // resolveDirectory,
   getRequiredEnvParam,
   UserError
 } from './utility'
-import { UserConfig } from './config-utils'
 
 /**
  * Wrapper around core.getInput for inputs that always have a value.
@@ -36,6 +33,10 @@ export function getResolvedDirectory(name: string, create: boolean): string {
     fs.mkdirSync(result)
   }
   return result
+}
+
+export async function getVstestPath(): Promise<string> {
+  return await safeWhich.safeWhich('vstest.console.exe')
 }
 
 /**

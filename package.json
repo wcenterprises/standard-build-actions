@@ -27,7 +27,8 @@
   },
   "scripts": {
     "build:setup": "ncc build src/setup-action.ts -o dist/setup-action --license licenses.txt",
-    "build": "npm run build:setup",
+    "build:vstest": "ncc build src/vstest-action.ts -o dist/vstest-action --license licenses.txt",
+    "build": "npm run build:setup && npm run build:vstest",
     "bundle": "npm run format:write && npm run package",
     "ci-test": "jest",
     "format:write": "prettier --write **/*.ts",

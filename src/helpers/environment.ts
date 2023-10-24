@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
+
 import process from 'process'
-import { getOptionalInput } from './action-util'
+
 import { UserConfig, getYamlConfig } from './config-utils'
 
 export enum EnvVar {
