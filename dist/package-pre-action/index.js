@@ -1796,6 +1796,53 @@ function isLoopbackAddress(host) {
 
 /***/ }),
 
+/***/ 537:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.safeWhich = exports.isWindows = void 0;
+const fs = __nccwpck_require__(147);
+const path = __nccwpck_require__(17);
+exports.isWindows = process.platform === "win32";
+const pathSeparator = exports.isWindows ? ";" : ":";
+const defaultPathExt = exports.isWindows ? [".com", ".exe", ".bat", ".cmd"] : [""];
+async function safeWhich(program) {
+    if (program.includes("/") || (program.includes("\\") && exports.isWindows)) {
+        // If the path contains slashes it's either absolute or relative and should not be searched for.
+        return program;
+    }
+    let pathValue = process.env.PATH;
+    if (pathValue === undefined) {
+        throw new Error(`Could not resolve program ${program} because no PATH environment variable was set.`);
+    }
+    let searchPaths = pathValue.split(pathSeparator);
+    let pathExts = defaultPathExt;
+    if (exports.isWindows && process.env.PATHEXT !== undefined) {
+        pathExts = process.env.PATHEXT.split(pathSeparator);
+    }
+    for (let searchPath of searchPaths) {
+        for (let pathExt of pathExts) {
+            let completePath = path.join(searchPath, program + pathExt);
+            try {
+                await fs.promises.access(completePath, fs.constants.X_OK);
+                return completePath;
+            }
+            catch (err) {
+                if (err.code !== "ENOENT") {
+                    throw err;
+                }
+            }
+        }
+    }
+    throw new Error(`Could not find program ${program} on PATH.`);
+}
+exports.safeWhich = safeWhich;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
 /***/ 294:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -2722,6 +2769,45 @@ exports["default"] = _default;
 
 /***/ }),
 
+/***/ 523:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getDotnet = void 0;
+const safeWhich = __importStar(__nccwpck_require__(537));
+async function getDotnet() {
+    return await safeWhich.safeWhich('dotnet');
+}
+exports.getDotnet = getDotnet;
+
+
+/***/ }),
+
 /***/ 164:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -2753,12 +2839,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
 const core = __importStar(__nccwpck_require__(186));
+const dotnet_helpers_1 = __nccwpck_require__(523);
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
 async function run() {
     try {
+        // We're just here to install some stuff
+        const dotnetPath = await (0, dotnet_helpers_1.getDotnet)();
+        core.saveState('dotnet-path', dotnetPath);
     }
     catch (error) {
         // Fail the workflow run if an error occurs

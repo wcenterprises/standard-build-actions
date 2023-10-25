@@ -1,7 +1,8 @@
-import * as os from 'os'
 import * as core from '@actions/core'
-import { getVstestPath } from './helpers/action-util'
+
 import { UserError } from './helpers/utility'
+
+import { getDotnet } from './helpers/dotnet-helpers'
 
 
 /**
@@ -10,6 +11,10 @@ import { UserError } from './helpers/utility'
  */
 export async function run(): Promise<void> {
   try {
+    // We're just here to install some stuff
+    const dotnetPath: string = await getDotnet()
+    core.saveState('dotnet-path', dotnetPath)
+
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)

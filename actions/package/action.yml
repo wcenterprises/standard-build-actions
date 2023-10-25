@@ -16,6 +16,11 @@ inputs:
     description: > 
       should be self-evident what this is. Normally this would need no other value.
 
+  octopus-cli-version:
+    required: false
+    description: >
+      if not provided the latest version will be installed and used. 
+
 # Define your outputs here.
 # outputs:
 #   time:

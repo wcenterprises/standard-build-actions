@@ -2759,6 +2759,7 @@ const core = __importStar(__nccwpck_require__(186));
  */
 async function run() {
     try {
+        console.log(core.getState('dotnet-path'));
     }
     catch (error) {
         // Fail the workflow run if an error occurs
