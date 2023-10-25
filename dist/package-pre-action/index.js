@@ -3928,18 +3928,24 @@ async function getDotnet() {
 exports.getDotnet = getDotnet;
 async function getDotnetVersion() {
     let version = '';
-    await new toolrunner_1.ToolRunner(await getDotnet(), ['-v'], {
-        silent: true,
-        listeners: {
-            stdout: (data) => {
-                version = data.toString();
-            },
-            stderr: (data) => {
-                version = data.toString();
+    let stderr = '';
+    try {
+        await new toolrunner_1.ToolRunner(await getDotnet(), ['-v'], {
+            silent: true,
+            listeners: {
+                stdout: (data) => {
+                    version += data.toString();
+                },
+                stderr: (data) => {
+                    stderr += data.toString();
+                }
             }
-        }
-    }).exec();
-    return version;
+        }).exec();
+        return version.trim();
+    }
+    catch (c) {
+        return stderr;
+    }
 }
 exports.getDotnetVersion = getDotnetVersion;
 
