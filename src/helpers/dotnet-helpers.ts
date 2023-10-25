@@ -15,7 +15,7 @@ export async function getDotnetVersion(): Promise<string> {
   try {
     await new ToolRunner(
     await getDotnet(),
-    ['-v'],
+    ['--version'],
     {
       silent: true,
       listeners: {

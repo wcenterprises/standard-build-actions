@@ -3930,7 +3930,7 @@ async function getDotnetVersion() {
     let version = '';
     let stderr = '';
     try {
-        await new toolrunner_1.ToolRunner(await getDotnet(), ['-v'], {
+        await new toolrunner_1.ToolRunner(await getDotnet(), ['--version'], {
             silent: true,
             listeners: {
                 stdout: (data) => {
