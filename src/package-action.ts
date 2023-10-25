@@ -10,7 +10,9 @@ import { UserError } from './helpers/utility'
  */
 export async function run(): Promise<void> {
   try {
-    console.log(core.getState('dotnet-path'))
+    console.log(`dotnet path: ${core.getState('dotnet-path')}`)
+    console.log(`dotnet version: ${core.getState('dotnet-version')}`)
+
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)

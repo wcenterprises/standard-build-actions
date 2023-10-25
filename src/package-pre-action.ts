@@ -2,7 +2,7 @@ import * as core from '@actions/core'
 
 import { UserError } from './helpers/utility'
 
-import { getDotnet } from './helpers/dotnet-helpers'
+import { getDotnet, getDotnetVersion } from './helpers/dotnet-helpers'
 
 
 /**
@@ -13,7 +13,10 @@ export async function run(): Promise<void> {
   try {
     // We're just here to install some stuff
     const dotnetPath: string = await getDotnet()
+    const dotnetVersion: string = await getDotnetVersion()
+
     core.saveState('dotnet-path', dotnetPath)
+    core.saveState('dotnet-version', dotnetVersion)
 
   } catch (error) {
     // Fail the workflow run if an error occurs
