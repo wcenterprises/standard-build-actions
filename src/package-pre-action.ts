@@ -2,7 +2,7 @@ import * as core from '@actions/core'
 
 import { UserError } from './helpers/utility'
 
-import { getDotnet, getDotnetVersion } from './helpers/dotnet-helpers'
+import { getDotnet, getDotnetVersion, installDotnetTools } from './helpers/dotnet-helpers'
 
 
 /**
@@ -14,6 +14,9 @@ export async function run(): Promise<void> {
     // We're just here to install some stuff
     const dotnetPath: string = await getDotnet()
     const dotnetVersion: string = await getDotnetVersion()
+    
+    installDotnetTools()
+
 
     core.saveState('dotnet-path', dotnetPath)
     core.saveState('dotnet-version', dotnetVersion)

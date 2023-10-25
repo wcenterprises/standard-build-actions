@@ -3919,9 +3919,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getDotnetVersion = exports.getDotnet = void 0;
+exports.installDotnetTools = exports.installDotnetTool = exports.getDotnetVersion = exports.getDotnet = void 0;
 const toolrunner_1 = __nccwpck_require__(159);
 const safeWhich = __importStar(__nccwpck_require__(537));
+let dotnettools = [
+    {
+        "tool": "Octopus.DotNet.Cli",
+        "version": "9.1.7"
+    }
+];
 async function getDotnet() {
     return await safeWhich.safeWhich('dotnet');
 }
@@ -3941,13 +3947,41 @@ async function getDotnetVersion() {
                 }
             }
         }).exec();
+        console.debug(version.trim());
         return version.trim();
     }
     catch (c) {
+        console.debug(stderr);
         return stderr;
     }
 }
 exports.getDotnetVersion = getDotnetVersion;
+async function installDotnetTool(toolId, toolVersion) {
+    let stderr = '';
+    let result = '';
+    try {
+        await new toolrunner_1.ToolRunner(await getDotnet(), ['tool', 'install', '--global', toolId, '--version', toolVersion], {
+            silent: true,
+            listeners: {
+                stdout: (data) => {
+                    result += data.toString();
+                },
+                stderr: (data) => {
+                    stderr += data.toString();
+                }
+            }
+        }).exec();
+        console.log(result.trim());
+    }
+    catch (c) {
+        console.debug(stderr);
+    }
+}
+exports.installDotnetTool = installDotnetTool;
+async function installDotnetTools() {
+    dotnettools.forEach((item) => installDotnetTool(item.tool, item.version));
+}
+exports.installDotnetTools = installDotnetTools;
 
 
 /***/ }),
@@ -3993,6 +4027,7 @@ async function run() {
         // We're just here to install some stuff
         const dotnetPath = await (0, dotnet_helpers_1.getDotnet)();
         const dotnetVersion = await (0, dotnet_helpers_1.getDotnetVersion)();
+        (0, dotnet_helpers_1.installDotnetTools)();
         core.saveState('dotnet-path', dotnetPath);
         core.saveState('dotnet-version', dotnetVersion);
     }
