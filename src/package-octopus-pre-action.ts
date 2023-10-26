@@ -4,7 +4,7 @@ import { UserError } from './helpers/utility'
 
 import { getDotnet, getDotnetVersion, installDotnetTools } from './helpers/dotnet-helpers'
 
-
+process.argv.forEach((item) => console.log(`process.argv: ${item}`))
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -12,14 +12,14 @@ import { getDotnet, getDotnetVersion, installDotnetTools } from './helpers/dotne
 export async function run(): Promise<void> {
   try {
     // We're just here to install some stuff
-    const dotnetPath: string = await getDotnet()
-    const dotnetVersion: string = await getDotnetVersion()
+    if(core.isDebug()) {
+      const dotnetPath: string = await getDotnet()
+      const dotnetVersion: string = await getDotnetVersion()
+      core.debug(`dotnet path: ${ dotnetPath } detected`)
+      core.debug(`dotnet version: ${ dotnetVersion } detected`)
+    }
     
-    installDotnetTools()
-
-
-    core.saveState('dotnet-path', dotnetPath)
-    core.saveState('dotnet-version', dotnetVersion)
+    await installDotnetTools()
 
   } catch (error) {
     // Fail the workflow run if an error occurs

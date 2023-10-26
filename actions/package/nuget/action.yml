@@ -28,6 +28,6 @@ inputs:
 
 runs:
   using: node20
-  pre: ../../dist/package-pre-action/index.js
-  main: ../../dist/package-action/index.js
+  pre: ../../../dist/package-pre-nuget-action/index.js
+  main: ../../../dist/package-nuget-action/index.js
   # post: ../../dist/vstest-action/index.js

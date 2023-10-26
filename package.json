@@ -28,9 +28,13 @@
   "scripts": {
     "build:setup": "ncc build src/setup-action.ts -o dist/setup-action --license licenses.txt",
     "build:vstest": "ncc build src/vstest-action.ts -o dist/vstest-action --license licenses.txt",
-    "build:package": "ncc build src/package-action.ts -o dist/package-action --license licenses.txt",
-    "build:pre-package": "ncc build src/package-pre-action.ts -o dist/package-pre-action --license licenses.txt",
-    "build": "npm run build:setup && npm run build:vstest && npm run build:package && npm run build:pre-package",
+
+    "build:octo-package": "ncc build src/package-octopus-action.ts -o dist/package-octopus-action --license licenses.txt",
+    "build:octo-pre-package": "ncc build src/package-octopus-pre-action.ts -o dist/package-octopus-pre-action --license licenses.txt",
+    "build:nuget-package": "ncc build src/package-nuget-action.ts -o dist/package-nuget-action --license licenses.txt",
+    "build:nuget-pre-package": "ncc build src/package-nuget-pre-action.ts -o dist/package-nuget-pre-action --license licenses.txt",
+
+    "build": "npm run build:setup && npm run build:vstest && npm run build:octo-package && npm run build:octo-pre-package && npm run build:nuget-package && npm run build:nuget-pre-package",
     "bundle": "npm run format:write && npm run package",
     "ci-test": "jest",
     "format:write": "prettier --write **/*.ts",
