@@ -4,7 +4,6 @@ import { UserError } from './helpers/utility'
 
 import { getDotnet, getDotnetVersion, installDotnetTools } from './helpers/dotnet-helpers'
 
-process.argv.forEach((item) => console.log(`process.argv: ${item}`))
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.

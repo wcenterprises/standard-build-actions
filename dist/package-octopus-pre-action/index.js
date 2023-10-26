@@ -1,4 +1,4 @@
-/******/ (() => { // webpackBootstrap
+require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 351:
@@ -4018,7 +4018,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
 const core = __importStar(__nccwpck_require__(186));
 const dotnet_helpers_1 = __nccwpck_require__(523);
-process.argv.forEach((item) => console.log(`process.argv: ${item}`));
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -4197,3 +4196,4 @@ module.exports = require("util");
 /******/ 	
 /******/ })()
 ;
+//# sourceMappingURL=index.js.map

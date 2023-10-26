@@ -28,6 +28,6 @@ inputs:
 
 runs:
   using: node20
-  pre: ../../../dist/package-octopus-pre-action/index.js "nuget"
-  main: ../../../dist/package-octopus-action/index.js
+  pre: ../../../dist/package-octopus-pre-action
+  main: ../../../dist/package-octopus-action
   # post: ../../dist/vstest-action/index.js
