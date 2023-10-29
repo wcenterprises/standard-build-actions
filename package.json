@@ -33,7 +33,8 @@
     "build:octo-pre-package": "ncc build src/package-octopus-pre-action.ts -o dist/package-octopus-pre-action -s",
     "build:nuget-package": "ncc build src/package-nuget-action.ts -o dist/package-nuget-action -s",
     "build:nuget-pre-package": "ncc build src/package-nuget-pre-action.ts -o dist/package-nuget-pre-action -s",
-    "build": "npm run build:setup && npm run build:vstest && npm run build:octo-package && npm run build:octo-pre-package && npm run build:nuget-package && npm run build:nuget-pre-package",
+    "build:stale": "ncc build src/stale-action.ts -o dist/stale-action -s",
+    "build": "npm run build:setup && npm run build:vstest && npm run build:octo-package && npm run build:octo-pre-package && npm run build:nuget-package && npm run build:nuget-pre-package && npm run build:stale",
 
     "bundle": "npm run format:write && npm run package",
     "ci-test": "jest",

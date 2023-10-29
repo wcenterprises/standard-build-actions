@@ -1,0 +1,53 @@
+name: 'stale action'
+description: 'detects stale branches & PRs' # TODO: Better description needed!
+author: 'Brian Welsh (@brian-welsh)'
+
+inputs:
+  repository:
+    required: true
+    default: ${{ github.repository }}
+  
+  stale-pr-days:    
+    required: true
+    default: 30
+    description: >-
+      the number of days at which a pr is considered stale.
+
+  stale-pr-message:
+    required: true
+    default: >-
+      Hello, friend! :vulcan_salute: We're just here to let you know this pull is now considred stale.
+      Your options are: Close the PR, complete and merge the PR or update/refresh the PR.
+      Please take one of these actions as soon as possible.
+
+  stale-pr-ignore-drafts:
+    required: true
+    default: false
+
+  stale-branch-days:
+    required: true
+    default: 180
+    description: >-
+      GitHub, by default, defines a stale branch as one which has not seen acivity in 180 days or more. 
+
+  stale-branch-message:
+    required: true
+    default: >-
+      Hello friend! :wave: We're here to let you know your branch is now considered stale.
+      GitHub, by default, defines a stale branch as one which has not seen acivity in 180 days or more.
+      Please update this branch or delete it at the earliest possible convenience.
+
+  stale-branch-report-template:
+    required: true
+    default: >-
+      repository: {repository} {repository_url}
+      branch: {branch} {branch_url}
+      owner: {owner}
+      last updated: {last_update}
+
+  list-branches:
+    required: false
+
+runs:
+  using: node20
+  main: ../../dist/stale-action/index.js
