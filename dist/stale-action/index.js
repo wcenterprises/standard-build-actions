@@ -4225,6 +4225,10 @@ async function run() {
         const input = getInputs();
         console.log(await getRateLimits());
         console.log(await getPullRequsts(input));
+        const pulls = await getPullRequsts(input);
+        pulls.forEach((element) => {
+            console.log(`PR #${element.number}\t${element.title}\t@${element.user.login}\t${element.updated_at}`);
+        });
     }
     catch (error) {
         // Fail the workflow run if an error occurs
@@ -4251,11 +4255,12 @@ function getInputs() {
 }
 exports.getInputs = getInputs;
 async function getRateLimits() {
-    return await octokit.request('GET /rate_limit', {
+    const result = await octokit.request('GET /rate_limit', {
         headers: {
             'X-GitHub-Api-Version': '2022-11-28'
         }
     });
+    return result.data;
 }
 exports.getRateLimits = getRateLimits;
 async function getPullRequsts(input) {
@@ -4275,6 +4280,8 @@ async function getPullRequsts(input) {
     return result.data;
 }
 exports.getPullRequsts = getPullRequsts;
+//export async function transformPullData(data: any, format: string): Promise<string> {
+// }
 run();
 
 

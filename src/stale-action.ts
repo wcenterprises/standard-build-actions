@@ -17,6 +17,11 @@ export async function run(): Promise<void> {
     console.log(await getRateLimits())
     console.log(await getPullRequsts(input))
 
+    const pulls=await getPullRequsts(input)
+    pulls.forEach((element: any) => {
+      console.log(`PR #${element.number}\t${element.title}\t@${element.user.login}\t${element.updated_at}`)
+    })
+
 
 
 
@@ -44,11 +49,12 @@ export function getInputs(): any {
 }
 
 export async function getRateLimits(): Promise<any> {
-  return await octokit.request('GET /rate_limit', {
+  const result = await octokit.request('GET /rate_limit', {
     headers: {
       'X-GitHub-Api-Version': '2022-11-28'
     }
   })
+  return result.data
 }
 
 export async function getPullRequsts(input: any): Promise<any> {
@@ -66,9 +72,11 @@ export async function getPullRequsts(input: any): Promise<any> {
       'X-GitHub-Api-Version': '2022-11-28'
     }
   })
-
   return result.data
 }
+
+//export async function transformPullData(data: any, format: string): Promise<string> {
+// }
 
 
 run()
