@@ -56,7 +56,8 @@ export async function getPullRequsts(input: any): Promise<any> {
     owner: input.repository.split('/')[0], 
     name:  input.repository.split('/')[1] 
   }
-  console.log(`REPO: ${repo}`);
+  console.log(`REPO: ${repo.name}`);
+  console.log(`OWNER: ${repo.owner}`);
   
   await octokit.request('GET /repos/{owner}/{repo}/pulls', {
     owner: `${repo.owner}`,
