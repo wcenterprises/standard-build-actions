@@ -15,6 +15,9 @@ export async function run(): Promise<void> {
   try {
     const input = getInputs()
     console.log(await getRateLimits())
+    console.log(await getPullRequsts(input))
+
+
 
 
   } catch (error) {
@@ -48,8 +51,20 @@ export async function getRateLimits(): Promise<any> {
   })
 }
 
-export function getPullRequsts(): any {
-  
+export async function getPullRequsts(input: any): Promise<any> {
+  const repo = { 
+    owner: input.repository.split('/')[0], 
+    name:  input.repository.split('/')[1] 
+  }
+
+  await octokit.request('GET /repos/{owner}/{repo}/pulls', {
+    owner: `${repo.owner}`,
+    repo: `${repo.name}`,
+    headers: {
+      'X-GitHub-Api-Version': '2022-11-28'
+    }
+  })
 }
+
 
 run()

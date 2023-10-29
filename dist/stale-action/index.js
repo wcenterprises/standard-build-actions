@@ -4224,6 +4224,7 @@ async function run() {
     try {
         const input = getInputs();
         console.log(await getRateLimits());
+        console.log(await getPullRequsts(input));
     }
     catch (error) {
         // Fail the workflow run if an error occurs
@@ -4257,7 +4258,18 @@ async function getRateLimits() {
     });
 }
 exports.getRateLimits = getRateLimits;
-function getPullRequsts() {
+async function getPullRequsts(input) {
+    const repo = {
+        owner: input.repository.split('/')[0],
+        name: input.repository.split('/')[1]
+    };
+    await octokit.request('GET /repos/{owner}/{repo}/pulls', {
+        owner: `${repo.owner}`,
+        repo: `${repo.name}`,
+        headers: {
+            'X-GitHub-Api-Version': '2022-11-28'
+        }
+    });
 }
 exports.getPullRequsts = getPullRequsts;
 run();
