@@ -59,13 +59,15 @@ export async function getPullRequsts(input: any): Promise<any> {
   core.debug(`REPO: ${repo.name}`);
   core.debug(`OWNER: ${repo.owner}`);
   
-  return await octokit.request('GET /repos/{owner}/{repo}/pulls', {
+  const result = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
     owner: `${repo.owner}`,
     repo: `${repo.name}`,
     headers: {
       'X-GitHub-Api-Version': '2022-11-28'
     }
   })
+
+  return result.data
 }
 
 
