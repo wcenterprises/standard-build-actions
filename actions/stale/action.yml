@@ -6,7 +6,7 @@ inputs:
   repository:
     required: true
     default: ${{ github.repository }}
-  
+
   stale-pr-days:    
     required: true
     default: 30

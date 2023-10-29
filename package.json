@@ -28,14 +28,12 @@
   "scripts": {
     "build:setup": "ncc build src/setup-action.ts -o dist/setup-action -s",
     "build:vstest": "ncc build src/vstest-action.ts -o dist/vstest-action -s",
-
     "build:octo-package": "ncc build src/package-octopus-action.ts -o dist/package-octopus-action -s",
     "build:octo-pre-package": "ncc build src/package-octopus-pre-action.ts -o dist/package-octopus-pre-action -s",
     "build:nuget-package": "ncc build src/package-nuget-action.ts -o dist/package-nuget-action -s",
     "build:nuget-pre-package": "ncc build src/package-nuget-pre-action.ts -o dist/package-nuget-pre-action -s",
     "build:stale": "ncc build src/stale-action.ts -o dist/stale-action -s",
     "build": "npm run build:setup && npm run build:vstest && npm run build:octo-package && npm run build:octo-pre-package && npm run build:nuget-package && npm run build:nuget-pre-package && npm run build:stale",
-
     "bundle": "npm run format:write && npm run package",
     "ci-test": "jest",
     "format:write": "prettier --write **/*.ts",
@@ -83,7 +81,8 @@
   "dependencies": {
     "@actions/core": "^1.10.1",
     "@actions/exec": "^1.1.1",
-    "@chrisgavin/safe-which": "^1.0.2"
+    "@chrisgavin/safe-which": "^1.0.2",
+    "@octokit/core": "^5.0.1"
   },
   "devDependencies": {
     "@types/jest": "^29.5.6",

@@ -1,6 +1,10 @@
 import * as core from '@actions/core'
+import { Octokit } from '@octokit/core'
 
 import { ActionEnvironment } from './helpers/environment'
+
+const GH_TOKEN: string = String(process.env.GH_TOKEN)
+const octokit = new Octokit({ auth: `${GH_TOKEN}`})
 
 
 /**
@@ -10,7 +14,7 @@ import { ActionEnvironment } from './helpers/environment'
 export async function run(): Promise<void> {
   try {
     const input = getInputs()
-    console.log(input)
+    console.log(getRateLimits())
 
 
   } catch (error) {
@@ -34,6 +38,18 @@ export function getInputs(): any {
       "template": core.getMultilineInput('stale-branch-report-template')
     }
   }
+}
+
+export function getRateLimits(): any {
+  return octokit.request('GET /rate_limit', {
+    headers: {
+      'X-GitHub-Api-Version': '2022-11-28'
+    }
+  }).then()
+}
+
+export function getPullRequsts(): any {
+  
 }
 
 run()
