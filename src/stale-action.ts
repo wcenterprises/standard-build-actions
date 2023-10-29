@@ -17,17 +17,19 @@ export async function run(): Promise<void> {
     console.log(await getRateLimits())
     console.log(await getPullRequsts(input))
 
+    const CurrentDate: Date = new Date()
+
+    const prExpireDate: Date = CurrentDate
+
     const pulls=await getPullRequsts(input)
-    let pullComment: string[]=new Array<string>
     pulls.forEach((element: any) => {
-      console.log(`- [PR #${element.number}](${element.html_url})\t${element.title}\t@${element.user.login}\t${element.updated_at}`)
-      pullComment.push(`- [PR #${element.number}](${element.html_url})\t${element.title}\t@${element.user.login}\t${element.updated_at}`)      
+      setPullComment(
+        `- [PR #${element.number}](${element.html_url})\t${element.title}\t@${element.user.login}\t${element.updated_at}`,
+        element.number, 
+        input
+      )       
     })
-    await setPullComment(pullComment.join('\r\n'), 2, input)
-
-
-
-
+    
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)
@@ -90,7 +92,11 @@ export async function setPullComment(comment: string, pull: number, input: any):
       body: `${comment}`,
       headers: {
         'X-GitHub-Api-Version': '2022-11-28'
-      }
+      },
+      per_page: 100,
+      sort: 'updated',
+      direction: 'asc',
+      state: 'open'
   })
 }
 

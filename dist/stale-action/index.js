@@ -4225,13 +4225,12 @@ async function run() {
         const input = getInputs();
         console.log(await getRateLimits());
         console.log(await getPullRequsts(input));
+        const CurrentDate = new Date();
+        const prExpireDate = CurrentDate;
         const pulls = await getPullRequsts(input);
-        let pullComment = new Array;
         pulls.forEach((element) => {
-            console.log(`- [PR #${element.number}](${element.html_url})\t${element.title}\t@${element.user.login}\t${element.updated_at}`);
-            pullComment.push(`- [PR #${element.number}](${element.html_url})\t${element.title}\t@${element.user.login}\t${element.updated_at}`);
+            setPullComment(`- [PR #${element.number}](${element.html_url})\t${element.title}\t@${element.user.login}\t${element.updated_at}`, element.number, input);
         });
-        await setPullComment(pullComment.join('\r\n'), 2, input);
     }
     catch (error) {
         // Fail the workflow run if an error occurs
@@ -4295,7 +4294,11 @@ async function setPullComment(comment, pull, input) {
         body: `${comment}`,
         headers: {
             'X-GitHub-Api-Version': '2022-11-28'
-        }
+        },
+        per_page: 100,
+        sort: 'updated',
+        direction: 'asc',
+        state: 'open'
     });
 }
 exports.setPullComment = setPullComment;
