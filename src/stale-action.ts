@@ -19,7 +19,7 @@ export async function run(): Promise<void> {
 
     const pulls=await getPullRequsts(input)
     pulls.forEach((element: any) => {
-      console.log(`PR #${element.number}\t${element.title}\t@${element.user.login}\t${element.updated_at}`)
+      console.log(`- [PR #${element.number}](${element.html_url})\t${element.title}\t@${element.user.login}\t${element.updated_at}`)
     })
 
 

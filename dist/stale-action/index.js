@@ -4227,7 +4227,7 @@ async function run() {
         console.log(await getPullRequsts(input));
         const pulls = await getPullRequsts(input);
         pulls.forEach((element) => {
-            console.log(`PR #${element.number}\t${element.title}\t@${element.user.login}\t${element.updated_at}`);
+            console.log(`- [PR #${element.number}](${element.html_url})\t${element.title}\t@${element.user.login}\t${element.updated_at}`);
         });
     }
     catch (error) {
