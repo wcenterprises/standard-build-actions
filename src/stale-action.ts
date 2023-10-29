@@ -14,7 +14,7 @@ const octokit = new Octokit({ auth: `${GH_TOKEN}`})
 export async function run(): Promise<void> {
   try {
     const input = getInputs()
-    console.log(getRateLimits())
+    console.log(await getRateLimits())
 
 
   } catch (error) {
@@ -40,12 +40,12 @@ export function getInputs(): any {
   }
 }
 
-export function getRateLimits(): any {
-  return octokit.request('GET /rate_limit', {
+export async function getRateLimits(): Promise<any> {
+  return await octokit.request('GET /rate_limit', {
     headers: {
       'X-GitHub-Api-Version': '2022-11-28'
     }
-  }).then()
+  })
 }
 
 export function getPullRequsts(): any {

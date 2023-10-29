@@ -4223,7 +4223,7 @@ const octokit = new core_1.Octokit({ auth: `${GH_TOKEN}` });
 async function run() {
     try {
         const input = getInputs();
-        console.log(getRateLimits());
+        console.log(await getRateLimits());
     }
     catch (error) {
         // Fail the workflow run if an error occurs
@@ -4249,12 +4249,12 @@ function getInputs() {
     };
 }
 exports.getInputs = getInputs;
-function getRateLimits() {
-    return octokit.request('GET /rate_limit', {
+async function getRateLimits() {
+    return await octokit.request('GET /rate_limit', {
         headers: {
             'X-GitHub-Api-Version': '2022-11-28'
         }
-    }).then();
+    });
 }
 exports.getRateLimits = getRateLimits;
 function getPullRequsts() {
