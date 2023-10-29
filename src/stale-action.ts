@@ -18,9 +18,12 @@ export async function run(): Promise<void> {
     console.log(await getPullRequsts(input))
 
     const pulls=await getPullRequsts(input)
+    let pullComment: string[]=new Array<string>
     pulls.forEach((element: any) => {
       console.log(`- [PR #${element.number}](${element.html_url})\t${element.title}\t@${element.user.login}\t${element.updated_at}`)
+      pullComment.push(`- [PR #${element.number}](${element.html_url})\t${element.title}\t@${element.user.login}\t${element.updated_at}`)      
     })
+    await setPullComment(pullComment.join('\r\n'), 2, input)
 
 
 
@@ -73,6 +76,22 @@ export async function getPullRequsts(input: any): Promise<any> {
     }
   })
   return result.data
+}
+
+export async function setPullComment(comment: string, pull: number, input: any): Promise<void> {
+  const repo = { 
+    owner: input.repository.split('/')[0], 
+    name:  input.repository.split('/')[1] 
+  }
+    await octokit.request('POST /repos/{owner}/{repo}/issues/{issue_number}/comments', {
+      owner: `${repo.owner}`,
+      repo: `${repo.name}`,
+      issue_number: pull,
+      body: `${comment}`,
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28'
+      }
+  })
 }
 
 //export async function transformPullData(data: any, format: string): Promise<string> {

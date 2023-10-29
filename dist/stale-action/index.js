@@ -4211,7 +4211,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getPullRequsts = exports.getRateLimits = exports.getInputs = exports.run = void 0;
+exports.setPullComment = exports.getPullRequsts = exports.getRateLimits = exports.getInputs = exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const core_1 = __nccwpck_require__(6762);
 const GH_TOKEN = String(process.env.GH_TOKEN);
@@ -4226,9 +4226,12 @@ async function run() {
         console.log(await getRateLimits());
         console.log(await getPullRequsts(input));
         const pulls = await getPullRequsts(input);
+        let pullComment = new Array;
         pulls.forEach((element) => {
             console.log(`- [PR #${element.number}](${element.html_url})\t${element.title}\t@${element.user.login}\t${element.updated_at}`);
+            pullComment.push(`- [PR #${element.number}](${element.html_url})\t${element.title}\t@${element.user.login}\t${element.updated_at}`);
         });
+        await setPullComment(pullComment.join('\r\n'), 2, input);
     }
     catch (error) {
         // Fail the workflow run if an error occurs
@@ -4280,6 +4283,22 @@ async function getPullRequsts(input) {
     return result.data;
 }
 exports.getPullRequsts = getPullRequsts;
+async function setPullComment(comment, pull, input) {
+    const repo = {
+        owner: input.repository.split('/')[0],
+        name: input.repository.split('/')[1]
+    };
+    await octokit.request('POST /repos/{owner}/{repo}/issues/{issue_number}/comments', {
+        owner: `${repo.owner}`,
+        repo: `${repo.name}`,
+        issue_number: pull,
+        body: `${comment}`,
+        headers: {
+            'X-GitHub-Api-Version': '2022-11-28'
+        }
+    });
+}
+exports.setPullComment = setPullComment;
 //export async function transformPullData(data: any, format: string): Promise<string> {
 // }
 run();
