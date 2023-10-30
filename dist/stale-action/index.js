@@ -4225,11 +4225,15 @@ async function run() {
         const input = getInputs();
         console.log(await getRateLimits());
         console.log(await getPullRequsts(input));
-        const CurrentDate = new Date();
-        const prExpireDate = CurrentDate;
+        const CurrentDate = Date.now();
+        const prExpireDate = new Date(Date.now() + Number(input.pr.days) * 24 * 60 * 60 * 1000);
+        const brExpireDate = new Date(Date.now() + Number(input.branches.days) * 24 * 60 * 60 * 1000);
         const pulls = await getPullRequsts(input);
         pulls.forEach((element) => {
-            setPullComment(`- [PR #${element.number}](${element.html_url})\t${element.title}\t@${element.user.login}\t${element.updated_at}`, element.number, input);
+            let pullDate = new Date(element.updated_at);
+            if (prExpireDate.getTime() >= pullDate.getTime()) {
+                setPullComment(element.number, `${input.pr.message}`, input);
+            }
         });
     }
     catch (error) {
@@ -4282,7 +4286,7 @@ async function getPullRequsts(input) {
     return result.data;
 }
 exports.getPullRequsts = getPullRequsts;
-async function setPullComment(comment, pull, input) {
+async function setPullComment(pull, comment, input) {
     const repo = {
         owner: input.repository.split('/')[0],
         name: input.repository.split('/')[1]
