@@ -10,6 +10,8 @@ import { TimeStamp } from './helpers/version-helpers'
 export async function run(): Promise<void> {
   try {
     const env: ActionEnvironment = new ActionEnvironment(TimeStamp)
+    core.exportVariable('ACTION_ENVIRONMENT', JSON.stringify(env))
+    
     console.log(env)
   } catch (error) {
     // Fail the workflow run if an error occurs

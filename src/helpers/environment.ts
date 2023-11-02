@@ -4,6 +4,7 @@ import process from 'process'
 
 import { UserConfig, getYamlConfig } from './config-utils'
 
+
 export enum EnvVar {
   TIMESTAMP = '__TIMESTAMP',
   ARTIFACTDIRECORY = '__ARTIFACTDIRECORY',
@@ -51,6 +52,30 @@ export enum ActionOutput {
   REVISION = 'revision',
   WORKSPACE = 'workspace'
 }
+
+export interface IVersion {
+  major: string,
+  minor: 1,
+  build: string,
+  revision: string
+  prefix: string,
+  suffix: string,
+  channel: string,
+  informational: string
+}
+export interface IActionEnvironmet {
+  timestamp: Date,
+  repository_name: string,
+  repository_owner: string,
+  sha: string,
+  token: string,
+  ref: string,
+  artifact_directory: string,
+  staging_directory: string,
+  package_directory: string,
+  version: IVersion
+}
+
 
 export class ActionEnvironment {
   repository: string

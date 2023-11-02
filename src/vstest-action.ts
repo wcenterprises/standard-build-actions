@@ -3,7 +3,6 @@ import * as core from '@actions/core'
 import { getVstestPath } from './helpers/action-util'
 import { UserError } from './helpers/utility'
 
-
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.

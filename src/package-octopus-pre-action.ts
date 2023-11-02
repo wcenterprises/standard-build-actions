@@ -2,7 +2,11 @@ import * as core from '@actions/core'
 
 import { UserError } from './helpers/utility'
 
-import { getDotnet, getDotnetVersion, installDotnetTools } from './helpers/dotnet-helpers'
+import {
+  getDotnet,
+  getDotnetVersion,
+  installDotnetTools
+} from './helpers/dotnet-helpers'
 
 /**
  * The main function for the action.
@@ -11,15 +15,14 @@ import { getDotnet, getDotnetVersion, installDotnetTools } from './helpers/dotne
 export async function run(): Promise<void> {
   try {
     // We're just here to install some stuff
-    if(core.isDebug()) {
+    if (core.isDebug()) {
       const dotnetPath: string = await getDotnet()
       const dotnetVersion: string = await getDotnetVersion()
-      core.debug(`dotnet path: ${ dotnetPath } detected`)
-      core.debug(`dotnet version: ${ dotnetVersion } detected`)
+      core.debug(`dotnet path: ${dotnetPath} detected`)
+      core.debug(`dotnet version: ${dotnetVersion} detected`)
     }
-    
-    await installDotnetTools()
 
+    await installDotnetTools()
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)

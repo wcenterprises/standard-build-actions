@@ -4182,6 +4182,259 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 4426:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getPull = exports.getPulls = exports.splitRepository = void 0;
+const core_1 = __nccwpck_require__(6762);
+const GH_TOKEN = String(process.env.GH_TOKEN);
+const octokit = new core_1.Octokit({ auth: `${GH_TOKEN}` });
+function splitRepository(repository) {
+    const split = repository.split('/');
+    return {
+        owner: `${split.length === 1 ? null : split[0]}`,
+        name: `${split.length === 1 ? split[0] : split[1]}`
+    };
+}
+exports.splitRepository = splitRepository;
+async function getPulls(repository) {
+    const repo = splitRepository(repository);
+    const result = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
+        owner: `${repo.owner}`,
+        repo: `${repo.name}`,
+        headers: {
+            'X-GitHub-Api-Version': '2022-11-28'
+        }
+    });
+    let pulls = [];
+    result.data.forEach((element) => {
+        pulls.push(getPull(element));
+    });
+    return pulls;
+}
+exports.getPulls = getPulls;
+function getPull(data) {
+    return {
+        id: data.number,
+        number: data.number,
+        state: data.state,
+        title: data.title,
+        body: data.body,
+        created: new Date(data.created_at),
+        updated: new Date(data.updated_at),
+        url: new URL(data.html_url)
+    };
+}
+exports.getPull = getPull;
+
+
+/***/ }),
+
+/***/ 9347:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getStaleEnvironment = exports.environment = void 0;
+const core = __importStar(__nccwpck_require__(2186));
+exports.environment = getStaleEnvironment();
+function getStaleEnvironment() {
+    return {
+        repository: `${core.getInput('repository')}`,
+        list: core.getBooleanInput(`${core.getInput('list-branches')}`),
+        pr: {
+            days: Number(`${core.getInput('stale-pr-days')}`),
+            message: core.getMultilineInput('stale-pr-message'),
+            drafts: core.getBooleanInput('stale-pr-ignore-drafts')
+        },
+        branches: {
+            days: Number(`${core.getInput('stale-branch-days')}`),
+            message: core.getMultilineInput('stale-branch-message'),
+            template: core.getMultilineInput('stale-branch-report-template')
+        }
+    };
+}
+exports.getStaleEnvironment = getStaleEnvironment;
+
+
+/***/ }),
+
+/***/ 8122:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.addDays = exports.resolveDirectory = exports.wrapError = exports.isHostedRunner = exports.listFolder = exports.doesFileExist = exports.doesDirectoryExist = exports.isHTTPError = exports.UserError = exports.HTTPError = exports.getRequiredEnvParam = void 0;
+const fs = __importStar(__nccwpck_require__(7147));
+const path = __importStar(__nccwpck_require__(1017));
+/**
+ * Get an environment parameter, but throw an error if it is not set.
+ */
+function getRequiredEnvParam(paramName) {
+    const value = process.env[paramName];
+    if (value === undefined || value.length === 0) {
+        throw new Error(`${paramName} environment variable must be set`);
+    }
+    return value;
+}
+exports.getRequiredEnvParam = getRequiredEnvParam;
+class HTTPError extends Error {
+    status;
+    constructor(message, status) {
+        super(message);
+        this.status = status;
+    }
+}
+exports.HTTPError = HTTPError;
+/**
+ * An Error class that indicates an error that occurred due to
+ * a misconfiguration of the action or the CodeQL CLI.
+ */
+class UserError extends Error {
+    /* eslint-disable-next-line no-useless-constructor */
+    constructor(message) {
+        super(message);
+    }
+}
+exports.UserError = UserError;
+/*eslint-next-line @typescript-eslint/no-explicit-any*/
+function isHTTPError(arg) {
+    return arg?.status !== undefined && Number.isInteger(arg.status);
+}
+exports.isHTTPError = isHTTPError;
+/*
+ * Returns whether the path in the argument represents an existing directory.
+ */
+function doesDirectoryExist(dirPath) {
+    try {
+        const stats = fs.lstatSync(dirPath);
+        return stats.isDirectory();
+    }
+    catch (e) {
+        return false;
+    }
+}
+exports.doesDirectoryExist = doesDirectoryExist;
+/*
+ * Returns whether the file exists
+ */
+function doesFileExist(filePath) {
+    try {
+        const stats = fs.lstatSync(filePath);
+        return stats.isFile();
+    }
+    catch (e) {
+        return false;
+    }
+}
+exports.doesFileExist = doesFileExist;
+/**
+ * Returns a recursive list of files in a given directory.
+ */
+function listFolder(dir) {
+    if (!doesDirectoryExist(dir)) {
+        return [];
+    }
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    let files = [];
+    for (const entry of entries) {
+        if (entry.isFile()) {
+            files.push(path.resolve(dir, entry.name));
+        }
+        else if (entry.isDirectory()) {
+            files = files.concat(listFolder(path.resolve(dir, entry.name)));
+        }
+    }
+    return files;
+}
+exports.listFolder = listFolder;
+/**
+ * This function implements a heuristic to determine whether the
+ * runner we are on is hosted by GitHub. It does this by checking
+ * the name of the runner against the list of known GitHub-hosted
+ * runner names. It also checks for the presence of a toolcache
+ * directory with the name hostedtoolcache which is present on
+ * GitHub-hosted runners.
+ *
+ * @returns true iff the runner is hosted by GitHub
+ */
+function isHostedRunner() {
+    return (
+    // Name of the runner on hosted Windows runners
+    process.env['RUNNER_NAME']?.includes('Hosted Agent') ||
+        // Name of the runner on hosted POSIX runners
+        process.env['RUNNER_NAME']?.includes('GitHub Actions') ||
+        // Segment of the path to the tool cache on all hosted runners
+        process.env['RUNNER_TOOL_CACHE']?.includes('hostedtoolcache'));
+}
+exports.isHostedRunner = isHostedRunner;
+function wrapError(error) {
+    return error instanceof Error ? error : new Error(String(error));
+}
+exports.wrapError = wrapError;
+function resolveDirectory(testPath) {
+    return path.resolve(testPath);
+}
+exports.resolveDirectory = resolveDirectory;
+function addDays(date, days) {
+    return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
+}
+exports.addDays = addDays;
+
+
+/***/ }),
+
 /***/ 1602:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -4211,9 +4464,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.setPullComment = exports.getPullRequsts = exports.getRateLimits = exports.getInputs = exports.run = void 0;
+exports.getLabel = exports.setPullComment = exports.getRateLimits = exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const core_1 = __nccwpck_require__(6762);
+const stale = __importStar(__nccwpck_require__(9347));
+const utility_1 = __nccwpck_require__(8122);
+const pull_helper_1 = __nccwpck_require__(4426);
 const GH_TOKEN = String(process.env.GH_TOKEN);
 const octokit = new core_1.Octokit({ auth: `${GH_TOKEN}` });
 /**
@@ -4222,17 +4478,16 @@ const octokit = new core_1.Octokit({ auth: `${GH_TOKEN}` });
  */
 async function run() {
     try {
-        const input = getInputs();
-        console.log(await getRateLimits());
-        console.log(await getPullRequsts(input));
-        const CurrentDate = Date.now();
-        const prExpireDate = new Date(Date.now() + Number(input.pr.days) * 24 * 60 * 60 * 1000);
-        const brExpireDate = new Date(Date.now() + Number(input.branches.days) * 24 * 60 * 60 * 1000);
-        const pulls = await getPullRequsts(input);
+        const environment = stale.getStaleEnvironment();
+        //console.log(await getRateLimits())
+        //console.log(await getPullRequsts(input))
+        const prExpireDate = (0, utility_1.addDays)(new Date(), environment.pr.days);
+        const brExpireDate = (0, utility_1.addDays)(new Date(), environment.branches.days);
+        const pulls = await (0, pull_helper_1.getPulls)(environment.repository);
         pulls.forEach((element) => {
             let pullDate = new Date(element.updated_at);
-            if (prExpireDate.getTime() >= pullDate.getTime()) {
-                setPullComment(element.number, `${input.pr.message}`, input);
+            if (prExpireDate.getTime() <= pullDate.getTime()) {
+                setPullComment(element.number, `${environment.pr.message}`, environment);
             }
         });
     }
@@ -4243,23 +4498,6 @@ async function run() {
     }
 }
 exports.run = run;
-function getInputs() {
-    return {
-        "repository": `${core.getInput('repository')}`,
-        "list": `${core.getInput('list-branches')}`,
-        "pr": {
-            "days": `${core.getInput('stale-pr-days')}`,
-            "message": core.getMultilineInput('stale-pr-message'),
-            "drafts": core.getBooleanInput('stale-pr-ignore-drafts')
-        },
-        "branches": {
-            "days": `${core.getInput('stale-branch-days')}`,
-            "message": core.getMultilineInput('stale-branch-message'),
-            "template": core.getMultilineInput('stale-branch-report-template')
-        }
-    };
-}
-exports.getInputs = getInputs;
 async function getRateLimits() {
     const result = await octokit.request('GET /rate_limit', {
         headers: {
@@ -4269,23 +4507,6 @@ async function getRateLimits() {
     return result.data;
 }
 exports.getRateLimits = getRateLimits;
-async function getPullRequsts(input) {
-    const repo = {
-        owner: input.repository.split('/')[0],
-        name: input.repository.split('/')[1]
-    };
-    core.debug(`REPO: ${repo.name}`);
-    core.debug(`OWNER: ${repo.owner}`);
-    const result = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
-        owner: `${repo.owner}`,
-        repo: `${repo.name}`,
-        headers: {
-            'X-GitHub-Api-Version': '2022-11-28'
-        }
-    });
-    return result.data;
-}
-exports.getPullRequsts = getPullRequsts;
 async function setPullComment(pull, comment, input) {
     const repo = {
         owner: input.repository.split('/')[0],
@@ -4306,6 +4527,8 @@ async function setPullComment(pull, comment, input) {
     });
 }
 exports.setPullComment = setPullComment;
+async function getLabel(label) { return null; }
+exports.getLabel = getLabel;
 //export async function transformPullData(data: any, format: string): Promise<string> {
 // }
 run();

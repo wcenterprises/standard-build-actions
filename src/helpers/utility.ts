@@ -108,3 +108,7 @@ export function wrapError(error: unknown): Error {
 export function resolveDirectory(testPath: string): string {
   return path.resolve(testPath)
 }
+
+export function addDays(date: Date, days: number): Date {
+  return new Date(date.getTime() + days * 24 * 60 * 60 * 1000)
+}

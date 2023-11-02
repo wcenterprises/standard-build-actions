@@ -4266,7 +4266,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.resolveDirectory = exports.wrapError = exports.isHostedRunner = exports.listFolder = exports.doesFileExist = exports.doesDirectoryExist = exports.isHTTPError = exports.UserError = exports.HTTPError = exports.getRequiredEnvParam = void 0;
+exports.addDays = exports.resolveDirectory = exports.wrapError = exports.isHostedRunner = exports.listFolder = exports.doesFileExist = exports.doesDirectoryExist = exports.isHTTPError = exports.UserError = exports.HTTPError = exports.getRequiredEnvParam = void 0;
 const fs = __importStar(__nccwpck_require__(147));
 const path = __importStar(__nccwpck_require__(17));
 /**
@@ -4378,6 +4378,10 @@ function resolveDirectory(testPath) {
     return path.resolve(testPath);
 }
 exports.resolveDirectory = resolveDirectory;
+function addDays(date, days) {
+    return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
+}
+exports.addDays = addDays;
 
 
 /***/ }),
