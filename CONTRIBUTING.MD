@@ -25,12 +25,12 @@ b, or Stack Overflow.
 **Table of Contents:**
 
 1. [Code of Conduct](#code-of-conduct)
-2. [Important Resources](#important-resources)
-2. [Questions](#questions)
-3. [Feature Requests](#feature-requests)
-4. [Improving Documentation](#improving-documentation)
-5. [Reporting Bugs](#reporting-bugs)
-6. [Contributing Code](#contributing-code)
+1. [Important Resources](#important-resources)
+1. [Questions](#questions)
+1. [Feature Requests](#feature-requests)
+1. [Improving Documentation](#improving-documentation)
+1. [Reporting Bugs](#reporting-bugs)
+1. [Contributing Code](#contributing-code)
 	1. [Getting Started](#getting-started)
 	1. [Finding an Issue!](#finding-an-issue)
 	1. [Development Process](#development-process)
@@ -132,7 +132,6 @@ an issue first.
 > For large fixes, please build and test the documentation before submitting
 the PR to be sure you haven't accidentally introduced any layout or formatting
 issues.
-
 ```
 Provide instructions on building and viewing documentation
 ```
@@ -160,7 +159,6 @@ helpful tutorials:
 ### Getting Started
 
 Install these dependencies:
-
 ```
 with some examples
 ```
@@ -179,7 +177,6 @@ be working on multiple topics at the same time.
 
 > While it takes some experience to get the right feel about how to break up
 commits, a topic branch should be limited in scope to a single issue
-
 ```
 # Checkout the master branch - you want your new branch to come from main
 git checkout master
@@ -228,12 +225,10 @@ an eagle-eye on commits and/or join our daily stand-up.
 What branches should be work be started off of?
 
 Include instructions on how to build the project.
-
 ```
 with some examples
 ```
 Provide instructions on adding a new file/module to the build
-
 ```
 with some examples
 ```
@@ -246,10 +241,10 @@ without tests is undependable. If your pull request reduces our test coverage
 because it lacks tests then it will be rejected.
 
 Provide instructions for adding new tests. Provide instructions for running tests.
-
 ```
 with examples
 ```
+
 ### Style Guidelines
 
 If your code has any style guidelines, add them here or provide links to
@@ -262,10 +257,10 @@ If your code has any formatting guidelines that aren't covered in the
 style guidelines above, add them here.
 
 If you're using an auto-formatting tool like clang-format
-
 ```
 Provide instructions for running the formatting tool
 ```
+
 ### Whitespace Cleanup
 
 Don’t mix code changes with whitespace cleanup! If you are fixing whitespace,
@@ -304,7 +299,6 @@ Add notes for pushing your branch:
 > When you are ready to generate a pull request, either for preliminary
 review, or for consideration of merging into the project you must first
 push your local topic branch back up to GitHub:
-
 ```
 git push origin newfeature
 ```
@@ -319,13 +313,13 @@ and update.
 
 1. Ensure any install or build dependencies are removed before the end of
    the layer when doing a build.
-2. Update the README.md with details of changes to the interface, this
+1. Update the README.md with details of changes to the interface, this
    includes new environment variables, exposed ports, useful file
    locations and container parameters.
-3. Increase the version numbers in any examples files and the
+1. Increase the version numbers in any examples files and the
    README.md to the new version that this Pull Request would represent.
    The versioning scheme we use is [SemVer](http://semver.org/).
-4. You may merge the Pull Request in once you have the sign-off of two
+1. You may merge the Pull Request in once you have the sign-off of two
    other developers, or if you do not have permission to do that, you
    may request the second reviewer to merge it for you.
 
@@ -367,7 +361,6 @@ If a maintainer asks you to "rebase" your PR, they're saying that a lot of code
 has changed, and that you need to update your fork so it's easier to merge.
 
 To update your forked repository, follow these steps:
-
 ```
 # Fetch upstream master and merge with your repo's master branch
 git fetch upstream
@@ -384,7 +377,6 @@ conflicts yourself.
 
 Once your new branch has no conflicts and works correctly, you can
 override your old branch using this command:
-
 ```
 git push -f
 ```
