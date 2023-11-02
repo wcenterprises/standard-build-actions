@@ -1,4 +1,4 @@
-## Description
+# Description
 
 Please include a summary of the change and which issue is fixed.
 Please also include relevant motivation and context. List any
@@ -14,7 +14,7 @@ Please also note any relevant details for your test configuration.
 - [ ] Test A
 - [ ] Test B
 
-## Checklist:
+## Checklist
 
 - [ ] My code follows the style guidelines of this project
 - [ ] I have performed a self-review of my own code
