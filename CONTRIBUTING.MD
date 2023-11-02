@@ -49,8 +49,8 @@ b, or Stack Overflow.
 If you have a code of conduct document:
 
 > By participating in this project, you agree to abide by our
-[Code of Conduct][0]. We expect all contributors to follow the
-[Code of Conduct][0] and to treat fellow humans with respect.
+[Code of Conduct](CODE_OF_CONDUCT.md). We expect all contributors to follow the
+[Code of Conduct](CODE_OF_CONDUCT.md) and to treat fellow humans with respect.
 
 If not, lay some ground rules down up front.
 
@@ -429,11 +429,11 @@ it’s used in daily life. Take screenshots and make videos!
 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 [style_guidelines.md](style_guidelines.md)
 [https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github]
-(https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
-[http://makeapullrequest.com/](http://makeapullrequest.com/)
-[http://www.firsttimersonly.com](http://www.firsttimersonly.com)
+(<https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github>)
+[http://makeapullrequest.com/](<http://makeapullrequest.com/>)
+[http://www.firsttimersonly.com](<http://www.firsttimersonly.com>)
 [https://gist.github.com/Chaser324/ce0505fbed06b947d962]
-(https://gist.github.com/Chaser324/ce0505fbed06b947d962)
+(<https://gist.github.com/Chaser324/ce0505fbed06b947d962>)
 [link/to/your/project/issue/tracker](link/to/your/project/issue/tracker)
 [http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html]
-(http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
+(<http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html>)
