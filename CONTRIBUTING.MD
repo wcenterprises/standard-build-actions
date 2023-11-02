@@ -44,7 +44,6 @@ b, or Stack Overflow.
 	1. [Addressing Feedback](#addressing-feedback)
 1. [Community](#community)
 
-
 ## Code of Conduct
 
 If you have a code of conduct document:
@@ -137,7 +136,6 @@ issues.
 ```
 Provide instructions on building and viewing documentation
 ```
-
 ## Contributing Code
 
 This section is used to get new contributors up and running with dependencies,
@@ -166,7 +164,6 @@ Install these dependencies:
 ```
 with some examples
 ```
-
 Provide some instructions for your work flow (e.g. fork the repository)
 
 > You will need to fork the main repository to work on your changes.
@@ -193,7 +190,6 @@ git branch newfeature
 # Switch to your new branch
 git checkout newfeature
 ```
-
 For more information on the GitHub fork and pull-request processes,
 [please see this helpful guide][5].
 
@@ -236,13 +232,11 @@ Include instructions on how to build the project.
 ```
 with some examples
 ```
-
 Provide instructions on adding a new file/module to the build
 
 ```
 with some examples
 ```
-
 Keep your tests as simple as possible.
 
 ### Testing
@@ -256,7 +250,6 @@ Provide instructions for adding new tests. Provide instructions for running test
 ```
 with examples
 ```
-
 ### Style Guidelines
 
 If your code has any style guidelines, add them here or provide links to
@@ -273,7 +266,6 @@ If you're using an auto-formatting tool like clang-format
 ```
 Provide instructions for running the formatting tool
 ```
-
 ### Whitespace Cleanup
 
 Don’t mix code changes with whitespace cleanup! If you are fixing whitespace,
@@ -316,7 +308,6 @@ push your local topic branch back up to GitHub:
 ```
 git push origin newfeature
 ```
-
 Include a note about submitting the PR:
 
 > Once you've committed and pushed all of your changes to GitHub,
@@ -387,7 +378,6 @@ git merge upstream/master
 git checkout newfeature
 git rebase master
 ```
-
 If too much code has changed for git to automatically apply your branches
 changes to the new master, you will need to manually resolve the merge
 conflicts yourself.
@@ -398,7 +388,6 @@ override your old branch using this command:
 ```
 git push -f
 ```
-
 Note that this will overwrite the old branch on the server, so make sure
 you are happy with your changes first!
 
