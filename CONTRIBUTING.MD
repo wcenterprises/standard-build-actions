@@ -132,9 +132,11 @@ an issue first.
 > For large fixes, please build and test the documentation before submitting
 the PR to be sure you haven't accidentally introduced any layout or formatting
 issues.
+
 ```sh
 Provide instructions on building and viewing documentation
 ```
+
 ## Contributing Code
 
 This section is used to get new contributors up and running with dependencies,
@@ -159,9 +161,11 @@ helpful tutorials:
 ### Getting Started
 
 Install these dependencies:
+
 ```sh
 with some examples
 ```
+
 Provide some instructions for your work flow (e.g. fork the repository)
 
 > You will need to fork the main repository to work on your changes.
@@ -177,6 +181,7 @@ be working on multiple topics at the same time.
 >
 > While it takes some experience to get the right feel about how to break up
 commits, a topic branch should be limited in scope to a single issue
+
 ```sh
 # Checkout the master branch - you want your new branch to come from main
 git checkout master
@@ -187,6 +192,7 @@ git branch newfeature
 # Switch to your new branch
 git checkout newfeature
 ```
+
 For more information on the GitHub fork and pull-request processes,
 [please see this helpful guide][5].
 
@@ -225,13 +231,17 @@ an eagle-eye on commits and/or join our daily stand-up.
 What branches should be work be started off of?
 
 Include instructions on how to build the project.
+
 ```sh
 with some examples
 ```
+
 Provide instructions on adding a new file/module to the build
+
 ```sh
 with some examples
 ```
+
 Keep your tests as simple as possible.
 
 ### Testing
@@ -241,6 +251,7 @@ without tests is undependable. If your pull request reduces our test coverage
 because it lacks tests then it will be rejected.
 
 Provide instructions for adding new tests. Provide instructions for running tests.
+
 ```sh
 with examples
 ```
@@ -257,6 +268,7 @@ If your code has any formatting guidelines that aren't covered in the
 style guidelines above, add them here.
 
 If you're using an auto-formatting tool like clang-format
+
 ```sh
 Provide instructions for running the formatting tool
 ```
@@ -299,9 +311,11 @@ Add notes for pushing your branch:
 > When you are ready to generate a pull request, either for preliminary
 review, or for consideration of merging into the project you must first
 push your local topic branch back up to GitHub:
+
 ```sh
 git push origin newfeature
 ```
+
 Include a note about submitting the PR:
 
 > Once you've committed and pushed all of your changes to GitHub,
@@ -361,6 +375,7 @@ If a maintainer asks you to "rebase" your PR, they're saying that a lot of code
 has changed, and that you need to update your fork so it's easier to merge.
 
 To update your forked repository, follow these steps:
+
 ```sh
 # Fetch upstream master and merge with your repo's master branch
 git fetch upstream
@@ -371,15 +386,18 @@ git merge upstream/master
 git checkout newfeature
 git rebase master
 ```
+
 If too much code has changed for git to automatically apply your branches
 changes to the new master, you will need to manually resolve the merge
 conflicts yourself.
 
 Once your new branch has no conflicts and works correctly, you can
 override your old branch using this command:
+
 ```sh
 git push -f
 ```
+
 Note that this will overwrite the old branch on the server, so make sure
 you are happy with your changes first!
 
