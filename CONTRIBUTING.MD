@@ -31,17 +31,17 @@ b, or Stack Overflow.
 1. [Improving Documentation](#improving-documentation)
 1. [Reporting Bugs](#reporting-bugs)
 1. [Contributing Code](#contributing-code)
-	1. [Getting Started](#getting-started)
-	1. [Finding an Issue!](#finding-an-issue)
-	1. [Development Process](#development-process)
-	1. [Building the Project](#building-the-project)
-	1. [Testing](#testing)
-	1. [Style Guidelines](#style-guidelines)
-	1. [Code Formatting Rules](#code-formatting)
-	1. [Whitespace Cleanup](#whitespace-cleanup)
+  1. [Getting Started](#getting-started)
+  1. [Finding an Issue!](#finding-an-issue)
+  1. [Development Process](#development-process)
+  1. [Building the Project](#building-the-project)
+  1. [Testing](#testing)
+  1. [Style Guidelines](#style-guidelines)
+  1. [Code Formatting Rules](#code-formatting)
+  1. [Whitespace Cleanup](#whitespace-cleanup)
 1. [Pull Request Guidelines](#pull-request-process)
-	1. [Review Process](#review-process)
-	1. [Addressing Feedback](#addressing-feedback)
+  1. [Review Process](#review-process)
+  1. [Addressing Feedback](#addressing-feedback)
 1. [Community](#community)
 
 ## Code of Conduct
@@ -96,7 +96,7 @@ documentation.
 ## Reporting Bugs
 
 **If you find a security vulnerability, do NOT open an issue. Email
-EMAIL@DOMAIN.COM instead.**
+[EMAIL@DOMAIN.COM](EMAIL@DOMAIN.COM) instead.**
 
 Ask contributors to check before filing a new issue. Also, provide any references
 to FAQs or debugging guides that you might have.
@@ -108,7 +108,8 @@ Tell contributors how to file a useful bug report. What information do you
 need? (e.g. version, architecture, log files, expected behavior, observed behavior).
 
 > If you find a bug in the source code, you can help us by [submitting an issue
-to our GitHub issue tracker][6]. Even better, you can submit a Pull Request with a fix.
+to our GitHub issue tracker][6]. Even better, you can submit a Pull Request
+with a fix.
 
 Does your project use an issue template? Provide instructions and expectations
 for filling it out.
@@ -186,7 +187,8 @@ commits, a topic branch should be limited in scope to a single issue
 # Checkout the master branch - you want your new branch to come from main
 git checkout master
 
-# Create a new branch named newfeature (give your branch its own simple informative name)
+# Create a new branch named newfeature (give your branch its own simple
+informative name)
 git branch newfeature
 
 # Switch to your new branch
@@ -286,20 +288,20 @@ unreadable due to whitespace changes, it will be rejected.
 Do you have any guidelines for your commit messages? Include them here.
 
 > The first line of the commit log must be treated as as an email
-subject line.  It must be strictly no greater than 50 characters long.
+subject line. It must be strictly no greater than 50 characters long.
 The subject must stand on its own and not only make external
 references such as to relevant bug numbers.
-
+>
 > The second line must be blank.
-
+>
 > The third line begins the body of the commit message (one or more
 paragraphs) describing the details of the commit.  Paragraphs are each
 separated by a blank line.  Paragraphs must be word wrapped to be no
 longer than 76 characters.
-
+>
 > The last part of the commit log should contain all "external
 references", such as which issues were fixed.
-
+>
 > For further notes about git commit messages, [please read this blog post][7].
 
 ## Pull Request Process
@@ -350,7 +352,7 @@ list. Notes are posted to the Puppet Community community-triage repo and
 include a link to a YouTube recording of the hangout. After feedback has
 been given we expect responses within two weeks. After two weeks we may
 close the pull request if it isn't showing any activity.
-
+>
 > Except for critical, urgent or very small fixes, we try to leave pull
 requests open for most of the day or overnight if something comes in late in
 the day, so that multiple people have the chance to review/comment.  Anyone
