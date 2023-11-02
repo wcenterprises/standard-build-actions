@@ -31,17 +31,17 @@ b, or Stack Overflow.
 1. [Improving Documentation](#improving-documentation)
 1. [Reporting Bugs](#reporting-bugs)
 1. [Contributing Code](#contributing-code)
-  1. [Getting Started](#getting-started)
-  1. [Finding an Issue!](#finding-an-issue)
-  1. [Development Process](#development-process)
-  1. [Building the Project](#building-the-project)
-  1. [Testing](#testing)
-  1. [Style Guidelines](#style-guidelines)
-  1. [Code Formatting Rules](#code-formatting)
-  1. [Whitespace Cleanup](#whitespace-cleanup)
+   1. [Getting Started](#getting-started)
+   1. [Finding an Issue!](#finding-an-issue)
+   1. [Development Process](#development-process)
+   1. [Building the Project](#building-the-project)
+   1. [Testing](#testing)
+   1. [Style Guidelines](#style-guidelines)
+   1. [Code Formatting Rules](#code-formatting)
+   1. [Whitespace Cleanup](#whitespace-cleanup)
 1. [Pull Request Guidelines](#pull-request-process)
-  1. [Review Process](#review-process)
-  1. [Addressing Feedback](#addressing-feedback)
+   1. [Review Process](#review-process)
+   1. [Addressing Feedback](#addressing-feedback)
 1. [Community](#community)
 
 ## Code of Conduct
@@ -135,7 +135,7 @@ the PR to be sure you haven't accidentally introduced any layout or formatting
 issues.
 
 ```sh
-Provide instructions on building and viewing documentation
+#Provide instructions on building and viewing documentation
 ```
 
 ## Contributing Code
@@ -164,7 +164,7 @@ helpful tutorials:
 Install these dependencies:
 
 ```sh
-with some examples
+# with some examples
 ```
 
 Provide some instructions for your work flow (e.g. fork the repository)
@@ -235,13 +235,13 @@ What branches should be work be started off of?
 Include instructions on how to build the project.
 
 ```sh
-with some examples
+# with some examples
 ```
 
 Provide instructions on adding a new file/module to the build
 
 ```sh
-with some examples
+# with some examples
 ```
 
 Keep your tests as simple as possible.
@@ -255,7 +255,7 @@ because it lacks tests then it will be rejected.
 Provide instructions for adding new tests. Provide instructions for running tests.
 
 ```sh
-with examples
+# with examples
 ```
 
 ### Style Guidelines
@@ -272,7 +272,7 @@ style guidelines above, add them here.
 If you're using an auto-formatting tool like clang-format
 
 ```sh
-Provide instructions for running the formatting tool
+# Provide instructions for running the formatting tool
 ```
 
 ### Whitespace Cleanup
