@@ -426,11 +426,14 @@ showing what others have built.
 - Write about other people’s projects based on this project. Show how
 it’s used in daily life. Take screenshots and make videos!
 
-[0]: CODE_OF_CONDUCT.md
-[1]: style_guidelines.md
-[2]: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
-[3]: http://makeapullrequest.com/
-[4]: http://www.firsttimersonly.com
-[5]: https://gist.github.com/Chaser324/ce0505fbed06b947d962
-[6]: link/to/your/project/issue/tracker
-[7]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
+[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+[style_guidelines.md](style_guidelines.md)
+[https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github]
+(https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
+[http://makeapullrequest.com/](http://makeapullrequest.com/)
+[http://www.firsttimersonly.com](http://www.firsttimersonly.com)
+[https://gist.github.com/Chaser324/ce0505fbed06b947d962]
+(https://gist.github.com/Chaser324/ce0505fbed06b947d962)
+[link/to/your/project/issue/tracker](link/to/your/project/issue/tracker)
+[http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html]
+(http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
