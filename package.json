@@ -26,6 +26,8 @@
     "node": ">=20"
   },
   "scripts": {
+    "build:todo": "tsc && ncc build src/todo-action.ts -o dist/todo-action -s",
+    "build": "npm run build:todo",
     "bundle": "npm run format:write && npm run package",
     "ci-test": "jest",
     "format:write": "prettier --write **/*.ts",
