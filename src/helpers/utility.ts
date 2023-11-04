@@ -55,14 +55,12 @@ export function wrapError(error: unknown): Error {
 }
 
 export function resolveDirectory(testPath: string, options?: ResolveDirectoryOptions): string {
-  console.debug(`testPath: ${testPath}`)
   const newPath = path.resolve(testPath)
-  console.debug(`newPath: ${newPath}`)
 
   if (options?.create && !doesDirectoryExist(newPath)) {
-    console.debug(`creating: ${newPath}`)
     fs.mkdirSync(newPath)
   }  
+
   return newPath
 }
 

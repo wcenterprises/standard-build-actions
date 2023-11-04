@@ -10,6 +10,7 @@ export function getEnvironment(): IEnvironment {
   const repo = core.getInput('repository', {required: true})
   const parsed = repo.split('/')
   const workspace = String(process.env['GITHUB_WORKSPACE'])
+
   return {
     timestamp: TimeStamp,
     repository: { 
@@ -22,7 +23,9 @@ export function getEnvironment(): IEnvironment {
       artifacts: resolveDirectory(`${path.join(workspace, '../a')}`, { create: true }),
       staging: resolveDirectory(`${path.join(workspace, '../s')}`, { create: true }),
       output: resolveDirectory(`${path.join(workspace, '../o')}`, { create: true }),
-      package: resolveDirectory(`${path.join(workspace, '../p')}`, { create: true })
+      package: resolveDirectory(`${path.join(workspace, '../p')}`, { create: true }),
+      action: resolveDirectory(__dirname),
+      temp: String(process.env['RUNNER_TEMP'])
     }
   } as IEnvironment
 }

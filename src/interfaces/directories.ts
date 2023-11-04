@@ -3,5 +3,7 @@ export interface IDirectories {
   artifacts: string,
   staging: string,
   output: string,
-  package: string
+  package: string,
+  action: string,
+  temp: string
 }
