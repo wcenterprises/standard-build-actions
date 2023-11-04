@@ -6,6 +6,7 @@ import { resolveDirectory } from './helpers/utility'
 import * as path from 'path'
 import { IEnvironment } from './interfaces/environment'
 import * as crypto from 'crypto'
+import { loadEnvironment, saveEnvironment } from './helpers/cache-utils'
 
 export function getEnvironment(): IEnvironment {
   const repo = core.getInput('repository', { required: true })
@@ -51,8 +52,12 @@ export async function run(): Promise<void> {
   try {
     core.debug('Entering setup-action')
     const env: IEnvironment = getEnvironment()
+    saveEnvironment(`${env.directories.temp}/environment`, env)
+
+    const env2: IEnvironment = loadEnvironment(`${env.directories.temp}/environment`)
 
     console.log(env)
+    console.log(env2)
   } catch (error) {
     // Fail the workflow run if an error occurs
     /* istanbul ignore next */
