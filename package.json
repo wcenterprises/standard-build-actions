@@ -27,7 +27,8 @@
   },
   "scripts": {
     "build:todo": "ncc build src/todo-action.ts -o dist/todo-action -s",
-    "build": "concurrently npm:build:todo",
+    "build:setup": "ncc build src/setup-action.ts -o dist/setup-action -s",
+    "build": "concurrently npm:build:todo npm:build:setup",
     "clean": "rm -rf dist/*",
     "rebuild": "npm run clean && npm run build",
     "bundle": "npm run format:write && npm run package",

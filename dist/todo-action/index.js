@@ -25672,10 +25672,12 @@ const core = __importStar(__nccwpck_require__(2186));
  */
 async function run() {
     try {
+        core.debug('Entering todo-action');
         core.warning('TODO: This action is not yet implemented.');
     }
     catch (error) {
         // Fail the workflow run if an error occurs
+        /* istanbul ignore next */
         if (error instanceof Error)
             core.setFailed(error.message);
     }
