@@ -25728,13 +25728,13 @@ async function run(command) {
         console.debug(`dotnet: ${dotnet}`);
         switch (command) {
             case 'restore': {
-                await runRestoreCommand();
+                return await runRestoreCommand();
             }
             case 'build': {
-                await runBuildCommand();
+                return await runBuildCommand();
             }
             case 'pack': {
-                await runPackCommand();
+                return await runPackCommand();
             }
             default: {
                 throw new Error(`dotnet command '${command}' not implemented!`);
