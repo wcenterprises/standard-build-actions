@@ -25795,10 +25795,12 @@ const core = __importStar(__nccwpck_require__(2186));
 const version_helpers_1 = __nccwpck_require__(3824);
 const utility_1 = __nccwpck_require__(8122);
 const path = __importStar(__nccwpck_require__(1017));
+const crypto = __importStar(__nccwpck_require__(6113));
 function getEnvironment() {
     const repo = core.getInput('repository', { required: true });
     const parsed = repo.split('/');
     const workspace = String(process.env['GITHUB_WORKSPACE']);
+    const tempDirectry = crypto.randomBytes(16).toString('hex');
     return {
         timestamp: version_helpers_1.TimeStamp,
         repository: {
@@ -25808,12 +25810,21 @@ function getEnvironment() {
         },
         directories: {
             workspace: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../')}`),
-            artifacts: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../a')}`, { create: true }),
-            staging: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../s')}`, { create: true }),
-            output: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../o')}`, { create: true }),
-            package: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../p')}`, { create: true }),
-            action: (0, utility_1.resolveDirectory)(__dirname),
-            temp: String(process.env['RUNNER_TEMP'])
+            artifacts: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../a')}`, {
+                create: true
+            }),
+            staging: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../s')}`, {
+                create: true
+            }),
+            output: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../o')}`, {
+                create: true
+            }),
+            package: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../p')}`, {
+                create: true
+            }),
+            action: (0, utility_1.resolveDirectory)(`${path.join(__dirname, '../../')}`),
+            scripts: (0, utility_1.resolveDirectory)(`${path.join(__dirname, '../../scripts')}`),
+            temp: (0, utility_1.resolveDirectory)(`${path.join(String(process.env['RUNNER_TEMP']), tempDirectry)}`, { create: true })
         }
     };
 }

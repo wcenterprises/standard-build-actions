@@ -22,7 +22,6 @@ describe('action', () => {
   })
 
   it('outputs a warning', async () => {
-
     await setup.run()
     expect(runMock).toHaveReturned()
 

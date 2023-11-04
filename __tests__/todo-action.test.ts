@@ -22,12 +22,14 @@ describe('action', () => {
   })
 
   it('outputs a warning', async () => {
-
     await main.run()
     expect(runMock).toHaveReturned()
 
     // Verify that all of the core library functions were called correctly
     expect(debugMock).toHaveBeenNthCalledWith(1, 'Entering todo-action')
-    expect(warnMock).toHaveBeenNthCalledWith(1, 'TODO: This action is not yet implemented.')
+    expect(warnMock).toHaveBeenNthCalledWith(
+      1,
+      'TODO: This action is not yet implemented.'
+    )
   })
 })

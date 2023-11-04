@@ -16,20 +16,20 @@ describe('action', () => {
   })
 
   it('build number to be correct', async () => {
-    const build=version.getBuildNumber(new Date('2023-01-01 11:22:33'))
+    const build = version.getBuildNumber(new Date('2023-01-01 11:22:33'))
     expect(build).not.toBeNull()
     expect(build).toBe('0101')
   })
 
   it('revision number to be correct', async () => {
-    const revison=version.getRevison(new Date('2023-01-01 11:22:33'))
+    const revison = version.getRevison(new Date('2023-01-01 11:22:33'))
     expect(revison).not.toBeNull()
     expect(revison).toBe(31276)
   })
 
   it('new date to be 3 days hence', async () => {
-    const date=new Date('2023-01-01 11:22:33')
-    const newDate=utility.addDays(date, 3)
+    const date = new Date('2023-01-01 11:22:33')
+    const newDate = utility.addDays(date, 3)
 
     expect(newDate).not.toBeNull()
     expect(newDate.getMonth()).toBe(0)
@@ -37,8 +37,8 @@ describe('action', () => {
   })
 
   it('new date to work with month rollover', async () => {
-    const date=new Date('2023-01-31 01:01:01')
-    const newDate=utility.addDays(date, 3)
+    const date = new Date('2023-01-31 01:01:01')
+    const newDate = utility.addDays(date, 3)
 
     console.log(`newDate: ${newDate}`)
 
@@ -48,8 +48,8 @@ describe('action', () => {
   })
 
   it('new date to work with year rollover', async () => {
-    const date=new Date('2023-12-31 01:01:01')
-    const newDate=utility.addDays(date, 3)
+    const date = new Date('2023-12-31 01:01:01')
+    const newDate = utility.addDays(date, 3)
 
     expect(newDate).not.toBeNull()
     expect(newDate.getFullYear()).toBe(2024)
