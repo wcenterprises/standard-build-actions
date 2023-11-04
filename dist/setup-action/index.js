@@ -25720,8 +25720,11 @@ function wrapError(error) {
 }
 exports.wrapError = wrapError;
 function resolveDirectory(testPath, options) {
+    console.debug(`testPath: ${testPath}`);
     const newPath = path.resolve(testPath);
-    if (options?.create && !doesDirectoryExist(testPath)) {
+    console.debug(`newPath: ${newPath}`);
+    if (options?.create && !doesDirectoryExist(newPath)) {
+        console.debug(`creating: ${newPath}`);
         fs.mkdirSync(newPath);
     }
     return newPath;
@@ -25807,7 +25810,7 @@ function getEnvironment() {
             token: core.getInput('token', { required: true })
         },
         directories: {
-            workspace: workspace,
+            workspace: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../')}`),
             artifacts: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../a')}`, { create: true }),
             staging: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../s')}`, { create: true }),
             output: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../o')}`, { create: true }),

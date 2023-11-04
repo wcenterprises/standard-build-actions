@@ -1,4 +1,5 @@
 
 export interface ResolveDirectoryOptions {
-  create?: boolean
+  create?: boolean,
+  exists?: boolean
 }
