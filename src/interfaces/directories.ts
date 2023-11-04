@@ -5,5 +5,6 @@ export interface IDirectories {
   output: string,
   package: string,
   action: string,
+  scripts: string,
   temp: string
 }

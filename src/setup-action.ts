@@ -5,11 +5,13 @@ import { TimeStamp } from './helpers/version-helpers'
 import { resolveDirectory } from './helpers/utility'
 import * as path from 'path'
 import { IEnvironment } from './interfaces/environment'
+import * as crypto from 'crypto'
 
 export function getEnvironment(): IEnvironment {
   const repo = core.getInput('repository', {required: true})
   const parsed = repo.split('/')
   const workspace = String(process.env['GITHUB_WORKSPACE'])
+  const tempDirectry = crypto.randomBytes(16).toString('hex')
 
   return {
     timestamp: TimeStamp,
@@ -24,8 +26,9 @@ export function getEnvironment(): IEnvironment {
       staging: resolveDirectory(`${path.join(workspace, '../s')}`, { create: true }),
       output: resolveDirectory(`${path.join(workspace, '../o')}`, { create: true }),
       package: resolveDirectory(`${path.join(workspace, '../p')}`, { create: true }),
-      action: resolveDirectory(__dirname),
-      temp: String(process.env['RUNNER_TEMP'])
+      action: resolveDirectory(`${path.join(__dirname, '../../')}`),
+      scripts: resolveDirectory(`${path.join(__dirname, '../../scripts')}`),
+      temp: resolveDirectory(`${path.join(String(process.env['RUNNER_TEMP']), tempDirectry)}`, {create: true})
     }
   } as IEnvironment
 }
