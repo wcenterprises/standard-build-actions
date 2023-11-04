@@ -26845,7 +26845,7 @@ async function run(command) {
         core.debug('Entering dotnet-action');
         const env = (0, cache_utils_1.loadEnvironment)(process.env['sba.environment']);
         core.debug('environment loaded...');
-        console.debug(`dotnet version: ${(0, dotnet_helpers_1.getDotnetVersion)()}`);
+        console.debug(`dotnet version: ${await (0, dotnet_helpers_1.getDotnetVersion)()}`);
         switch (command) {
             case 'restore': {
                 return await runRestoreCommand();

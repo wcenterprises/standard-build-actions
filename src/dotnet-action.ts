@@ -12,7 +12,7 @@ export async function run(command: string): Promise<void> {
     core.debug('Entering dotnet-action')
     const env: IEnvironment = loadEnvironment(process.env['sba.environment'] as string)
     core.debug('environment loaded...')
-    console.debug(`dotnet version: ${getDotnetVersion()}`)
+    console.debug(`dotnet version: ${await getDotnetVersion()}`)
 
     switch (command) {
       case 'restore': {
