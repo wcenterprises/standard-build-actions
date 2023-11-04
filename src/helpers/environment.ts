@@ -2,7 +2,7 @@ import * as core from '@actions/core'
 
 import process from 'process'
 
-import { UserConfig, getYamlConfig } from './config-utils'
+import { IUserConfig, getYamlConfig } from './config-utils'
 
 
 export enum EnvVar {
@@ -53,14 +53,14 @@ export enum ActionOutput {
   WORKSPACE = 'workspace'
 }
 
-export interface IVersion {
+export interface IVersionInfo {
   major: string,
   minor: 1,
   build: string,
   revision: string
   prefix: string,
   suffix: string,
-  channel: string,
+  channel?: string,
   informational: string
 }
 export interface IActionEnvironmet {
@@ -73,7 +73,7 @@ export interface IActionEnvironmet {
   artifact_directory: string,
   staging_directory: string,
   package_directory: string,
-  version: IVersion
+  version: IVersionInfo
 }
 
 
@@ -88,7 +88,7 @@ export class ActionEnvironment {
   informationalVersion: string
   version: string
   revision: string
-  configuration: UserConfig
+  configuration: IUserConfig
 
   constructor(timeStamp: Date) {
 
