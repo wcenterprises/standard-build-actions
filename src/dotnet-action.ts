@@ -2,6 +2,7 @@ import * as core from '@actions/core'
 import { IEnvironment } from './interfaces/environment'
 import { loadEnvironment } from './helpers/cache-utils'
 import { safeWhich } from '@chrisgavin/safe-which'
+import { getDotnetVersion } from './helpers/dotnet-helpers'
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -11,9 +12,7 @@ export async function run(command: string): Promise<void> {
     core.debug('Entering dotnet-action')
     const env: IEnvironment = loadEnvironment(process.env['sba.environment'] as string)
     core.debug('environment loaded...')
-
-    const dotnet = await safeWhich('dotnet')
-    console.debug(`dotnet: ${dotnet}`)
+    console.debug(`dotnet version: ${getDotnetVersion()}`)
 
     switch (command) {
       case 'restore': {
