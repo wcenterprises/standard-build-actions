@@ -29964,9 +29964,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.addDays = exports.resolveDirectory = exports.wrapError = exports.doesFileExist = exports.doesDirectoryExist = exports.UserError = exports.getRequiredEnvParam = void 0;
+exports.getTempFile = exports.getTempDirectory = exports.addDays = exports.resolveDirectory = exports.wrapError = exports.doesFileExist = exports.doesDirectoryExist = exports.UserError = exports.getRequiredEnvParam = void 0;
 const fs = __importStar(__nccwpck_require__(7147));
 const path = __importStar(__nccwpck_require__(1017));
+const crypto = __importStar(__nccwpck_require__(6113));
 /**
  * Get an environment parameter, but throw an error if it is not set.
  */
@@ -30032,6 +30033,14 @@ function addDays(date, days) {
     return date;
 }
 exports.addDays = addDays;
+function getTempDirectory() {
+    return String(process.env?.RUNNER_TEMP ? process.env?.TEMP : process.env?.RUNNER_TEMP);
+}
+exports.getTempDirectory = getTempDirectory;
+function getTempFile(root) {
+    return path.resolve(root, crypto.randomBytes(16).toString('hex'));
+}
+exports.getTempFile = getTempFile;
 
 
 /***/ }),
@@ -30106,6 +30115,7 @@ exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const cache_utils_1 = __nccwpck_require__(5864);
 const environment_helpers_1 = __nccwpck_require__(834);
+const utility_1 = __nccwpck_require__(8122);
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -30114,10 +30124,10 @@ async function run() {
     try {
         core.debug('Entering setup-action');
         const env = (0, environment_helpers_1.buildEnvironment)();
-        (0, cache_utils_1.saveEnvironment)(`${env.directories.temp}/environment`, env);
-        const env2 = (0, cache_utils_1.loadEnvironment)(`${env.directories.temp}/environment`);
+        const tempFile = (0, utility_1.getTempFile)(`${env.directories.temp}`);
+        (0, cache_utils_1.saveEnvironment)(tempFile, env);
+        core.exportVariable('sba.environment', tempFile);
         console.log(env);
-        console.log(env2);
     }
     catch (error) {
         // Fail the workflow run if an error occurs

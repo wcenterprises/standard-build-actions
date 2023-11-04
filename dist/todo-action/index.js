@@ -25635,6 +25635,58 @@ exports["default"] = _default;
 
 /***/ }),
 
+/***/ 5864:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.loadEnvironment = exports.saveEnvironment = exports.readCacheSync = exports.saveCacheSync = void 0;
+const fs = __importStar(__nccwpck_require__(7147));
+function saveCacheSync(key, data) {
+    fs.writeFileSync(`${key}.json`, JSON.stringify(data));
+}
+exports.saveCacheSync = saveCacheSync;
+function readCacheSync(key) {
+    const data = fs.readFileSync(`${key}.json`, 'utf-8');
+    return JSON.parse(data);
+}
+exports.readCacheSync = readCacheSync;
+function saveEnvironment(key, env) {
+    saveCacheSync(key, env);
+}
+exports.saveEnvironment = saveEnvironment;
+function loadEnvironment(key) {
+    return readCacheSync(key);
+}
+exports.loadEnvironment = loadEnvironment;
+
+
+/***/ }),
+
 /***/ 1247:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -25666,6 +25718,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
+const cache_utils_1 = __nccwpck_require__(5864);
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -25673,7 +25726,9 @@ const core = __importStar(__nccwpck_require__(2186));
 async function run() {
     try {
         core.debug('Entering todo-action');
+        const env = (0, cache_utils_1.loadEnvironment)(process.env['sba.environment']);
         core.warning('TODO: This action is not yet implemented.');
+        console.log(env);
     }
     catch (error) {
         // Fail the workflow run if an error occurs

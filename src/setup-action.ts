@@ -1,10 +1,9 @@
 import * as core from '@actions/core'
-import * as path from 'path'
-import * as crypto from 'crypto'
 
 import { IEnvironment } from './interfaces/environment'
 import { loadEnvironment, saveEnvironment } from './helpers/cache-utils'
 import { buildEnvironment } from './helpers/environment-helpers'
+import { getTempFile } from './helpers/utility'
 
 /**
  * The main function for the action.
@@ -14,12 +13,11 @@ export async function run(): Promise<void> {
   try {
     core.debug('Entering setup-action')
     const env: IEnvironment = buildEnvironment()
-    saveEnvironment(`${env.directories.temp}/environment`, env)
-
-    const env2: IEnvironment = loadEnvironment(`${env.directories.temp}/environment`)
-
+    const tempFile: string = getTempFile(`${env.directories.temp}`)
+    saveEnvironment(tempFile, env)
+    core.exportVariable('sba.environment', tempFile)
     console.log(env)
-    console.log(env2)
+    
   } catch (error) {
     // Fail the workflow run if an error occurs
     /* istanbul ignore next */

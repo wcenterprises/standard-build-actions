@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { ResolveDirectoryOptions } from 'src/options/directory'
-
+import * as crypto from 'crypto'
 
 
 /**
@@ -69,3 +69,10 @@ export function addDays(date: Date, days: number): Date {
   return date;
 }
 
+export function getTempDirectory(): string {
+  return String(process.env?.RUNNER_TEMP ? process.env?.TEMP : process.env?.RUNNER_TEMP)
+}
+
+export function getTempFile(root: string): string {
+  return path.resolve(root, crypto.randomBytes(16).toString('hex'))
+}
