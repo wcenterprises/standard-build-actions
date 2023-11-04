@@ -28,6 +28,6 @@ inputs:
 
 runs:
   using: node20
-  pre: ../../../dist/todo-action/index.js
+  # pre: ../../../dist/todo-action/index.js
   main: ../../../dist/todo-action/index.js
   # post: ../../dist/vstest-action/index.js
