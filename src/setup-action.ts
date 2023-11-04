@@ -18,7 +18,7 @@ export function getEnvironment(): IEnvironment {
       token: core.getInput('token', {required: true})
     },    
     directories: {
-      workspace: workspace,
+      workspace: resolveDirectory(`${path.join(workspace, '../')}`),
       artifacts: resolveDirectory(`${path.join(workspace, '../a')}`, { create: true }),
       staging: resolveDirectory(`${path.join(workspace, '../s')}`, { create: true }),
       output: resolveDirectory(`${path.join(workspace, '../o')}`, { create: true }),
