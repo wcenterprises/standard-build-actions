@@ -12,18 +12,18 @@ export async function run(command: string): Promise<void> {
     const env: IEnvironment = loadEnvironment(process.env['sba.environment'] as string)
     core.debug('environment loaded...')
 
-    const dotnet = safeWhich('dotnet')
+    const dotnet = await safeWhich('dotnet')
     console.debug(`dotnet: ${dotnet}`)
 
     switch (command) {
       case 'restore': {
-        return runRestoreCommand()
+        await runRestoreCommand()
       }
       case 'build': {
-        return runBuildCommand()
+        await runBuildCommand()
       }
       case 'pack': {
-        return runPackCommand()
+        await runPackCommand()
       }
       default: {
         throw new Error(`dotnet command '${command}' not implemented!`)

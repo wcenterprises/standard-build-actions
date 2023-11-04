@@ -25724,17 +25724,17 @@ async function run(command) {
         core.debug('Entering dotnet-action');
         const env = (0, cache_utils_1.loadEnvironment)(process.env['sba.environment']);
         core.debug('environment loaded...');
-        const dotnet = (0, safe_which_1.safeWhich)('dotnet');
+        const dotnet = await (0, safe_which_1.safeWhich)('dotnet');
         console.debug(`dotnet: ${dotnet}`);
         switch (command) {
             case 'restore': {
-                return runRestoreCommand();
+                await runRestoreCommand();
             }
             case 'build': {
-                return runBuildCommand();
+                await runBuildCommand();
             }
             case 'pack': {
-                return runPackCommand();
+                await runPackCommand();
             }
             default: {
                 throw new Error(`dotnet command '${command}' not implemented!`);
