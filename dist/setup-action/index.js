@@ -29868,6 +29868,73 @@ exports.getUserConfig = getUserConfig;
 
 /***/ }),
 
+/***/ 834:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.buildEnvironment = void 0;
+const core = __importStar(__nccwpck_require__(2186));
+const path = __importStar(__nccwpck_require__(1017));
+const crypto = __importStar(__nccwpck_require__(6113));
+const version_helpers_1 = __nccwpck_require__(3824);
+const config_utils_1 = __nccwpck_require__(3886);
+const utility_1 = __nccwpck_require__(8122);
+function buildEnvironment() {
+    const repo = core.getInput('repository', { required: true });
+    const parsed = repo.split('/');
+    const workspace = String(process.env['GITHUB_WORKSPACE']);
+    const tempDirectory = crypto.randomBytes(16).toString('hex');
+    return {
+        timestamp: version_helpers_1.TimeStamp,
+        repository: {
+            owner: parsed[0],
+            name: parsed[1],
+            token: core.getInput('token', { required: true })
+        },
+        directories: {
+            workspace: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../')}`),
+            artifacts: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../a')}`, { create: true }),
+            staging: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../s')}`, { create: true }),
+            output: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../o')}`, { create: true }),
+            package: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../p')}`, { create: true }),
+            action: (0, utility_1.resolveDirectory)(`${path.join(__dirname, '../../')}`),
+            scripts: (0, utility_1.resolveDirectory)(`${path.join(__dirname, '../../scripts')}`),
+            temp: (0, utility_1.resolveDirectory)(`${path.join(String(process.env['RUNNER_TEMP']), tempDirectory)}`, { create: true })
+        },
+        user_config: (0, config_utils_1.getUserConfig)(core.getInput('config-file')),
+        version: (0, version_helpers_1.buildVersion)()
+    };
+}
+exports.buildEnvironment = buildEnvironment;
+
+
+/***/ }),
+
 /***/ 8122:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -29975,7 +30042,7 @@ exports.addDays = addDays;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getBuildNumber = exports.getRevison = exports.TimeStamp = void 0;
+exports.buildVersion = exports.getBuildNumber = exports.getRevison = exports.TimeStamp = void 0;
 exports.TimeStamp = new Date();
 function getRevison(date) {
     const utcFixed = Date.UTC(1987, 0, 1, 0, 0, 0, 0);
@@ -29990,6 +30057,18 @@ function getBuildNumber(date) {
         .padStart(2, '0')}`;
 }
 exports.getBuildNumber = getBuildNumber;
+function buildVersion() {
+    return {
+        major: exports.TimeStamp.getFullYear().toString(),
+        minor: 1,
+        build: getBuildNumber(exports.TimeStamp),
+        revision: getRevison(exports.TimeStamp).toString(),
+        prefix: `${exports.TimeStamp.getFullYear()}.1.${getBuildNumber(exports.TimeStamp)}`,
+        suffix: getRevison(exports.TimeStamp).toString(),
+        informational: `${exports.TimeStamp.getFullYear()}.1.${getBuildNumber(exports.TimeStamp)}.${getRevison(exports.TimeStamp)}`
+    };
+}
+exports.buildVersion = buildVersion;
 
 
 /***/ }),
@@ -30023,53 +30102,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.run = exports.getVersion = exports.getEnvironment = void 0;
+exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
-const version_helpers_1 = __nccwpck_require__(3824);
-const utility_1 = __nccwpck_require__(8122);
-const path = __importStar(__nccwpck_require__(1017));
-const crypto = __importStar(__nccwpck_require__(6113));
 const cache_utils_1 = __nccwpck_require__(5864);
-const config_utils_1 = __nccwpck_require__(3886);
-function getEnvironment() {
-    const repo = core.getInput('repository', { required: true });
-    const parsed = repo.split('/');
-    const workspace = String(process.env['GITHUB_WORKSPACE']);
-    const tempDirectory = crypto.randomBytes(16).toString('hex');
-    return {
-        timestamp: version_helpers_1.TimeStamp,
-        repository: {
-            owner: parsed[0],
-            name: parsed[1],
-            token: core.getInput('token', { required: true })
-        },
-        directories: {
-            workspace: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../')}`),
-            artifacts: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../a')}`, { create: true }),
-            staging: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../s')}`, { create: true }),
-            output: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../o')}`, { create: true }),
-            package: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../p')}`, { create: true }),
-            action: (0, utility_1.resolveDirectory)(`${path.join(__dirname, '../../')}`),
-            scripts: (0, utility_1.resolveDirectory)(`${path.join(__dirname, '../../scripts')}`),
-            temp: (0, utility_1.resolveDirectory)(`${path.join(String(process.env['RUNNER_TEMP']), tempDirectory)}`, { create: true })
-        },
-        user_config: (0, config_utils_1.getUserConfig)(core.getInput('config-file')),
-        version: getVersion()
-    };
-}
-exports.getEnvironment = getEnvironment;
-function getVersion() {
-    return {
-        major: version_helpers_1.TimeStamp.getFullYear().toString(),
-        minor: 1,
-        build: (0, version_helpers_1.getBuildNumber)(version_helpers_1.TimeStamp),
-        revision: (0, version_helpers_1.getRevison)(version_helpers_1.TimeStamp).toString(),
-        prefix: `${version_helpers_1.TimeStamp.getFullYear()}.1.${(0, version_helpers_1.getBuildNumber)(version_helpers_1.TimeStamp)}`,
-        suffix: (0, version_helpers_1.getRevison)(version_helpers_1.TimeStamp).toString(),
-        informational: `${version_helpers_1.TimeStamp.getFullYear()}.1.${(0, version_helpers_1.getBuildNumber)(version_helpers_1.TimeStamp)}.${(0, version_helpers_1.getRevison)(version_helpers_1.TimeStamp)}`
-    };
-}
-exports.getVersion = getVersion;
+const environment_helpers_1 = __nccwpck_require__(834);
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -30077,7 +30113,7 @@ exports.getVersion = getVersion;
 async function run() {
     try {
         core.debug('Entering setup-action');
-        const env = getEnvironment();
+        const env = (0, environment_helpers_1.buildEnvironment)();
         (0, cache_utils_1.saveEnvironment)(`${env.directories.temp}/environment`, env);
         const env2 = (0, cache_utils_1.loadEnvironment)(`${env.directories.temp}/environment`);
         console.log(env);

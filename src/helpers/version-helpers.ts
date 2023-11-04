@@ -1,3 +1,5 @@
+import { IVersionInfo } from "src/interfaces/version"
+
 export const TimeStamp: Date = new Date()
 
 export function getRevison(date: Date): number {
@@ -21,4 +23,16 @@ export function getBuildNumber(date: Date): string {
     .getDate()
     .toString()
     .padStart(2, '0')}`
+}
+
+export function buildVersion(): IVersionInfo {
+  return {
+    major: TimeStamp.getFullYear().toString(),
+    minor: 1,
+    build: getBuildNumber(TimeStamp),
+    revision: getRevison(TimeStamp).toString(),
+    prefix: `${TimeStamp.getFullYear()}.1.${getBuildNumber(TimeStamp)}`,
+    suffix: getRevison(TimeStamp).toString(),
+    informational: `${TimeStamp.getFullYear()}.1.${getBuildNumber(TimeStamp)}.${getRevison(TimeStamp)}` 
+  }
 }
