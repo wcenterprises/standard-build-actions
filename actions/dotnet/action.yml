@@ -11,26 +11,26 @@ inputs:
       restore - restore projects
       pack - pack projects
 
-    projects:
-      required: true
-      default: '**/.sln'
-      description: >-
+  projects:
+    required: true
+    default: '**/.sln'
+    description: >-
         TODO: 
 
-    verbosity:
-      required: false
-      description: >-
+  verbosity:
+    required: false
+    description: >-
         TODO:
     
-    configuration:
-      default: release
-      required: false
-      description: >-
+  configuration:
+    default: release
+    required: false
+    description: >-
         TODO: 
     
-    parameters:
-      required: false
-      description: >-
+  parameters:
+    required: false
+    description: >-
         TODO: 
     
 
