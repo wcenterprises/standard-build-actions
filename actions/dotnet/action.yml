@@ -1,5 +1,5 @@
 name: 'dotnet Action'
-description: 'Setup Action' # TODO: Better description needed!
+description: 'dotnet Action' # TODO: Better description needed!
 author: 'Brian Welsh (@brian-welsh)'
 
 # Define your inputs here.
@@ -13,6 +13,7 @@ inputs:
 
     projects:
       required: true
+      default: '**/.sln'
       description: >-
         TODO: 
 
