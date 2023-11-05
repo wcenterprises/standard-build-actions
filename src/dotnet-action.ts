@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
-
-import { glob } from 'glob'
+import { IEnvironment } from './interfaces/environment'
+import { loadEnvironment } from './helpers/cache-utils'
+import { safeWhich } from '@chrisgavin/safe-which'
 import { getDotnetVersion } from './helpers/dotnet-helpers'
 import { runRestoreCommand, runBuildCommand, runPublishCommand, runPackCommand } from './helpers/dotnet-runners'
 
@@ -18,10 +19,10 @@ export async function run(command: string): Promise<void> {
 
     switch (command) {
       case 'restore': {
-        return await runRestoreCommand(projects)
+        return await runRestoreCommand(projectsprojects)
       }
       case 'build': {
-        return await runBuildCommand(projects)
+        return await runBuildCommand(projectsprojects)
       }
       case 'publish': {
         return await runPublishCommand(projects)
@@ -40,4 +41,16 @@ export async function run(command: string): Promise<void> {
   }
 }
 
-run(core.getInput('command', { required: true }))
+export async function runRestoreCommand(): Promise<void> {
+
+}
+
+export async function runBuildCommand(): Promise<void> {
+
+}
+
+export async function runPackCommand(): Promise<void> {
+
+}
+
+run(core.getInput('command'))

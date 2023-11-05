@@ -27175,11 +27175,19 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+<<<<<<< HEAD
 exports.run = void 0;
+=======
+exports.getRestoreArguments = exports.runPackCommand = exports.runBuildCommand = exports.runRestoreCommand = exports.run = void 0;
+>>>>>>> 350f70b (update tests)
 const core = __importStar(__nccwpck_require__(2186));
 const glob_1 = __nccwpck_require__(8211);
 const dotnet_helpers_1 = __nccwpck_require__(9523);
+<<<<<<< HEAD
 const dotnet_runners_1 = __nccwpck_require__(1682);
+=======
+const glob_1 = __nccwpck_require__(8211);
+>>>>>>> 350f70b (update tests)
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -27187,6 +27195,7 @@ const dotnet_runners_1 = __nccwpck_require__(1682);
 async function run(command) {
     try {
         core.debug('Entering dotnet-action');
+<<<<<<< HEAD
         core.debug(`dotnet version: ${await (0, dotnet_helpers_1.getDotnetVersion)()}`);
         const projects = await (0, glob_1.glob)(core.getInput('projects', { required: true }));
         switch (command) {
@@ -27201,6 +27210,21 @@ async function run(command) {
             }
             case 'pack': {
                 return await (0, dotnet_runners_1.runPackCommand)(projects);
+=======
+        const env = (0, cache_utils_1.loadEnvironment)(process.env['sba.environment']);
+        core.debug('environment loaded...');
+        core.debug(`dotnet version: ${await (0, dotnet_helpers_1.getDotnetVersion)()}`);
+        const projects = await (0, glob_1.glob)(core.getInput('project', { required: true }));
+        switch (command) {
+            case 'restore': {
+                return await runRestoreCommand(projects);
+            }
+            case 'build': {
+                return await runBuildCommand(projects);
+            }
+            case 'pack': {
+                return await runPackCommand(projects);
+>>>>>>> 350f70b (update tests)
             }
             default: {
                 throw new Error(`dotnet command '${command}' not implemented!`);
@@ -27215,7 +27239,43 @@ async function run(command) {
     }
 }
 exports.run = run;
+<<<<<<< HEAD
 run(core.getInput('command', { required: true }));
+=======
+async function runRestoreCommand(projects) {
+    projects.forEach((project) => {
+        console.log(project);
+    });
+}
+exports.runRestoreCommand = runRestoreCommand;
+async function runBuildCommand(projects) {
+    projects.forEach((project) => {
+        console.log(project);
+    });
+}
+exports.runBuildCommand = runBuildCommand;
+async function runPackCommand(projects) {
+    projects.forEach((project) => {
+        console.log(project);
+    });
+}
+exports.runPackCommand = runPackCommand;
+async function getRestoreArguments() {
+    let args = new Array();
+    const extraArgs = core.getMultilineInput('arguments', { required: false });
+    if (extraArgs) {
+        extraArgs.forEach((item) => {
+            args.push(item);
+        });
+    }
+    if (core.getInput('verbosity')) {
+        args.push(`--verbosity ${core.getInput('verbosity')}`);
+    }
+    return args;
+}
+exports.getRestoreArguments = getRestoreArguments;
+run(core.getInput('command'));
+>>>>>>> 350f70b (update tests)
 
 
 /***/ }),
