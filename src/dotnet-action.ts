@@ -1,8 +1,9 @@
 import * as core from '@actions/core'
 import { IEnvironment } from './interfaces/environment'
 import { loadEnvironment } from './helpers/cache-utils'
-import { getDotnetVersion } from './helpers/dotnet-helpers'
+import { getDotnet, getDotnetVersion } from './helpers/dotnet-helpers'
 import { glob } from 'glob'
+import { ToolRunner } from '@actions/exec/lib/toolrunner'
 
 
 /**
@@ -39,10 +40,45 @@ export async function run(command: string): Promise<void> {
   }
 }
 
-export async function runRestoreCommand(projects: string[]): Promise<void> {
-  projects.forEach((project) =>{
-    console.log(project)
+export async function runDotnetCommand(args: string[]): Promise<void> {
+  let output: string = ''
+  let stderr: string = ''
 
+  try {
+    await new ToolRunner(
+    await getDotnet(),
+    args,
+    {
+      silent: true,
+      listeners: {
+        stdout: (data) => {
+          output += data.toString()
+        },
+        stderr: (data) => {
+          stderr += data.toString()
+        }
+      }
+    }
+    ).exec()
+  } catch (error) {
+    console.error(stderr)
+    throw error
+  }
+}
+
+export async function runRestoreCommand(projects: string[]): Promise<void> {
+  const args: Array<string> = ['restore']
+  const restoreArgs = getRestoreArguments()
+
+  projects.forEach((project) =>{
+    console.debug(project)
+    let thisArgs: Array<string> = ['restore', project]
+
+    core.group(`Restore: ${project}`, async () => {
+      
+      runDotnetCommand(thisArgs.concat(restoreArgs))
+
+    })    
   })
 }
 
@@ -58,12 +94,12 @@ export async function runPackCommand(projects: string[]): Promise<void> {
   })
 }
 
-export async function getRestoreArguments(): Promise<string[] | undefined> {
-  let args: Array<string> = new Array<string>()
+export function getRestoreArguments(): string[] {
+  let args: Array<string> = new Array<string>
 
   const extraArgs = core.getMultilineInput('arguments', {required: false})
   if (extraArgs) {
-    extraArgs.forEach((item)=>{
+    extraArgs.forEach((item) => {
       args.push(item)
     })    
   }

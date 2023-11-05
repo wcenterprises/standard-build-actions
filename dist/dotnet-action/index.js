@@ -27112,11 +27112,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getRestoreArguments = exports.runPackCommand = exports.runBuildCommand = exports.runRestoreCommand = exports.run = void 0;
+exports.getRestoreArguments = exports.runPackCommand = exports.runBuildCommand = exports.runRestoreCommand = exports.runDotnetCommand = exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const cache_utils_1 = __nccwpck_require__(5864);
 const dotnet_helpers_1 = __nccwpck_require__(9523);
 const glob_1 = __nccwpck_require__(8211);
+const toolrunner_1 = __nccwpck_require__(8159);
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -27151,9 +27152,37 @@ async function run(command) {
     }
 }
 exports.run = run;
+async function runDotnetCommand(args) {
+    let output = '';
+    let stderr = '';
+    try {
+        await new toolrunner_1.ToolRunner(await (0, dotnet_helpers_1.getDotnet)(), args, {
+            silent: true,
+            listeners: {
+                stdout: (data) => {
+                    output += data.toString();
+                },
+                stderr: (data) => {
+                    stderr += data.toString();
+                }
+            }
+        }).exec();
+    }
+    catch (error) {
+        console.error(stderr);
+        throw error;
+    }
+}
+exports.runDotnetCommand = runDotnetCommand;
 async function runRestoreCommand(projects) {
+    const args = ['restore'];
+    const restoreArgs = getRestoreArguments();
     projects.forEach((project) => {
-        console.log(project);
+        console.debug(project);
+        let thisArgs = ['restore', project];
+        core.group(`Restore: ${project}`, async () => {
+            runDotnetCommand(thisArgs.concat(restoreArgs));
+        });
     });
 }
 exports.runRestoreCommand = runRestoreCommand;
@@ -27169,8 +27198,8 @@ async function runPackCommand(projects) {
     });
 }
 exports.runPackCommand = runPackCommand;
-async function getRestoreArguments() {
-    let args = new Array();
+function getRestoreArguments() {
+    let args = new Array;
     const extraArgs = core.getMultilineInput('arguments', { required: false });
     if (extraArgs) {
         extraArgs.forEach((item) => {
