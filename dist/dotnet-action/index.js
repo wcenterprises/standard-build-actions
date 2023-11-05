@@ -27206,7 +27206,7 @@ function getBuildArguments(project) {
         args.push(core.getInput('output'));
     }
     else {
-        args.push(Environment.directories.staging);
+        args.push(`'${Environment.directories.staging}'`);
     }
     const extraArgs = core.getMultilineInput('arguments', { required: false });
     if (extraArgs) {
