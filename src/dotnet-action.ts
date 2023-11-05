@@ -92,18 +92,10 @@ export async function runBuildCommand(projects: string[]): Promise<void> {
 }
 
 export function getBuildArguments(project: string): string[] {
-  let args: Array<string> = ['build', project]
+  let args: Array<string> = ['build', project, '--nologo']
 
   if (core.getInput('configuration', { required: true })) {
     args.push(`--configuration ${core.getInput('configuration', { required: true })}`)
-  }
-
-  
-  if (core.getInput('output', {required: false}) ) {
-    args.push(`--output ${core.getInput('output')}`)
-  }
-  else {
-    args.push(`--output ${Environment.directories.staging}`)
   }
 
   const extraArgs = core.getMultilineInput('arguments', {required: false})
@@ -127,11 +119,38 @@ export async function runPackCommand(projects: string[]): Promise<void> {
 }
 
 export async function runPublishCommand(projects: string[]): Promise<void> {
-  projects.forEach((project) =>{
-    console.log(project)
+  projects.forEach((project) =>{    
+    let args: string[] = getPublishArguments(project)
+    core.debug(`Build Args: ${args.join(' ')}`)
+    console.debug(`Build Args: ${args.join(' ')}`)
+    core.group(`Build: ${project}`, async () => {      
+      runDotnetCommand(args)
+    })    
   })
 }
+export function getPublishArguments(project: string): string[] {
+  let args: Array<string> = ['restore', project, '--nologo']
 
+  if (core.getInput('output', { required: false })) {
+    args.push(`--output ${core.getInput('output', { required: false })}`)
+  }
+  else {
+    args.push(`--output ${Environment.directories.staging})}`)
+  }
+
+  const extraArgs = core.getMultilineInput('arguments', {required: false})
+  
+  if (extraArgs) {
+    extraArgs.forEach((item) => {
+      args.push(item)
+    })    
+  }
+  if (core.getInput('verbosity')) {
+    args.push(`--verbosity ${core.getInput('verbosity')}`)
+  }
+
+  return args
+}
 export function getRestoreArguments(project: string): string[] {
   let args: Array<string> = ['restore', project]
 
@@ -148,4 +167,4 @@ export function getRestoreArguments(project: string): string[] {
   return args
 }
 
-run(core.getInput('command'))
+run(core.getInput('command', { required: true }))

@@ -27112,7 +27112,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getRestoreArguments = exports.runPublishCommand = exports.runPackCommand = exports.getBuildArguments = exports.runBuildCommand = exports.runRestoreCommand = exports.runDotnetCommand = exports.run = void 0;
+exports.getRestoreArguments = exports.getPublishArguments = exports.runPublishCommand = exports.runPackCommand = exports.getBuildArguments = exports.runBuildCommand = exports.runRestoreCommand = exports.runDotnetCommand = exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const cache_utils_1 = __nccwpck_require__(5864);
 const dotnet_helpers_1 = __nccwpck_require__(9523);
@@ -27197,15 +27197,9 @@ async function runBuildCommand(projects) {
 }
 exports.runBuildCommand = runBuildCommand;
 function getBuildArguments(project) {
-    let args = ['build', project];
+    let args = ['build', project, '--nologo'];
     if (core.getInput('configuration', { required: true })) {
         args.push(`--configuration ${core.getInput('configuration', { required: true })}`);
-    }
-    if (core.getInput('output', { required: false })) {
-        args.push(`--output ${core.getInput('output')}`);
-    }
-    else {
-        args.push(`--output ${Environment.directories.staging}`);
     }
     const extraArgs = core.getMultilineInput('arguments', { required: false });
     if (extraArgs) {
@@ -27227,10 +27221,35 @@ async function runPackCommand(projects) {
 exports.runPackCommand = runPackCommand;
 async function runPublishCommand(projects) {
     projects.forEach((project) => {
-        console.log(project);
+        let args = getPublishArguments(project);
+        core.debug(`Build Args: ${args.join(' ')}`);
+        console.debug(`Build Args: ${args.join(' ')}`);
+        core.group(`Build: ${project}`, async () => {
+            runDotnetCommand(args);
+        });
     });
 }
 exports.runPublishCommand = runPublishCommand;
+function getPublishArguments(project) {
+    let args = ['restore', project, '--nologo'];
+    if (core.getInput('output', { required: false })) {
+        args.push(`--output ${core.getInput('output', { required: false })}`);
+    }
+    else {
+        args.push(`--output ${Environment.directories.staging})}`);
+    }
+    const extraArgs = core.getMultilineInput('arguments', { required: false });
+    if (extraArgs) {
+        extraArgs.forEach((item) => {
+            args.push(item);
+        });
+    }
+    if (core.getInput('verbosity')) {
+        args.push(`--verbosity ${core.getInput('verbosity')}`);
+    }
+    return args;
+}
+exports.getPublishArguments = getPublishArguments;
 function getRestoreArguments(project) {
     let args = ['restore', project];
     const extraArgs = core.getMultilineInput('arguments', { required: false });
@@ -27245,7 +27264,7 @@ function getRestoreArguments(project) {
     return args;
 }
 exports.getRestoreArguments = getRestoreArguments;
-run(core.getInput('command'));
+run(core.getInput('command', { required: true }));
 
 
 /***/ }),
