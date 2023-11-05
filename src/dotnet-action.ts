@@ -29,6 +29,9 @@ export async function run(command: string): Promise<void> {
       case 'pack': {
         return await runPackCommand(projects)
       }
+      case 'publish': {
+        return await runPublishCommand(projects)
+      }
       default: {
         throw new Error(`dotnet command '${command}' not implemented!`)
       }
@@ -67,7 +70,9 @@ export async function runRestoreCommand(projects: string[]): Promise<void> {
  
   projects.forEach((project) =>{    
     let args: string[] = getRestoreArguments(project)
-
+    core.debug(`Restore Args: ${args.join(' ')}`)
+    console.debug(`Restore Args: ${args.join(' ')}`)
+    
     core.group(`Restore: ${project}`, async () => {      
       runDotnetCommand(args)
     })    
@@ -78,8 +83,9 @@ export async function runBuildCommand(projects: string[]): Promise<void> {
  
   projects.forEach((project) =>{    
     let args: string[] = getBuildArguments(project)
-
-    core.group(`Restore: ${project}`, async () => {      
+    core.debug(`Build Args: ${args.join(' ')}`)
+    console.debug(`Build Args: ${args.join(' ')}`)
+    core.group(`Build: ${project}`, async () => {      
       runDotnetCommand(args)
     })    
   })
@@ -120,6 +126,11 @@ export async function runPackCommand(projects: string[]): Promise<void> {
   })
 }
 
+export async function runPublishCommand(projects: string[]): Promise<void> {
+  projects.forEach((project) =>{
+    console.log(project)
+  })
+}
 
 export function getRestoreArguments(project: string): string[] {
   let args: Array<string> = ['restore', project]
