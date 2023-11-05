@@ -27201,12 +27201,11 @@ function getBuildArguments(project) {
     if (core.getInput('configuration', { required: true })) {
         args.push(`--configuration ${core.getInput('configuration', { required: true })}`);
     }
-    args.push('--output');
     if (core.getInput('output', { required: false })) {
-        args.push(core.getInput('output'));
+        args.push(`--output ${core.getInput('output')}`);
     }
     else {
-        args.push(`'${Environment.directories.staging}'`);
+        args.push(`--output ${Environment.directories.staging}`);
     }
     const extraArgs = core.getMultilineInput('arguments', { required: false });
     if (extraArgs) {
