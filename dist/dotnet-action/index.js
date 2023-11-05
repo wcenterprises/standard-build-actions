@@ -27201,7 +27201,7 @@ function getBuildArguments(project) {
     if (core.getInput('configuration', { required: true })) {
         args.push(`--configuration ${core.getInput('configuration', { required: true })}`);
     }
-    const extraArgs = core.getMultilineInput('arguments', { required: false });
+    const extraArgs = core.getMultilineInput('parameters', { required: false });
     if (extraArgs) {
         extraArgs.forEach((item) => {
             args.push(item);
@@ -27222,9 +27222,9 @@ exports.runPackCommand = runPackCommand;
 async function runPublishCommand(projects) {
     projects.forEach((project) => {
         let args = getPublishArguments(project);
-        core.debug(`Build Args: ${args.join(' ')}`);
-        console.debug(`Build Args: ${args.join(' ')}`);
-        core.group(`Build: ${project}`, async () => {
+        core.debug(`Publish Args: ${args.join(' ')}`);
+        console.debug(`Publish Args: ${args.join(' ')}`);
+        core.group(`Publish: ${project}`, async () => {
             runDotnetCommand(args);
         });
     });
@@ -27238,7 +27238,7 @@ function getPublishArguments(project) {
     else {
         args.push(`--output ${Environment.directories.staging})}`);
     }
-    const extraArgs = core.getMultilineInput('arguments', { required: false });
+    const extraArgs = core.getMultilineInput('parameters', { required: false });
     if (extraArgs) {
         extraArgs.forEach((item) => {
             args.push(item);
@@ -27252,7 +27252,7 @@ function getPublishArguments(project) {
 exports.getPublishArguments = getPublishArguments;
 function getRestoreArguments(project) {
     let args = ['restore', project];
-    const extraArgs = core.getMultilineInput('arguments', { required: false });
+    const extraArgs = core.getMultilineInput('parameters', { required: false });
     if (extraArgs) {
         extraArgs.forEach((item) => {
             args.push(item);

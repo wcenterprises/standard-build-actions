@@ -98,7 +98,7 @@ export function getBuildArguments(project: string): string[] {
     args.push(`--configuration ${core.getInput('configuration', { required: true })}`)
   }
 
-  const extraArgs = core.getMultilineInput('arguments', {required: false})
+  const extraArgs = core.getMultilineInput('parameters', {required: false})
 
   if (extraArgs) {
     extraArgs.forEach((item) => {
@@ -121,9 +121,9 @@ export async function runPackCommand(projects: string[]): Promise<void> {
 export async function runPublishCommand(projects: string[]): Promise<void> {
   projects.forEach((project) =>{    
     let args: string[] = getPublishArguments(project)
-    core.debug(`Build Args: ${args.join(' ')}`)
-    console.debug(`Build Args: ${args.join(' ')}`)
-    core.group(`Build: ${project}`, async () => {      
+    core.debug(`Publish Args: ${args.join(' ')}`)
+    console.debug(`Publish Args: ${args.join(' ')}`)
+    core.group(`Publish: ${project}`, async () => {      
       runDotnetCommand(args)
     })    
   })
@@ -138,7 +138,7 @@ export function getPublishArguments(project: string): string[] {
     args.push(`--output ${Environment.directories.staging})}`)
   }
 
-  const extraArgs = core.getMultilineInput('arguments', {required: false})
+  const extraArgs = core.getMultilineInput('parameters', {required: false})
   
   if (extraArgs) {
     extraArgs.forEach((item) => {
@@ -154,7 +154,7 @@ export function getPublishArguments(project: string): string[] {
 export function getRestoreArguments(project: string): string[] {
   let args: Array<string> = ['restore', project]
 
-  const extraArgs = core.getMultilineInput('arguments', {required: false})
+  const extraArgs = core.getMultilineInput('parameters', {required: false})
   if (extraArgs) {
     extraArgs.forEach((item) => {
       args.push(item)
