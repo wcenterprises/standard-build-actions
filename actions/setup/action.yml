@@ -23,9 +23,15 @@ inputs:
       TBD format TBD
 
 # Define your outputs here.
-# outputs:
-#   time:
-#     description: 'Your output description here'
+outputs:
+  staging-directory:
+    description: 'TODO:'
+  output-directory:
+    description: 'TODO:'
+  artifact-directory:
+    description: 'TODO:'
+  package-directory:
+    description: 'TODO:'
 
 runs:
   using: node20

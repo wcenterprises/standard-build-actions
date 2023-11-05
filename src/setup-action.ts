@@ -16,8 +16,13 @@ export async function run(): Promise<void> {
     const tempFile: string = getTempFile(`${env.directories.temp}`)
     saveEnvironment(tempFile, env)
     core.exportVariable('sba.environment', tempFile)
-    console.log(env)
+
+    core.setOutput('staging-directory', env.directories.staging)
+    core.setOutput('output-directory', env.directories.output)
+    core.setOutput('artifact-directory', env.directories.artifacts)
+    core.setOutput('package-directory', env.directories.package)
     
+
   } catch (error) {
     // Fail the workflow run if an error occurs
     /* istanbul ignore next */

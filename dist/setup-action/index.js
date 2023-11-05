@@ -30127,7 +30127,10 @@ async function run() {
         const tempFile = (0, utility_1.getTempFile)(`${env.directories.temp}`);
         (0, cache_utils_1.saveEnvironment)(tempFile, env);
         core.exportVariable('sba.environment', tempFile);
-        console.log(env);
+        core.setOutput('staging-directory', env.directories.staging);
+        core.setOutput('output-directory', env.directories.output);
+        core.setOutput('artifact-directory', env.directories.artifacts);
+        core.setOutput('package-directory', env.directories.package);
     }
     catch (error) {
         // Fail the workflow run if an error occurs
