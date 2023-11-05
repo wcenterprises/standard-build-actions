@@ -27156,21 +27156,25 @@ async function run(command) {
 }
 exports.run = run;
 async function runDotnetCommand(args) {
+    let stderr = '';
+    let stdout = '';
     try {
         await new toolrunner_1.ToolRunner(await (0, dotnet_helpers_1.getDotnet)(), args, {
             silent: true,
             listeners: {
                 stdout: (data) => {
-                    console.log(data.toString());
+                    stdout += data.toString();
                 },
                 stderr: (data) => {
-                    throw new Error(data.toString());
+                    stderr += data.toString();
                 }
             }
         }).exec();
+        return stdout.trim();
     }
-    catch (error) {
-        throw error;
+    catch (c) {
+        console.debug(stderr);
+        return stderr;
     }
 }
 exports.runDotnetCommand = runDotnetCommand;

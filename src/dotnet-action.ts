@@ -43,8 +43,9 @@ export async function run(command: string): Promise<void> {
   }
 }
 
-export async function runDotnetCommand(args: string[]): Promise<void> {
-
+export async function runDotnetCommand(args: string[]): Promise<string> {
+  let stderr=''
+  let stdout=''
   try {
     await new ToolRunner(
     await getDotnet(),
@@ -53,16 +54,19 @@ export async function runDotnetCommand(args: string[]): Promise<void> {
       silent: true,
       listeners: {
         stdout: (data) => {
-          console.log(data.toString())
+          stdout+=data.toString()
         },
         stderr: (data) => {
-          throw new Error(data.toString())
+          stderr += data.toString()
         }
       }
     }
     ).exec()
-  } catch (error) {
-    throw error
+    
+    return stdout.trim()
+  } catch (c) {
+    console.debug(stderr)
+    return stderr
   }
 }
 
