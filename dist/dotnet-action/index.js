@@ -27161,9 +27161,11 @@ async function runDotnetCommand(args) {
             listeners: {
                 stdout: (data) => {
                     output += data.toString();
+                    console.log(data.toString());
                 },
                 stderr: (data) => {
                     stderr += data.toString();
+                    core.error(data.toString());
                 }
             }
         }).exec();
