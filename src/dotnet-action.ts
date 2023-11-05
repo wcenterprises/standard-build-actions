@@ -92,11 +92,12 @@ export async function runBuildCommand(projects: string[]): Promise<void> {
 }
 
 export function getBuildArguments(project: string): string[] {
-  let args: Array<string> = ['build', project, '--nologo']
+  let args: Array<string> = ['build', project]
 
   if (core.getInput('configuration', { required: true })) {
     args.push(`--configuration ${core.getInput('configuration', { required: true })}`)
   }
+  args.push('--nologo')
 
   const extraArgs = core.getMultilineInput('parameters', {required: false})
 
@@ -129,7 +130,7 @@ export async function runPublishCommand(projects: string[]): Promise<void> {
   })
 }
 export function getPublishArguments(project: string): string[] {
-  let args: Array<string> = ['restore', project, '--nologo']
+  let args: Array<string> = ['publish', project, '--nologo']
 
   if (core.getInput('output', { required: false })) {
     args.push(`--output ${core.getInput('output', { required: false })}`)

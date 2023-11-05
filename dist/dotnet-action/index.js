@@ -27197,10 +27197,11 @@ async function runBuildCommand(projects) {
 }
 exports.runBuildCommand = runBuildCommand;
 function getBuildArguments(project) {
-    let args = ['build', project, '--nologo'];
+    let args = ['build', project];
     if (core.getInput('configuration', { required: true })) {
         args.push(`--configuration ${core.getInput('configuration', { required: true })}`);
     }
+    args.push('--nologo');
     const extraArgs = core.getMultilineInput('parameters', { required: false });
     if (extraArgs) {
         extraArgs.forEach((item) => {
@@ -27231,7 +27232,7 @@ async function runPublishCommand(projects) {
 }
 exports.runPublishCommand = runPublishCommand;
 function getPublishArguments(project) {
-    let args = ['restore', project, '--nologo'];
+    let args = ['publish', project, '--nologo'];
     if (core.getInput('output', { required: false })) {
         args.push(`--output ${core.getInput('output', { required: false })}`);
     }
