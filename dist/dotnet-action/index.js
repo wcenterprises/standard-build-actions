@@ -27180,7 +27180,7 @@ async function runRestoreCommand(projects) {
         core.debug(`Restore Args: ${args.join(' ')}`);
         console.debug(`Restore Args: ${args.join(' ')}`);
         core.group(`Restore: ${project}`, async () => {
-            runDotnetCommand(args);
+            await runDotnetCommand(args);
         });
     });
 }
@@ -27191,7 +27191,7 @@ async function runBuildCommand(projects) {
         core.debug(`Build Args: ${args.join(' ')}`);
         console.debug(`Build Args: ${args.join(' ')}`);
         core.group(`Build: ${project}`, async () => {
-            runDotnetCommand(args);
+            await runDotnetCommand(args);
         });
     });
 }
@@ -27226,7 +27226,7 @@ async function runPublishCommand(projects) {
         core.debug(`Publish Args: ${args.join(' ')}`);
         console.debug(`Publish Args: ${args.join(' ')}`);
         core.group(`Publish: ${project}`, async () => {
-            runDotnetCommand(args);
+            await runDotnetCommand(args);
         });
     });
 }

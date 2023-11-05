@@ -74,7 +74,7 @@ export async function runRestoreCommand(projects: string[]): Promise<void> {
     console.debug(`Restore Args: ${args.join(' ')}`)
     
     core.group(`Restore: ${project}`, async () => {      
-      runDotnetCommand(args)
+      await runDotnetCommand(args)
     })    
   })
 }
@@ -86,7 +86,7 @@ export async function runBuildCommand(projects: string[]): Promise<void> {
     core.debug(`Build Args: ${args.join(' ')}`)
     console.debug(`Build Args: ${args.join(' ')}`)
     core.group(`Build: ${project}`, async () => {      
-      runDotnetCommand(args)
+      await runDotnetCommand(args)
     })    
   })
 }
@@ -125,7 +125,7 @@ export async function runPublishCommand(projects: string[]): Promise<void> {
     core.debug(`Publish Args: ${args.join(' ')}`)
     console.debug(`Publish Args: ${args.join(' ')}`)
     core.group(`Publish: ${project}`, async () => {      
-      runDotnetCommand(args)
+      await runDotnetCommand(args)
     })    
   })
 }
