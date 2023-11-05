@@ -1,8 +1,10 @@
 import * as core from '@actions/core'
 import { IEnvironment } from './interfaces/environment'
 import { loadEnvironment } from './helpers/cache-utils'
-import { safeWhich } from '@chrisgavin/safe-which'
 import { getDotnetVersion } from './helpers/dotnet-helpers'
+import { glob } from 'glob'
+
+
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -12,17 +14,19 @@ export async function run(command: string): Promise<void> {
     core.debug('Entering dotnet-action')
     const env: IEnvironment = loadEnvironment(process.env['sba.environment'] as string)
     core.debug('environment loaded...')
-    console.debug(`dotnet version: ${await getDotnetVersion()}`)
+    core.debug(`dotnet version: ${await getDotnetVersion()}`)
+
+    const projects: string[] = await glob(core.getInput('project', {required: true}))
 
     switch (command) {
       case 'restore': {
-        return await runRestoreCommand()
+        return await runRestoreCommand(projects)
       }
       case 'build': {
-        return await runBuildCommand()
+        return await runBuildCommand(projects)
       }
       case 'pack': {
-        return await runPackCommand()
+        return await runPackCommand(projects)
       }
       default: {
         throw new Error(`dotnet command '${command}' not implemented!`)
@@ -35,16 +39,39 @@ export async function run(command: string): Promise<void> {
   }
 }
 
-export async function runRestoreCommand(): Promise<void> {
+export async function runRestoreCommand(projects: string[]): Promise<void> {
+  projects.forEach((project) =>{
+    console.log(project)
 
+  })
 }
 
-export async function runBuildCommand(): Promise<void> {
-
+export async function runBuildCommand(projects: string[]): Promise<void> {
+  projects.forEach((project) =>{
+    console.log(project)
+  })
 }
 
-export async function runPackCommand(): Promise<void> {
+export async function runPackCommand(projects: string[]): Promise<void> {
+  projects.forEach((project) =>{
+    console.log(project)
+  })
+}
 
+export async function getRestoreArguments(): Promise<string[] | undefined> {
+  let args: Array<string> = new Array<string>()
+
+  const extraArgs = core.getMultilineInput('arguments', {required: false})
+  if (extraArgs) {
+    extraArgs.forEach((item)=>{
+      args.push(item)
+    })    
+  }
+  if (core.getInput('verbosity')) {
+    args.push(`--verbosity ${core.getInput('verbosity')}`)
+  }
+
+  return args
 }
 
 run(core.getInput('command'))
