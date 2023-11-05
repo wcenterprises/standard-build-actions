@@ -10,15 +10,25 @@ inputs:
       build - build project
       restore - restore projects
       pack - pack projects
+
+    projects:
+      required: true
+      description: >-
+        TODO: 
+
+    verbosity:
+      required: false
+      description: >-
+        TODO:
     
     configuration:
       default: release
-      required: true
+      required: false
       description: >-
         TODO: 
     
     parameters:
-      required: true
+      required: false
       description: >-
         TODO: 
     

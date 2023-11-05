@@ -27127,7 +27127,7 @@ async function run(command) {
         const env = (0, cache_utils_1.loadEnvironment)(process.env['sba.environment']);
         core.debug('environment loaded...');
         core.debug(`dotnet version: ${await (0, dotnet_helpers_1.getDotnetVersion)()}`);
-        const projects = await (0, glob_1.glob)(core.getInput('project', { required: true }));
+        const projects = await (0, glob_1.glob)(core.getInput('projects', { required: true }));
         switch (command) {
             case 'restore': {
                 return await runRestoreCommand(projects);

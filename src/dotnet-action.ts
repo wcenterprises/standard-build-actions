@@ -16,7 +16,7 @@ export async function run(command: string): Promise<void> {
     core.debug('environment loaded...')
     core.debug(`dotnet version: ${await getDotnetVersion()}`)
 
-    const projects: string[] = await glob(core.getInput('project', {required: true}))
+    const projects: string[] = await glob(core.getInput('projects', {required: true}))
 
     switch (command) {
       case 'restore': {
