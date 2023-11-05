@@ -5,7 +5,7 @@ import { getDotnet, getDotnetVersion } from './helpers/dotnet-helpers'
 import { glob } from 'glob'
 import { ToolRunner } from '@actions/exec/lib/toolrunner'
 
-
+const Environment: IEnvironment = loadEnvironment(process.env['sba.environment'] as string)
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -13,7 +13,7 @@ import { ToolRunner } from '@actions/exec/lib/toolrunner'
 export async function run(command: string): Promise<void> {
   try {
     core.debug('Entering dotnet-action')
-    const env: IEnvironment = loadEnvironment(process.env['sba.environment'] as string)
+    
     core.debug('environment loaded...')
     core.debug(`dotnet version: ${await getDotnetVersion()}`)
 
@@ -41,8 +41,6 @@ export async function run(command: string): Promise<void> {
 }
 
 export async function runDotnetCommand(args: string[]): Promise<void> {
-  let output: string = ''
-  let stderr: string = ''
 
   try {
     await new ToolRunner(
@@ -52,42 +50,68 @@ export async function runDotnetCommand(args: string[]): Promise<void> {
       silent: true,
       listeners: {
         stdout: (data) => {
-          output += data.toString()
           console.log(data.toString())
         },
         stderr: (data) => {
-          stderr += data.toString()
-          core.error(data.toString())
+          throw new Error(data.toString())
         }
       }
     }
     ).exec()
   } catch (error) {
-    console.error(stderr)
     throw error
   }
 }
 
 export async function runRestoreCommand(projects: string[]): Promise<void> {
-  const args: Array<string> = ['restore']
-  const restoreArgs = getRestoreArguments()
+ 
+  projects.forEach((project) =>{    
+    let args: string[] = getRestoreArguments(project)
 
-  projects.forEach((project) =>{
-    console.debug(project)
-    let thisArgs: Array<string> = ['restore', project]
-
-    core.group(`Restore: ${project}`, async () => {
-      
-      runDotnetCommand(thisArgs.concat(restoreArgs))
-
+    core.group(`Restore: ${project}`, async () => {      
+      runDotnetCommand(args)
     })    
   })
 }
 
 export async function runBuildCommand(projects: string[]): Promise<void> {
-  projects.forEach((project) =>{
-    console.log(project)
+ 
+  projects.forEach((project) =>{    
+    let args: string[] = getBuildArguments(project)
+
+    core.group(`Restore: ${project}`, async () => {      
+      runDotnetCommand(args)
+    })    
   })
+}
+
+export function getBuildArguments(project: string): string[] {
+  let args: Array<string> = ['build', project]
+
+  if (core.getInput('configuration', { required: true })) {
+    args.push(`--configuration ${core.getInput('configuration', { required: true })}`)
+  }
+
+  args.push('--output')
+  if (core.getInput('output', {required: false}) ) {
+    args.push(core.getInput('output'))
+  }
+  else {
+    args.push(Environment.directories.staging)
+  }
+
+  const extraArgs = core.getMultilineInput('arguments', {required: false})
+
+  if (extraArgs) {
+    extraArgs.forEach((item) => {
+      args.push(item)
+    })    
+  }
+  if (core.getInput('verbosity')) {
+    args.push(`--verbosity ${core.getInput('verbosity')}`)
+  }
+
+  return args
 }
 
 export async function runPackCommand(projects: string[]): Promise<void> {
@@ -96,8 +120,9 @@ export async function runPackCommand(projects: string[]): Promise<void> {
   })
 }
 
-export function getRestoreArguments(): string[] {
-  let args: Array<string> = new Array<string>
+
+export function getRestoreArguments(project: string): string[] {
+  let args: Array<string> = ['restore', project]
 
   const extraArgs = core.getMultilineInput('arguments', {required: false})
   if (extraArgs) {
