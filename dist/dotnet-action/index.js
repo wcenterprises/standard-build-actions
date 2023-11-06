@@ -27238,9 +27238,6 @@ async function run(command) {
         core.debug('Entering dotnet-action');
         core.debug('environment loaded...');
         core.debug(`dotnet version: ${await (0, dotnet_helpers_1.getDotnetVersion)()}`);
-        console.log('---------------------------');
-        await (0, exec_1.getExecOutput)(await (0, dotnet_helpers_1.getDotnet)(), ['--version']);
-        console.log('---------------------------');
         const projects = await (0, glob_1.glob)(core.getInput('projects', { required: true }));
         switch (command) {
             case 'restore': {
@@ -27273,13 +27270,8 @@ async function runRestoreCommand(projects) {
 }
 exports.runRestoreCommand = runRestoreCommand;
 async function runBuildCommand(projects) {
-    projects.forEach((project) => {
-        let args = getBuildArguments(project);
-        core.debug(`Build Args: ${args.join(' ')}`);
-        console.debug(`Build Args: ${args.join(' ')}`);
-        core.group(`Build: ${project}`, async () => {
-            await runDotnetCommand(args);
-        });
+    projects.forEach(async (project) => {
+        return await runDotnetCommand(getBuildArguments(project));
     });
 }
 exports.runBuildCommand = runBuildCommand;

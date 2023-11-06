@@ -18,10 +18,6 @@ export async function run(command: string): Promise<void> {
     core.debug('environment loaded...')
     core.debug(`dotnet version: ${await getDotnetVersion()}`)
 
-    console.log('---------------------------')
-    await getExecOutput(await getDotnet(), ['--version'])
-    console.log('---------------------------')
-
     const projects: string[] = await glob(core.getInput('projects', {required: true}))
 
     switch (command) {
@@ -53,15 +49,9 @@ export async function runRestoreCommand(projects: string[]): Promise<void> {
 }
 
 export async function runBuildCommand(projects: string[]): Promise<void> {
- 
-  projects.forEach((project) =>{    
-    let args: string[] = getBuildArguments(project)
-    core.debug(`Build Args: ${args.join(' ')}`)
-    console.debug(`Build Args: ${args.join(' ')}`)
-    core.group(`Build: ${project}`, async () => {      
-      await runDotnetCommand(args)
-    })    
-  })
+  projects.forEach(async (project) =>{    
+    return await runDotnetCommand(getBuildArguments(project))
+  }) 
 }
 
 export function getBuildArguments(project: string): string[] {
