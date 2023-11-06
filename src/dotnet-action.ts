@@ -47,7 +47,7 @@ export async function run(command: string): Promise<void> {
 export async function runDotnetCommand(args: string[]): Promise<void> {
   var path=await getDotnet()
   args.forEach((project) => {
-    getExecOutput(path, getRestoreArguments(project)).then()
+    getExecOutput(path, args)
   })
 }
 
