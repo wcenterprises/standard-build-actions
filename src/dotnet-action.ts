@@ -4,6 +4,7 @@ import { loadEnvironment } from './helpers/cache-utils'
 import { getDotnet, getDotnetVersion } from './helpers/dotnet-helpers'
 import { glob } from 'glob'
 import { ToolRunner } from '@actions/exec/lib/toolrunner'
+import { getExecOutput } from '@actions/exec'
 
 const Environment: IEnvironment = loadEnvironment(process.env['sba.environment'] as string)
 /**
@@ -43,31 +44,11 @@ export async function run(command: string): Promise<void> {
   }
 }
 
-export async function runDotnetCommand(args: string[]): Promise<string> {
-  let stderr=''
-  let stdout=''
-  try {
-    await new ToolRunner(
-    await getDotnet(),
-    args,
-    {
-      silent: true,
-      listeners: {
-        stdout: (data) => {
-          stdout+=data.toString()
-        },
-        stderr: (data) => {
-          stderr += data.toString()
-        }
-      }
-    }
-    ).exec()
-    
-    return stdout.trim()
-  } catch (c) {
-    console.debug(stderr)
-    return stderr
-  }
+export async function runDotnetCommand(args: string[]): Promise<void> {
+  var path=await getDotnet()
+  args.forEach((project) => {
+    getExecOutput(path, getRestoreArguments(project))
+  })
 }
 
 export async function runRestoreCommand(projects: string[]): Promise<void> {
