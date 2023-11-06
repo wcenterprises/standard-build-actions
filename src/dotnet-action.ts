@@ -117,7 +117,7 @@ export function getPublishArguments(project: string): string[] {
   return args
 }
 export function getRestoreArguments(project: string): string[] {
-  let args: Array<string> = ['restore', project]
+  let args: Array<string> = ['restore', `"${project}"`]
 
   const extraArgs = core.getMultilineInput('parameters', {required: false})
   if (extraArgs) {

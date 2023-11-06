@@ -27334,7 +27334,7 @@ function getPublishArguments(project) {
 }
 exports.getPublishArguments = getPublishArguments;
 function getRestoreArguments(project) {
-    let args = ['restore', project];
+    let args = ['restore', `"${project}"`];
     const extraArgs = core.getMultilineInput('parameters', { required: false });
     if (extraArgs) {
         extraArgs.forEach((item) => {
