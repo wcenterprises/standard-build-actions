@@ -40,7 +40,8 @@ export async function run(command: string): Promise<void> {
 
 export async function runDotnetCommand(args: string[]): Promise<void> {
   console.debug(`${args.join(' ')}`)
-  await getExecOutput(await getDotnet(), args)
+  const path=await getDotnet()
+  await getExecOutput(`"${path}"`, args)
 }
 
 export async function runRestoreCommand(projects: string[]): Promise<void> {
