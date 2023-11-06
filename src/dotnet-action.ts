@@ -44,13 +44,13 @@ export async function runDotnetCommand(args: string[]): Promise<void> {
 
 export async function runRestoreCommand(projects: string[]): Promise<void> {
   projects.forEach(async (project) =>{    
-    return await runDotnetCommand(getRestoreArguments(project))
+    await runDotnetCommand(getRestoreArguments(project))
   })  
 }
 
 export async function runBuildCommand(projects: string[]): Promise<void> {
   projects.forEach(async (project) =>{    
-    return await runDotnetCommand(['build', project])
+    await runDotnetCommand(['build', project])
   }) 
 }
 

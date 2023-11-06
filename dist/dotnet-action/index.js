@@ -27265,13 +27265,13 @@ async function runDotnetCommand(args) {
 exports.runDotnetCommand = runDotnetCommand;
 async function runRestoreCommand(projects) {
     projects.forEach(async (project) => {
-        return await runDotnetCommand(getRestoreArguments(project));
+        await runDotnetCommand(getRestoreArguments(project));
     });
 }
 exports.runRestoreCommand = runRestoreCommand;
 async function runBuildCommand(projects) {
     projects.forEach(async (project) => {
-        return await runDotnetCommand(['build', project]);
+        await runDotnetCommand(['build', project]);
     });
 }
 exports.runBuildCommand = runBuildCommand;
