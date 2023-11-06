@@ -50,15 +50,15 @@ export async function runDotnetCommand(args: string[]): Promise<void> {
 
 export async function runRestoreCommand(projects: string[]): Promise<void> {
  
-  projects.forEach((project) =>{    
+  projects.forEach(async (project) =>{    
     let args: string[] = getRestoreArguments(project)
     core.debug(`Restore Args: ${args.join(' ')}`)
     console.debug(`Restore Args: ${args.join(' ')}`)
     
-    core.group(`Restore: ${project}`, async () => {      
-      await runDotnetCommand(args)
+    let result = await core.group(`Restore: ${project}`, async () => {      
+      return await runDotnetCommand(args)
     })    
-  })
+  })  
 }
 
 export async function runBuildCommand(projects: string[]): Promise<void> {

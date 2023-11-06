@@ -27270,12 +27270,12 @@ async function runDotnetCommand(args) {
 }
 exports.runDotnetCommand = runDotnetCommand;
 async function runRestoreCommand(projects) {
-    projects.forEach((project) => {
+    projects.forEach(async (project) => {
         let args = getRestoreArguments(project);
         core.debug(`Restore Args: ${args.join(' ')}`);
         console.debug(`Restore Args: ${args.join(' ')}`);
-        core.group(`Restore: ${project}`, async () => {
-            await runDotnetCommand(args);
+        let result = await core.group(`Restore: ${project}`, async () => {
+            return await runDotnetCommand(args);
         });
     });
 }
