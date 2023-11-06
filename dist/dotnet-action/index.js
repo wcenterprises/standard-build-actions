@@ -27271,7 +27271,7 @@ async function runRestoreCommand(projects) {
 exports.runRestoreCommand = runRestoreCommand;
 async function runBuildCommand(projects) {
     projects.forEach(async (project) => {
-        await runDotnetCommand(['build', `"${project}"`, '--configuration release']);
+        await runDotnetCommand(['build ', `"${project}" `, '--configuration release ']);
     });
 }
 exports.runBuildCommand = runBuildCommand;
