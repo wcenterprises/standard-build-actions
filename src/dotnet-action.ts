@@ -58,7 +58,7 @@ export function getBuildArguments(project: string): string[] {
   let args: Array<string> = ['build', project]
 
   if (core.getInput('configuration', { required: true })) {
-    args.push(`--configuration ${core.getInput('configuration', { required: true })}`)
+    args.push(`-c ${core.getInput('configuration', { required: true })}`)
   }
   args.push('--nologo')
 

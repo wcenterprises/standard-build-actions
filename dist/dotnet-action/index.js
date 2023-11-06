@@ -27278,7 +27278,7 @@ exports.runBuildCommand = runBuildCommand;
 function getBuildArguments(project) {
     let args = ['build', project];
     if (core.getInput('configuration', { required: true })) {
-        args.push(`--configuration ${core.getInput('configuration', { required: true })}`);
+        args.push(`-c ${core.getInput('configuration', { required: true })}`);
     }
     args.push('--nologo');
     const extraArgs = core.getMultilineInput('parameters', { required: false });
