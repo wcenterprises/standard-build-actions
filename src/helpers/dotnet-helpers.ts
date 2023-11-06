@@ -8,8 +8,8 @@ import * as semver from 'semver'
 
 let dotnettools=[
   {
-    "tool": "Octopus.DotNet.Cli",
-    "version": "9.1.7"
+    tool: "Octopus.DotNet.Cli",
+    version: "9.1.7"
   }
 ]
 

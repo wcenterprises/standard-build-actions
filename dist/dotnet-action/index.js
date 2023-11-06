@@ -27260,6 +27260,7 @@ async function run(command) {
 }
 exports.run = run;
 async function runDotnetCommand(args) {
+    console.debug(`${args.join(' ')}`);
     await (0, exec_1.getExecOutput)(await (0, dotnet_helpers_1.getDotnet)(), args);
 }
 exports.runDotnetCommand = runDotnetCommand;
@@ -27271,7 +27272,7 @@ async function runRestoreCommand(projects) {
 exports.runRestoreCommand = runRestoreCommand;
 async function runBuildCommand(projects) {
     projects.forEach(async (project) => {
-        await runDotnetCommand(['build ', `"${project}" `, '--configuration release ']);
+        await runDotnetCommand(['build', `"${project}"`, '--configuration release']);
     });
 }
 exports.runBuildCommand = runBuildCommand;
@@ -27437,8 +27438,8 @@ const toolrunner_1 = __nccwpck_require__(8159);
 const safeWhich = __importStar(__nccwpck_require__(8537));
 let dotnettools = [
     {
-        "tool": "Octopus.DotNet.Cli",
-        "version": "9.1.7"
+        tool: "Octopus.DotNet.Cli",
+        version: "9.1.7"
     }
 ];
 async function getDotnet() {

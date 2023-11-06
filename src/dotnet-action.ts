@@ -39,6 +39,7 @@ export async function run(command: string): Promise<void> {
 }
 
 export async function runDotnetCommand(args: string[]): Promise<void> {
+  console.debug(`${args.join(' ')}`)
   await getExecOutput(await getDotnet(), args)
 }
 
@@ -50,7 +51,7 @@ export async function runRestoreCommand(projects: string[]): Promise<void> {
 
 export async function runBuildCommand(projects: string[]): Promise<void> {
   projects.forEach(async (project) =>{    
-    await runDotnetCommand(['build ', `"${project}" `, '--configuration release '])
+    await runDotnetCommand(['build', `"${project}"`, '--configuration release'])
   }) 
 }
 
