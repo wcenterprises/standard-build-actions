@@ -51,7 +51,7 @@ export async function runRestoreCommand(projects: string[]): Promise<void> {
 
 export async function runBuildCommand(projects: string[]): Promise<void> {
   projects.forEach(async (project) =>{    
-    await runDotnetCommand(['build', `"${project}"`, '--configuration release'])
+    await runDotnetCommand(['build', `${project}`, '--configuration release'])
   }) 
 }
 
@@ -117,7 +117,7 @@ export function getPublishArguments(project: string): string[] {
   return args
 }
 export function getRestoreArguments(project: string): string[] {
-  let args: Array<string> = ['restore', `"${project}"`]
+  let args: Array<string> = ['restore', `${project}`]
 
   const extraArgs = core.getMultilineInput('parameters', {required: false})
   if (extraArgs) {

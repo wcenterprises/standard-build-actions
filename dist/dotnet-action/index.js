@@ -27272,7 +27272,7 @@ async function runRestoreCommand(projects) {
 exports.runRestoreCommand = runRestoreCommand;
 async function runBuildCommand(projects) {
     projects.forEach(async (project) => {
-        await runDotnetCommand(['build', `"${project}"`, '--configuration release']);
+        await runDotnetCommand(['build', `${project}`, '--configuration release']);
     });
 }
 exports.runBuildCommand = runBuildCommand;
@@ -27334,7 +27334,7 @@ function getPublishArguments(project) {
 }
 exports.getPublishArguments = getPublishArguments;
 function getRestoreArguments(project) {
-    let args = ['restore', `"${project}"`];
+    let args = ['restore', `${project}`];
     const extraArgs = core.getMultilineInput('parameters', { required: false });
     if (extraArgs) {
         extraArgs.forEach((item) => {
