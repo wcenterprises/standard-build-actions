@@ -4,6 +4,7 @@ import { ToolRunner } from '@actions/exec/lib/toolrunner'
 import * as safeWhich from '@chrisgavin/safe-which'
 import { stderr } from 'process'
 import * as semver from 'semver'
+import {which} from '@actions/io'
 
 
 let dotnettools=[
@@ -14,7 +15,8 @@ let dotnettools=[
 ]
 
 export async function getDotnet(): Promise<string> {
-  return await safeWhich.safeWhich('dotnet')
+  return await which('dotnet')
+  // return await safeWhich.safeWhich('dotnet')
 }
 
 export async function getDotnetVersion(): Promise<string> {
