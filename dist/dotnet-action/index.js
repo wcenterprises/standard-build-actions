@@ -27266,10 +27266,7 @@ async function run(command) {
 }
 exports.run = run;
 async function runDotnetCommand(args) {
-    var path = await (0, dotnet_helpers_1.getDotnet)();
-    args.forEach((project) => {
-        (0, exec_1.getExecOutput)(path, args);
-    });
+    (0, exec_1.getExecOutput)(await (0, dotnet_helpers_1.getDotnet)(), args);
 }
 exports.runDotnetCommand = runDotnetCommand;
 async function runRestoreCommand(projects) {
@@ -27324,7 +27321,7 @@ async function runPublishCommand(projects) {
         core.debug(`Publish Args: ${args.join(' ')}`);
         console.debug(`Publish Args: ${args.join(' ')}`);
         core.group(`Publish: ${project}`, async () => {
-            await runDotnetCommand(args);
+            runDotnetCommand(args);
         });
     });
 }

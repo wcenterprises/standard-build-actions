@@ -45,10 +45,7 @@ export async function run(command: string): Promise<void> {
 }
 
 export async function runDotnetCommand(args: string[]): Promise<void> {
-  var path=await getDotnet()
-  args.forEach((project) => {
-    getExecOutput(path, args)
-  })
+  getExecOutput(await getDotnet(), args)
 }
 
 export async function runRestoreCommand(projects: string[]): Promise<void> {
@@ -110,7 +107,7 @@ export async function runPublishCommand(projects: string[]): Promise<void> {
     core.debug(`Publish Args: ${args.join(' ')}`)
     console.debug(`Publish Args: ${args.join(' ')}`)
     core.group(`Publish: ${project}`, async () => {      
-      await runDotnetCommand(args)
+      runDotnetCommand(args)
     })    
   })
 }
