@@ -2,7 +2,7 @@
 
 npm run rebuild
 
-git commit -a -m "$1"
+git commit -a -m "daily-$1"
 git push origin feature/dotnet
 
 git tag dev -m "dev-$1" --force && \
