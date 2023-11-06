@@ -27224,10 +27224,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getRestoreArguments = exports.getPublishArguments = exports.runPublishCommand = exports.runPackCommand = exports.getBuildArguments = exports.runBuildCommand = exports.runRestoreCommand = exports.runDotnetCommand = exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
+const exec_1 = __nccwpck_require__(1514);
 const cache_utils_1 = __nccwpck_require__(5864);
 const dotnet_helpers_1 = __nccwpck_require__(9523);
 const glob_1 = __nccwpck_require__(8211);
-const exec_1 = __nccwpck_require__(1514);
 const Environment = (0, cache_utils_1.loadEnvironment)(process.env['sba.environment']);
 /**
  * The main function for the action.
@@ -27238,6 +27238,9 @@ async function run(command) {
         core.debug('Entering dotnet-action');
         core.debug('environment loaded...');
         core.debug(`dotnet version: ${await (0, dotnet_helpers_1.getDotnetVersion)()}`);
+        console.log('---------------------------');
+        await (0, exec_1.getExecOutput)(await (0, dotnet_helpers_1.getDotnet)(), ['--version']);
+        console.log('---------------------------');
         const projects = await (0, glob_1.glob)(core.getInput('projects', { required: true }));
         switch (command) {
             case 'restore': {
@@ -27245,12 +27248,6 @@ async function run(command) {
             }
             case 'build': {
                 return await runBuildCommand(projects);
-            }
-            case 'pack': {
-                return await runPackCommand(projects);
-            }
-            case 'publish': {
-                return await runPublishCommand(projects);
             }
             default: {
                 throw new Error(`dotnet command '${command}' not implemented!`);
@@ -27266,17 +27263,12 @@ async function run(command) {
 }
 exports.run = run;
 async function runDotnetCommand(args) {
-    (0, exec_1.getExecOutput)(await (0, dotnet_helpers_1.getDotnet)(), args);
+    await (0, exec_1.getExecOutput)(await (0, dotnet_helpers_1.getDotnet)(), args);
 }
 exports.runDotnetCommand = runDotnetCommand;
 async function runRestoreCommand(projects) {
     projects.forEach(async (project) => {
-        let args = getRestoreArguments(project);
-        core.debug(`Restore Args: ${args.join(' ')}`);
-        console.debug(`Restore Args: ${args.join(' ')}`);
-        let result = await core.group(`Restore: ${project}`, async () => {
-            return await runDotnetCommand(args);
-        });
+        return await runDotnetCommand(getRestoreArguments(project));
     });
 }
 exports.runRestoreCommand = runRestoreCommand;
@@ -27476,7 +27468,6 @@ async function getDotnetVersion() {
                 }
             }
         }).exec();
-        console.debug(version.trim());
         return version.trim();
     }
     catch (c) {

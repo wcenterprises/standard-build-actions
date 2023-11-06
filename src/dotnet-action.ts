@@ -1,10 +1,10 @@
 import * as core from '@actions/core'
+import { getExecOutput } from '@actions/exec'
+
 import { IEnvironment } from './interfaces/environment'
 import { loadEnvironment } from './helpers/cache-utils'
 import { getDotnet, getDotnetVersion } from './helpers/dotnet-helpers'
 import { glob } from 'glob'
-import { ToolRunner } from '@actions/exec/lib/toolrunner'
-import { getExecOutput } from '@actions/exec'
 
 const Environment: IEnvironment = loadEnvironment(process.env['sba.environment'] as string)
 /**
@@ -18,6 +18,10 @@ export async function run(command: string): Promise<void> {
     core.debug('environment loaded...')
     core.debug(`dotnet version: ${await getDotnetVersion()}`)
 
+    console.log('---------------------------')
+    await getExecOutput(await getDotnet(), ['--version'])
+    console.log('---------------------------')
+
     const projects: string[] = await glob(core.getInput('projects', {required: true}))
 
     switch (command) {
@@ -26,12 +30,6 @@ export async function run(command: string): Promise<void> {
       }
       case 'build': {
         return await runBuildCommand(projects)
-      }
-      case 'pack': {
-        return await runPackCommand(projects)
-      }
-      case 'publish': {
-        return await runPublishCommand(projects)
       }
       default: {
         throw new Error(`dotnet command '${command}' not implemented!`)
@@ -45,19 +43,12 @@ export async function run(command: string): Promise<void> {
 }
 
 export async function runDotnetCommand(args: string[]): Promise<void> {
-  getExecOutput(await getDotnet(), args)
+  await getExecOutput(await getDotnet(), args)
 }
 
 export async function runRestoreCommand(projects: string[]): Promise<void> {
- 
   projects.forEach(async (project) =>{    
-    let args: string[] = getRestoreArguments(project)
-    core.debug(`Restore Args: ${args.join(' ')}`)
-    console.debug(`Restore Args: ${args.join(' ')}`)
-    
-    let result = await core.group(`Restore: ${project}`, async () => {      
-      return await runDotnetCommand(args)
-    })    
+    return await runDotnetCommand(getRestoreArguments(project))
   })  
 }
 

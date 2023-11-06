@@ -3,6 +3,8 @@ import { ToolRunner } from '@actions/exec/lib/toolrunner'
 
 import * as safeWhich from '@chrisgavin/safe-which'
 import { stderr } from 'process'
+import * as semver from 'semver'
+
 
 let dotnettools=[
   {
@@ -35,7 +37,6 @@ export async function getDotnetVersion(): Promise<string> {
       }
     }
     ).exec()
-    console.debug(version.trim())
     return version.trim()
   } catch (c) {
     console.debug(stderr)

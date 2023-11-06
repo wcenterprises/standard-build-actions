@@ -79,7 +79,8 @@
     "@actions/exec": "^1.1.1",
     "@chrisgavin/safe-which": "^1.0.2",
     "@octokit/core": "^5.0.1",
-    "glob": "^10.3.10"
+    "glob": "^10.3.10",
+    "semver": "^7.5.4"
   },
   "devDependencies": {
     "@types/jest": "^29.5.6",
