@@ -27278,7 +27278,7 @@ async function runRestoreCommand(projects) {
         core.debug(`Restore Args: ${args.join(' ')}`);
         console.debug(`Restore Args: ${args.join(' ')}`);
         core.group(`Restore: ${project}`, async () => {
-            await runDotnetCommand(args);
+            runDotnetCommand(args);
         });
     });
 }
@@ -27289,7 +27289,7 @@ async function runBuildCommand(projects) {
         core.debug(`Build Args: ${args.join(' ')}`);
         console.debug(`Build Args: ${args.join(' ')}`);
         core.group(`Build: ${project}`, async () => {
-            await runDotnetCommand(args);
+            runDotnetCommand(args);
         });
     });
 }
