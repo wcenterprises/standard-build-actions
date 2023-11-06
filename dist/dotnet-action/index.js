@@ -27268,7 +27268,7 @@ exports.run = run;
 async function runDotnetCommand(args) {
     var path = await (0, dotnet_helpers_1.getDotnet)();
     args.forEach((project) => {
-        (0, exec_1.getExecOutput)(path, getRestoreArguments(project));
+        (0, exec_1.getExecOutput)(path, getRestoreArguments(project)).then();
     });
 }
 exports.runDotnetCommand = runDotnetCommand;
