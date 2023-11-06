@@ -56,7 +56,7 @@ export async function runRestoreCommand(projects: string[]): Promise<void> {
     console.debug(`Restore Args: ${args.join(' ')}`)
     
     core.group(`Restore: ${project}`, async () => {      
-      runDotnetCommand(args)
+      await runDotnetCommand(args)
     })    
   })
 }
@@ -68,7 +68,7 @@ export async function runBuildCommand(projects: string[]): Promise<void> {
     core.debug(`Build Args: ${args.join(' ')}`)
     console.debug(`Build Args: ${args.join(' ')}`)
     core.group(`Build: ${project}`, async () => {      
-      runDotnetCommand(args)
+      await runDotnetCommand(args)
     })    
   })
 }
@@ -98,29 +98,29 @@ export function getBuildArguments(project: string): string[] {
 export async function runPackCommand(projects: string[]): Promise<void> {
   projects.forEach((project) =>{
     console.log(project)
+    runDotnetCommand([
+      'pack',
+      project,
+      '--nologo',
+      '--output',
+      Environment.directories.package,
+      '--no-build',
+      '--no-restore'
+    ])
   })
 }
 
 export async function runPublishCommand(projects: string[]): Promise<void> {
   projects.forEach((project) =>{    
-    let args: string[] = getPublishArguments(project)
-    core.debug(`Publish Args: ${args.join(' ')}`)
-    console.debug(`Publish Args: ${args.join(' ')}`)
-    core.group(`Publish: ${project}`, async () => {      
-      runDotnetCommand(args)
-    })    
+      runDotnetCommand(getPublishArguments(project))
   })
 }
 export function getPublishArguments(project: string): string[] {
-  let args: Array<string> = ['publish', project, '--nologo']
-
-  if (core.getInput('output', { required: false })) {
-    args.push(`--output ${core.getInput('output', { required: false })}`)
-  }
-  else {
-    args.push(`--output ${Environment.directories.staging})}`)
-  }
-
+  let args: string[] = [
+    'publish', 
+    project,
+    `--output ${Environment.directories.staging}`
+  ]
   const extraArgs = core.getMultilineInput('parameters', {required: false})
   
   if (extraArgs) {

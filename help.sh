@@ -1,7 +1,12 @@
 #!/bin/bash
-git commit -a -m "update" && \
-  git push origin feature/dotnet && \
-  git tag dev --force && \
-  git push origin dev --force && \
-  git tag daily --force && \
+
+npm run rebuild
+
+git commit -a -m "$1"
+git push origin feature/dotnet
+
+git tag dev -m "dev-$1" --force && \
+  git push origin dev --force
+
+git tag daily -m "daily-$1" --force && \
   git push origin daily --force

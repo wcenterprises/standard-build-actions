@@ -27275,7 +27275,7 @@ async function runRestoreCommand(projects) {
         core.debug(`Restore Args: ${args.join(' ')}`);
         console.debug(`Restore Args: ${args.join(' ')}`);
         core.group(`Restore: ${project}`, async () => {
-            runDotnetCommand(args);
+            await runDotnetCommand(args);
         });
     });
 }
@@ -27286,7 +27286,7 @@ async function runBuildCommand(projects) {
         core.debug(`Build Args: ${args.join(' ')}`);
         console.debug(`Build Args: ${args.join(' ')}`);
         core.group(`Build: ${project}`, async () => {
-            runDotnetCommand(args);
+            await runDotnetCommand(args);
         });
     });
 }
@@ -27312,28 +27312,30 @@ exports.getBuildArguments = getBuildArguments;
 async function runPackCommand(projects) {
     projects.forEach((project) => {
         console.log(project);
+        runDotnetCommand([
+            'pack',
+            project,
+            '--nologo',
+            '--output',
+            Environment.directories.package,
+            '--no-build',
+            '--no-restore'
+        ]);
     });
 }
 exports.runPackCommand = runPackCommand;
 async function runPublishCommand(projects) {
     projects.forEach((project) => {
-        let args = getPublishArguments(project);
-        core.debug(`Publish Args: ${args.join(' ')}`);
-        console.debug(`Publish Args: ${args.join(' ')}`);
-        core.group(`Publish: ${project}`, async () => {
-            runDotnetCommand(args);
-        });
+        runDotnetCommand(getPublishArguments(project));
     });
 }
 exports.runPublishCommand = runPublishCommand;
 function getPublishArguments(project) {
-    let args = ['publish', project, '--nologo'];
-    if (core.getInput('output', { required: false })) {
-        args.push(`--output ${core.getInput('output', { required: false })}`);
-    }
-    else {
-        args.push(`--output ${Environment.directories.staging})}`);
-    }
+    let args = [
+        'publish',
+        project,
+        `--output ${Environment.directories.staging}`
+    ];
     const extraArgs = core.getMultilineInput('parameters', { required: false });
     if (extraArgs) {
         extraArgs.forEach((item) => {
