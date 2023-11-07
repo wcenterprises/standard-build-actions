@@ -107,8 +107,7 @@ export function getPublishArguments(project: string): string[] {
   let args: string[] = [
     'publish', 
     project,
-    '--output',
-    Environment.directories.staging
+    `-p:PublishDir=${Environment.directories.staging}`
   ]
   const extraArgs = core.getMultilineInput('parameters', {required: false})
   
