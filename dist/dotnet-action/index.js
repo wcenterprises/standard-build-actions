@@ -27215,7 +27215,7 @@ exports.run = run;
 async function runDotnetCommand(args) {
     console.debug(`${args.join(' ')}`);
     const path = await (0, dotnet_helpers_1.getDotnet)();
-    await (0, exec_1.getExecOutput)(`"${path}"`, args);
+    await (0, exec_1.exec)(`"${path}"`, args);
 }
 exports.runDotnetCommand = runDotnetCommand;
 async function runRestoreCommand(projects) {

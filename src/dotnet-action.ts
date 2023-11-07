@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import { getExecOutput } from '@actions/exec'
+import { getExecOutput, exec } from '@actions/exec'
 
 import { IEnvironment } from './interfaces/environment'
 import { loadEnvironment } from './helpers/cache-utils'
@@ -41,7 +41,7 @@ export async function run(command: string): Promise<void> {
 export async function runDotnetCommand(args: string[]): Promise<void> {
   console.debug(`${args.join(' ')}`)
   const path=await getDotnet()
-  await getExecOutput(`"${path}"`, args)
+  await exec(`"${path}"`, args)
 }
 
 export async function runRestoreCommand(projects: string[]): Promise<void> {
