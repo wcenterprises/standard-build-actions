@@ -27175,13 +27175,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getRestoreArguments = exports.getPublishArguments = exports.runPublishCommand = exports.runPackCommand = exports.getBuildArguments = exports.runBuildCommand = exports.runRestoreCommand = exports.runDotnetCommand = exports.run = void 0;
+exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
-const exec_1 = __nccwpck_require__(1514);
-const cache_utils_1 = __nccwpck_require__(5864);
-const dotnet_helpers_1 = __nccwpck_require__(9523);
 const glob_1 = __nccwpck_require__(8211);
-const Environment = (0, cache_utils_1.loadEnvironment)(process.env['sba.environment']);
+const dotnet_helpers_1 = __nccwpck_require__(9523);
+const dotnet_runners_1 = __nccwpck_require__(1682);
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -27189,18 +27187,20 @@ const Environment = (0, cache_utils_1.loadEnvironment)(process.env['sba.environm
 async function run(command) {
     try {
         core.debug('Entering dotnet-action');
-        core.debug('environment loaded...');
         core.debug(`dotnet version: ${await (0, dotnet_helpers_1.getDotnetVersion)()}`);
         const projects = await (0, glob_1.glob)(core.getInput('projects', { required: true }));
         switch (command) {
             case 'restore': {
-                return await runRestoreCommand(projects);
+                return await (0, dotnet_runners_1.runRestoreCommand)(projects);
             }
             case 'build': {
-                return await runBuildCommand(projects);
+                return await (0, dotnet_runners_1.runBuildCommand)(projects);
             }
             case 'publish': {
-                return await runPublishCommand(projects);
+                return await (0, dotnet_runners_1.runPublishCommand)(projects);
+            }
+            case 'pack': {
+                return await (0, dotnet_runners_1.runPackCommand)(projects);
             }
             default: {
                 throw new Error(`dotnet command '${command}' not implemented!`);
@@ -27215,95 +27215,6 @@ async function run(command) {
     }
 }
 exports.run = run;
-async function runDotnetCommand(args) {
-    const path = await (0, dotnet_helpers_1.getDotnet)();
-    await (0, exec_1.exec)(`${path}`, args);
-}
-exports.runDotnetCommand = runDotnetCommand;
-async function runRestoreCommand(projects) {
-    projects.forEach(async (project) => {
-        await runDotnetCommand(getRestoreArguments(project));
-    });
-}
-exports.runRestoreCommand = runRestoreCommand;
-async function runBuildCommand(projects) {
-    projects.forEach(async (project) => {
-        await runDotnetCommand(getBuildArguments(project));
-    });
-}
-exports.runBuildCommand = runBuildCommand;
-function getBuildArguments(project) {
-    let args = ['build', project];
-    if (core.getInput('configuration', { required: true })) {
-        args.push('--configuration');
-        args.push(core.getInput('configuration', { required: true }));
-    }
-    args.push('--nologo');
-    const extraArgs = core.getMultilineInput('parameters', { required: false });
-    if (extraArgs) {
-        args = args.concat(extraArgs);
-    }
-    if (core.getInput('verbosity')) {
-        args.push('--verbosity');
-        args.push(core.getInput('verbosity'));
-    }
-    return args;
-}
-exports.getBuildArguments = getBuildArguments;
-async function runPackCommand(projects) {
-    projects.forEach((project) => {
-        console.log(project);
-        runDotnetCommand([
-            'pack',
-            project,
-            '--nologo',
-            '--output',
-            Environment.directories.package,
-            '--no-build',
-            '--no-restore'
-        ]);
-    });
-}
-exports.runPackCommand = runPackCommand;
-async function runPublishCommand(projects) {
-    projects.forEach((project) => {
-        runDotnetCommand(getPublishArguments(project));
-    });
-}
-exports.runPublishCommand = runPublishCommand;
-function getPublishArguments(project) {
-    let args = [
-        'publish',
-        project,
-        `-p:PublishDir=${Environment.directories.staging}`
-    ];
-    const extraArgs = core.getMultilineInput('parameters', { required: false });
-    if (extraArgs) {
-        extraArgs.forEach((item) => {
-            args.push(item);
-        });
-    }
-    if (core.getInput('verbosity')) {
-        args.push(`--verbosity ${core.getInput('verbosity')}`);
-    }
-    return args;
-}
-exports.getPublishArguments = getPublishArguments;
-function getRestoreArguments(project) {
-    let args = ['restore', `${project}`];
-    const extraArgs = core.getMultilineInput('parameters', { required: false });
-    if (extraArgs) {
-        extraArgs.forEach((item) => {
-            args.push(item);
-        });
-    }
-    if (core.getInput('verbosity')) {
-        args.push('--verbosity');
-        args.push(core.getInput('verbosity'));
-    }
-    return args;
-}
-exports.getRestoreArguments = getRestoreArguments;
 run(core.getInput('command', { required: true }));
 
 
@@ -27430,6 +27341,140 @@ async function installDotnetTools() {
     dotnettools.forEach((item) => installDotnetTool(item.tool, item.version));
 }
 exports.installDotnetTools = installDotnetTools;
+
+
+/***/ }),
+
+/***/ 1682:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getRestoreArguments = exports.getPublishArguments = exports.getPackArguments = exports.getBuildArguments = exports.runPackCommand = exports.runPublishCommand = exports.runBuildCommand = exports.runRestoreCommand = exports.runDotnetCommand = void 0;
+const core = __importStar(__nccwpck_require__(2186));
+const exec_1 = __nccwpck_require__(1514);
+const dotnet_helpers_1 = __nccwpck_require__(9523);
+const cache_utils_1 = __nccwpck_require__(5864);
+const Environment = (0, cache_utils_1.loadEnvironment)(process.env['sba.environment']);
+async function runDotnetCommand(args) {
+    const path = await (0, dotnet_helpers_1.getDotnet)();
+    await (0, exec_1.exec)(`${path}`, args);
+}
+exports.runDotnetCommand = runDotnetCommand;
+async function runRestoreCommand(projects) {
+    projects.forEach(async (project) => {
+        await runDotnetCommand(getRestoreArguments(project));
+    });
+}
+exports.runRestoreCommand = runRestoreCommand;
+async function runBuildCommand(projects) {
+    projects.forEach(async (project) => {
+        await runDotnetCommand(getBuildArguments(project));
+    });
+}
+exports.runBuildCommand = runBuildCommand;
+async function runPublishCommand(projects) {
+    projects.forEach((project) => {
+        runDotnetCommand(getPublishArguments(project));
+    });
+}
+exports.runPublishCommand = runPublishCommand;
+async function runPackCommand(projects) {
+    projects.forEach((project) => {
+        runDotnetCommand(getPackArguments(project));
+    });
+}
+exports.runPackCommand = runPackCommand;
+function getBuildArguments(project) {
+    let args = ['build', project];
+    if (core.getInput('configuration', { required: true })) {
+        args.push('--configuration');
+        args.push(core.getInput('configuration', { required: true }));
+    }
+    args.push('--nologo');
+    const extraArgs = core.getMultilineInput('parameters', { required: false });
+    if (extraArgs) {
+        args = args.concat(extraArgs);
+    }
+    if (core.getInput('verbosity')) {
+        args.push('--verbosity');
+        args.push(core.getInput('verbosity'));
+    }
+    return args;
+}
+exports.getBuildArguments = getBuildArguments;
+function getPackArguments(project) {
+    let args = ['pack', project];
+    if (core.getInput('configuration', { required: true })) {
+        args.push('--configuration');
+        args.push(core.getInput('configuration', { required: true }));
+    }
+    args.push('--outdir');
+    args.push(`${Environment.directories.package}`);
+    const extraArgs = core.getMultilineInput('parameters', { required: false });
+    if (extraArgs) {
+        args = args.concat(extraArgs);
+    }
+    if (core.getInput('verbosity')) {
+        args.push(`--verbosity ${core.getInput('verbosity')}`);
+    }
+    return args;
+}
+exports.getPackArguments = getPackArguments;
+function getPublishArguments(project) {
+    let args = ['publish', project];
+    if (core.getInput('configuration', { required: true })) {
+        args.push('--configuration');
+        args.push(core.getInput('configuration', { required: true }));
+    }
+    args.push(`-p:PublishDir=${Environment.directories.staging}`);
+    const extraArgs = core.getMultilineInput('parameters', { required: false });
+    if (extraArgs) {
+        args = args.concat(extraArgs);
+    }
+    if (core.getInput('verbosity')) {
+        args.push(`--verbosity ${core.getInput('verbosity')}`);
+    }
+    return args;
+}
+exports.getPublishArguments = getPublishArguments;
+function getRestoreArguments(project) {
+    let args = ['restore', `${project}`];
+    const extraArgs = core.getMultilineInput('parameters', { required: false });
+    if (extraArgs) {
+        args = args.concat(extraArgs);
+    }
+    if (core.getInput('verbosity')) {
+        args.push('--verbosity');
+        args.push(core.getInput('verbosity'));
+    }
+    return args;
+}
+exports.getRestoreArguments = getRestoreArguments;
 
 
 /***/ }),
