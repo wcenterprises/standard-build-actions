@@ -7,6 +7,10 @@ updates:
       - actions
     schedule:
       interval: daily
+    groups:
+      actions:
+        patterns:
+        - "actions*"
 
   - package-ecosystem: npm
     directory: /
@@ -15,3 +19,8 @@ updates:
       - npm
     schedule:
       interval: daily
+    groups:
+      npm:
+        patterns:
+        - "@typescript*"
+        - "eslint"
