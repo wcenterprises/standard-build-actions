@@ -36,7 +36,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: ./actions/dotnet
+    - uses: ../../actions/dotnet
       with:
         command: 'build'
         projects: ${{ inputs.projects }}
