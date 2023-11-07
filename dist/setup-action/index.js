@@ -30071,7 +30071,7 @@ exports.getBuildNumber = getBuildNumber;
 function buildVersion() {
     return {
         major: exports.TimeStamp.getFullYear().toString(),
-        minor: 1,
+        minor: ACTION_VERSION,
         build: getBuildNumber(exports.TimeStamp),
         revision: getRevison(exports.TimeStamp).toString(),
         prefix: `${exports.TimeStamp.getFullYear()}.${ACTION_VERSION}.${getBuildNumber(exports.TimeStamp)}`,

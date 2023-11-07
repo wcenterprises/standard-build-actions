@@ -2,6 +2,8 @@
 import * as fs from 'fs'
 import { IEnvironment } from 'src/interfaces/environment'
 
+
+
 export function saveCacheSync(key: string, data:any) {
   fs.writeFileSync(`${key}.json`, JSON.stringify(data))
 }

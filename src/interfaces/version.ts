@@ -1,6 +1,7 @@
+
 export interface IVersionInfo {
   major: string,
-  minor: 1,
+  minor: number,
   build: string,
   revision: string
   prefix: string,

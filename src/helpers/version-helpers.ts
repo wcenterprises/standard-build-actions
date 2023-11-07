@@ -30,7 +30,7 @@ export function getBuildNumber(date: Date): string {
 export function buildVersion(): IVersionInfo {
   return {
     major: TimeStamp.getFullYear().toString(),
-    minor: 1,
+    minor: ACTION_VERSION,
     build: getBuildNumber(TimeStamp),
     revision: getRevison(TimeStamp).toString(),
     prefix: `${TimeStamp.getFullYear()}.${ACTION_VERSION}.${getBuildNumber(TimeStamp)}`,
