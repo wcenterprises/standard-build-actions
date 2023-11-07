@@ -5,6 +5,7 @@ import { IEnvironment } from './interfaces/environment'
 import { loadEnvironment } from './helpers/cache-utils'
 import { getDotnet, getDotnetVersion } from './helpers/dotnet-helpers'
 import { glob } from 'glob'
+import { AsyncResource } from 'async_hooks'
 
 const Environment: IEnvironment = loadEnvironment(process.env['sba.environment'] as string)
 /**
@@ -52,7 +53,7 @@ export async function runRestoreCommand(projects: string[]): Promise<void> {
 
 export async function runBuildCommand(projects: string[]): Promise<void> {
   projects.forEach(async (project) =>{    
-    await runDotnetCommand(['build', `${project}`, '--configuration release'])
+    await runDotnetCommand(['build', `${project}`, '--configuration', 'release'])
   }) 
 }
 
@@ -60,7 +61,8 @@ export function getBuildArguments(project: string): string[] {
   let args: Array<string> = ['build', project]
 
   if (core.getInput('configuration', { required: true })) {
-    args.push(`-c ${core.getInput('configuration', { required: true })}`)
+    args.push('--configuration')
+    args.push(core.getInput('configuration', { required: true }))
   }
   args.push('--nologo')
 

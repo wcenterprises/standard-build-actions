@@ -27226,14 +27226,15 @@ async function runRestoreCommand(projects) {
 exports.runRestoreCommand = runRestoreCommand;
 async function runBuildCommand(projects) {
     projects.forEach(async (project) => {
-        await runDotnetCommand(['build', `${project}`, '--configuration release']);
+        await runDotnetCommand(['build', `${project}`, '--configuration', 'release']);
     });
 }
 exports.runBuildCommand = runBuildCommand;
 function getBuildArguments(project) {
     let args = ['build', project];
     if (core.getInput('configuration', { required: true })) {
-        args.push(`-c ${core.getInput('configuration', { required: true })}`);
+        args.push('--configuration');
+        args.push(core.getInput('configuration', { required: true }));
     }
     args.push('--nologo');
     const extraArgs = core.getMultilineInput('parameters', { required: false });
