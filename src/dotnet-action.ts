@@ -28,6 +28,9 @@ export async function run(command: string): Promise<void> {
       case 'build': {
         return await runBuildCommand(projects)
       }
+      case 'publish': {
+        return await runPublishCommand(projects)
+      }
       default: {
         throw new Error(`dotnet command '${command}' not implemented!`)
       }
@@ -74,9 +77,9 @@ export function getBuildArguments(project: string): string[] {
     })    
   }
   if (core.getInput('verbosity')) {
-    args.push(`--verbosity ${core.getInput('verbosity')}`)
+    args.push('--verbosity')
+    args.push(core.getInput('verbosity'))
   }
-
   return args
 }
 
@@ -104,7 +107,8 @@ export function getPublishArguments(project: string): string[] {
   let args: string[] = [
     'publish', 
     project,
-    `--output ${Environment.directories.staging}`
+    '--output',
+    Environment.directories.staging
   ]
   const extraArgs = core.getMultilineInput('parameters', {required: false})
   
@@ -129,7 +133,8 @@ export function getRestoreArguments(project: string): string[] {
     })    
   }
   if (core.getInput('verbosity')) {
-    args.push(`--verbosity ${core.getInput('verbosity')}`)
+    args.push('--verbosity')
+    args.push(core.getInput('verbosity'))
   }
 
   return args

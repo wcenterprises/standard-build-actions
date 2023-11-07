@@ -27199,6 +27199,9 @@ async function run(command) {
             case 'build': {
                 return await runBuildCommand(projects);
             }
+            case 'publish': {
+                return await runPublishCommand(projects);
+            }
             default: {
                 throw new Error(`dotnet command '${command}' not implemented!`);
             }
@@ -27244,7 +27247,8 @@ function getBuildArguments(project) {
         });
     }
     if (core.getInput('verbosity')) {
-        args.push(`--verbosity ${core.getInput('verbosity')}`);
+        args.push('--verbosity');
+        args.push(core.getInput('verbosity'));
     }
     return args;
 }
@@ -27274,7 +27278,8 @@ function getPublishArguments(project) {
     let args = [
         'publish',
         project,
-        `--output ${Environment.directories.staging}`
+        '--output',
+        Environment.directories.staging
     ];
     const extraArgs = core.getMultilineInput('parameters', { required: false });
     if (extraArgs) {
@@ -27297,7 +27302,8 @@ function getRestoreArguments(project) {
         });
     }
     if (core.getInput('verbosity')) {
-        args.push(`--verbosity ${core.getInput('verbosity')}`);
+        args.push('--verbosity');
+        args.push(core.getInput('verbosity'));
     }
     return args;
 }
