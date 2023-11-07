@@ -29916,6 +29916,7 @@ function buildEnvironment() {
             name: parsed[1],
             token: core.getInput('token', { required: true })
         },
+        sha: core.getInput('sha'),
         directories: {
             workspace: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../')}`),
             artifacts: (0, utility_1.resolveDirectory)(`${path.join(workspace, '../a')}`, { create: true }),
@@ -30053,6 +30054,7 @@ exports.getTempFile = getTempFile;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.buildVersion = exports.getBuildNumber = exports.getRevison = exports.TimeStamp = void 0;
 exports.TimeStamp = new Date();
+const ACTION_VERSION = 2;
 function getRevison(date) {
     const utcFixed = Date.UTC(1987, 0, 1, 0, 0, 0, 0);
     const utc = new Date(Date.UTC(1987, 0, 1, date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds()));
@@ -30072,9 +30074,9 @@ function buildVersion() {
         minor: 1,
         build: getBuildNumber(exports.TimeStamp),
         revision: getRevison(exports.TimeStamp).toString(),
-        prefix: `${exports.TimeStamp.getFullYear()}.1.${getBuildNumber(exports.TimeStamp)}`,
+        prefix: `${exports.TimeStamp.getFullYear()}.${ACTION_VERSION}.${getBuildNumber(exports.TimeStamp)}`,
         suffix: getRevison(exports.TimeStamp).toString(),
-        informational: `${exports.TimeStamp.getFullYear()}.1.${getBuildNumber(exports.TimeStamp)}.${getRevison(exports.TimeStamp)}`
+        informational: `${exports.TimeStamp.getFullYear()}.${ACTION_VERSION}.${getBuildNumber(exports.TimeStamp)}.${getRevison(exports.TimeStamp)}`
     };
 }
 exports.buildVersion = buildVersion;

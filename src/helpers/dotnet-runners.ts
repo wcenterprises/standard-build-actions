@@ -49,6 +49,13 @@ export function getBuildArguments(project: string): string[] {
     args = args.concat(extraArgs)
   }
 
+  args.push(`-p:Copyright="${Environment.user_config.config?.copyright}"`)
+  args.push(`-p:Authors="${Environment.user_config.config?.authors}"`)
+  args.push(`-p:Company="${Environment.user_config.config?.company}"`)
+  args.push(`-p:AssemblyVersion="${Environment.user_config.config?.copyright}"`)
+  args.push(`-p:FileVersion="${Environment.version.major}"`)
+  args.push(`-p:InformationalVersion="${Environment.version.informational}+${Environment.sha}"`)
+
   if (core.getInput('verbosity')) {
     args.push('--verbosity')
     args.push(core.getInput('verbosity'))
