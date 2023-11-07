@@ -10,6 +10,7 @@ inputs:
       build - build project
       restore - restore projects
       pack - pack projects
+      test - execute unit tests
 
   projects:
     required: true
