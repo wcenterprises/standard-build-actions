@@ -27216,9 +27216,8 @@ async function run(command) {
 }
 exports.run = run;
 async function runDotnetCommand(args) {
-    console.debug(`${args.join(' ')}`);
     const path = await (0, dotnet_helpers_1.getDotnet)();
-    await (0, exec_1.exec)(`"${path}"`, args);
+    await (0, exec_1.exec)(`${path}`, args);
 }
 exports.runDotnetCommand = runDotnetCommand;
 async function runRestoreCommand(projects) {
@@ -27229,7 +27228,7 @@ async function runRestoreCommand(projects) {
 exports.runRestoreCommand = runRestoreCommand;
 async function runBuildCommand(projects) {
     projects.forEach(async (project) => {
-        await runDotnetCommand(['build', `${project}`, '--configuration', 'release']);
+        await runDotnetCommand(getBuildArguments(project));
     });
 }
 exports.runBuildCommand = runBuildCommand;
@@ -27242,9 +27241,7 @@ function getBuildArguments(project) {
     args.push('--nologo');
     const extraArgs = core.getMultilineInput('parameters', { required: false });
     if (extraArgs) {
-        extraArgs.forEach((item) => {
-            args.push(item);
-        });
+        args = args.concat(extraArgs);
     }
     if (core.getInput('verbosity')) {
         args.push('--verbosity');

@@ -42,10 +42,9 @@ export async function run(command: string): Promise<void> {
   }
 }
 
-export async function runDotnetCommand(args: string[]): Promise<void> {
-  console.debug(`${args.join(' ')}`)
+export async function runDotnetCommand(args: string[]): Promise<void> {  
   const path=await getDotnet()
-  await exec(`"${path}"`, args)
+  await exec(`${path}`, args)
 }
 
 export async function runRestoreCommand(projects: string[]): Promise<void> {
@@ -56,7 +55,7 @@ export async function runRestoreCommand(projects: string[]): Promise<void> {
 
 export async function runBuildCommand(projects: string[]): Promise<void> {
   projects.forEach(async (project) =>{    
-    await runDotnetCommand(['build', `${project}`, '--configuration', 'release'])
+    await runDotnetCommand(getBuildArguments(project))
   }) 
 }
 
@@ -69,13 +68,12 @@ export function getBuildArguments(project: string): string[] {
   }
   args.push('--nologo')
 
-  const extraArgs = core.getMultilineInput('parameters', {required: false})
+  const extraArgs: Array<string> = core.getMultilineInput('parameters', {required: false})
 
   if (extraArgs) {
-    extraArgs.forEach((item) => {
-      args.push(item)
-    })    
+    args = args.concat(extraArgs)
   }
+
   if (core.getInput('verbosity')) {
     args.push('--verbosity')
     args.push(core.getInput('verbosity'))
