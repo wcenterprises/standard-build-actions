@@ -3,7 +3,7 @@ import { IEnvironment } from './interfaces/environment'
 import { loadEnvironment } from './helpers/cache-utils'
 import { safeWhich } from '@chrisgavin/safe-which'
 import { getDotnetVersion } from './helpers/dotnet-helpers'
-import { runRestoreCommand, runBuildCommand, runPublishCommand, runPackCommand } from './helpers/dotnet-runners'
+import { runRestoreCommand, runBuildCommand, runPublishCommand, runPackCommand } from './runners/dotnet-runners'
 
 
 /**

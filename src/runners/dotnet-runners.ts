@@ -1,8 +1,8 @@
 import * as core from '@actions/core'
 import { exec } from '@actions/exec'
-import { getDotnet } from './dotnet-helpers'
+import { getDotnet } from '../helpers/dotnet-helpers'
 import { IEnvironment } from '../interfaces/environment'
-import { loadEnvironment } from './cache-utils'
+import { loadEnvironment } from '../helpers/cache-utils'
 
 const Environment: IEnvironment = loadEnvironment(process.env['sba.environment'] as string)
 
