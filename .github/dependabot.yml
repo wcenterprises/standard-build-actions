@@ -23,4 +23,5 @@ updates:
       npm:
         patterns:
         - "@typescript*"
+        - "@types*"
         - "eslint"
