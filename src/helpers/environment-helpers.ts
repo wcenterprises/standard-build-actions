@@ -16,12 +16,13 @@ export function buildEnvironment(): IEnvironment {
   const tempDirectory = crypto.randomBytes(16).toString('hex')
 
   return {
-    timestamp: TimeStamp,
+    timestamp: TimeStamp,    
     repository: {
       owner: parsed[0],
       name: parsed[1],
       token: core.getInput('token', { required: true })
     },
+    sha: core.getInput('sha'),
     directories: {
       workspace: resolveDirectory(`${path.join(workspace, '../')}`),
       artifacts: resolveDirectory(`${path.join(workspace, '../a')}`, {create: true}),
@@ -34,6 +35,5 @@ export function buildEnvironment(): IEnvironment {
     },
     user_config: getUserConfig(core.getInput('config-file')),
     version: buildVersion()
-
   } as IEnvironment
 }

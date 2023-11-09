@@ -1,0 +1,45 @@
+name: 'dotnet Action'
+description: 'dotnet Action' # TODO: Better description needed!
+author: 'Brian Welsh (@brian-welsh)'
+
+# Define your inputs here.
+inputs:
+  command:
+    default: 'build'
+    description: >-
+      build - build project
+      restore - restore projects
+      pack - pack projects
+      test - execute unit tests
+
+  projects:
+    required: true
+    default: '**/*.sln'
+    description: >-
+        TODO: 
+
+  verbosity:
+    required: false
+    description: >-
+        TODO:
+    
+  configuration:
+    default: release
+    required: false
+    description: >-
+        TODO: 
+    
+  parameters:
+    required: false
+    description: >-
+        TODO: 
+    
+
+# Define your outputs here.
+# outputs:
+#   time:
+#     description: 'Your output description here'
+
+runs:
+  using: node20
+  main: ../../dist/dotnet-action/index.js

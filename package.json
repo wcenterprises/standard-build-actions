@@ -1,6 +1,6 @@
 {
   "name": "standard-build-actions",
-  "description": "GitHub Actions TypeScript template",
+  "description": "Based on: GitHub Actions TypeScript template",
   "version": "1.0.0",
   "author": "Brian Welsh (@brian-welsh)",
   "private": true,
@@ -10,7 +10,7 @@
     "url": "git+https://github.com/wcenterprises/standard-build-actions.git"
   },
   "bugs": {
-    "url": "https://github.com/wcenterprises/action-template/issues"
+    "url": "https://github.com/wcenterprises/standard-build-actions/issues"
   },
   "keywords": [
     "actions",
@@ -28,7 +28,8 @@
   "scripts": {
     "build:todo": "ncc build src/todo-action.ts -o dist/todo-action -s",
     "build:setup": "ncc build src/setup-action.ts -o dist/setup-action -s",
-    "build": "concurrently npm:build:todo npm:build:setup",
+    "build:dotnet": "ncc build src/dotnet-action.ts -o dist/dotnet-action -s",
+    "build": "concurrently npm:build:todo npm:build:setup npm:build:dotnet",
     "clean": "rm -rf dist/*",
     "rebuild": "npm run clean && npm run build",
     "bundle": "npm run format:write && npm run package",
@@ -76,8 +77,11 @@
   "dependencies": {
     "@actions/core": "^1.10.1",
     "@actions/exec": "^1.1.1",
+    "@actions/io": "^1.1.3",
     "@chrisgavin/safe-which": "^1.0.2",
-    "@octokit/core": "^5.0.1"
+    "@octokit/core": "^5.0.1",
+    "glob": "^10.3.10",
+    "semver": "^7.5.4"
   },
   "devDependencies": {
     "@types/jest": "^29.5.8",
@@ -100,5 +104,5 @@
     "ts-jest": "^29.1.1",
     "typescript": "^5.2.2"
   },
-  "main": "index.js"
+  "main": "src/index.js"
 }

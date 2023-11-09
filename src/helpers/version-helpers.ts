@@ -2,6 +2,8 @@ import { IVersionInfo } from "src/interfaces/version"
 
 export const TimeStamp: Date = new Date()
 
+const ACTION_VERSION: number = 2
+
 export function getRevison(date: Date): number {
   const utcFixed = Date.UTC(1987, 0, 1, 0, 0, 0, 0)
   const utc = new Date(
@@ -28,11 +30,11 @@ export function getBuildNumber(date: Date): string {
 export function buildVersion(): IVersionInfo {
   return {
     major: TimeStamp.getFullYear().toString(),
-    minor: 1,
+    minor: ACTION_VERSION,
     build: getBuildNumber(TimeStamp),
     revision: getRevison(TimeStamp).toString(),
-    prefix: `${TimeStamp.getFullYear()}.1.${getBuildNumber(TimeStamp)}`,
+    prefix: `${TimeStamp.getFullYear()}.${ACTION_VERSION}.${getBuildNumber(TimeStamp)}`,
     suffix: getRevison(TimeStamp).toString(),
-    informational: `${TimeStamp.getFullYear()}.1.${getBuildNumber(TimeStamp)}.${getRevison(TimeStamp)}` 
+    informational: `${TimeStamp.getFullYear()}.${ACTION_VERSION}.${getBuildNumber(TimeStamp)}.${getRevison(TimeStamp)}` 
   }
 }
