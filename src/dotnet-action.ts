@@ -3,7 +3,6 @@ import { glob } from 'glob'
 import { getDotnetVersion } from './helpers/dotnet-helpers'
 import { runRestoreCommand, runBuildCommand, runPublishCommand, runPackCommand } from './runners/dotnet-runners'
 
-
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -38,6 +37,5 @@ export async function run(command: string): Promise<void> {
     if (error instanceof Error) core.setFailed(error.message)
   }
 }
-
 
 run(core.getInput('command'))
