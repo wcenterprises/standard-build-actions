@@ -1,0 +1,21 @@
+name: 'Jira Action'
+description: 'Jira Action' # TODO: Better description needed!
+author: 'Brian Welsh (@brian-welsh)'
+
+# Define your inputs here.
+inputs:
+  repository: 
+    default: ${{ github.repository }}
+    required: true
+    description: > 
+      should be self-evident what this is. Normally this would need no other value.
+  command:
+    required: true
+    default: get
+
+# Define your outputs here.
+outputs:
+
+runs:
+  using: node20
+  main: ../../../dist/todo-action/index.js
