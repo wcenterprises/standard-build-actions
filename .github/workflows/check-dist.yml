@@ -20,6 +20,7 @@ on:
   workflow_dispatch:
 
 jobs:
+  if: github.actor == 'dependabot[bot]'
   check-dist:
     name: Check dist/
     runs-on: ubuntu-latest
