@@ -14,7 +14,7 @@ inputs:
     default: get
 
 # Define your outputs here.
-outputs:
+# outputs:
 
 runs:
   using: node20
