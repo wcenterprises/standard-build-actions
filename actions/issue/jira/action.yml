@@ -18,4 +18,4 @@ outputs:
 
 runs:
   using: node20
-  main: ../../../dist/todo-action/index.js
+  main: ../../../dist/jira-action/index.js

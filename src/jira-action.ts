@@ -1,4 +1,5 @@
 import * as core from '@actions/core'
+import { runJiraCommand } from './runners/jira-runners'
 
 /**
  * The main function for the action.
@@ -13,7 +14,7 @@ export async function run(command: string): Promise<void> {
         return
       }
       case 'get': {
-        return
+        runJiraCommand('')
       }
       case 'update': {
         return
