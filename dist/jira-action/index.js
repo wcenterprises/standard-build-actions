@@ -80166,7 +80166,7 @@ exports.runJiraCommand = void 0;
 // https://developer.atlassian.com/server/jira/platform/jira-rest-api-examples/
 // https://blog.logrocket.com/5-ways-to-make-http-requests-in-node-js/
 const jclient_1 = __nccwpck_require__(5705);
-const jira = new jclient_1.JiraClient('host', 'username', 'password');
+const jira = new jclient_1.JiraClient(`${process.env.JIRA_HOST}`, `${process.env.JIRA_USERNAME}`, `${process.env.JIRA_PASSWORD}`);
 async function runJiraCommand(command) {
     console.log(await jira.getIssue('TDA-1'));
 }

@@ -9,7 +9,10 @@ import * as core from '@actions/core'
 
 import {JiraClient} from '../classes/jclient'
 
-const jira: JiraClient = new JiraClient('host', 'username', 'password')
+
+
+
+const jira: JiraClient = new JiraClient(`${process.env.JIRA_HOST}`, `${process.env.JIRA_USERNAME}`, `${process.env.JIRA_PASSWORD}`)
 
 export async function runJiraCommand(command: string): Promise<void> {
   console.log(await jira.getIssue('TDA-1'))
