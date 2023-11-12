@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import * as ch from '../helpers/content-helpers'
+import * as path from 'path'
 
 // 'https://wcenterprises.atlassian.net/rest/api/3/issue/<ticket number>?fields=project,summary,issuetype'
 
@@ -21,7 +22,7 @@ export async function createIssueCommand(key: string, summary: string, options?:
   
   if (options?.markdown){
       return await jira.createIssue(key, summary, { 
-        markdown: options?.markdown + ch.readFileContentSync(__dirname + '../../_template/ISSUE_BODY_TEMPLATE.md') 
+        markdown: options?.markdown + ch.readFileContentSync(path.resolve(__dirname, '../../_template/ISSUE_BODY_TEMPLATE.md')) 
       })
   }
 

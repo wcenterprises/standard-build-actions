@@ -82730,6 +82730,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.createIssueCommand = exports.getIssueCommand = void 0;
 const ch = __importStar(__nccwpck_require__(9462));
+const path = __importStar(__nccwpck_require__(1017));
 // 'https://wcenterprises.atlassian.net/rest/api/3/issue/<ticket number>?fields=project,summary,issuetype'
 // https://developer.atlassian.com/server/jira/platform/jira-rest-api-examples/
 // https://blog.logrocket.com/5-ways-to-make-http-requests-in-node-js/
@@ -82742,7 +82743,7 @@ exports.getIssueCommand = getIssueCommand;
 async function createIssueCommand(key, summary, options) {
     if (options?.markdown) {
         return await jira.createIssue(key, summary, {
-            markdown: options?.markdown + ch.readFileContentSync(__dirname + '../../_template/ISSUE_BODY_TEMPLATE.md')
+            markdown: options?.markdown + ch.readFileContentSync(path.resolve(__dirname, '../../_template/ISSUE_BODY_TEMPLATE.md'))
         });
     }
     return await jira.createIssue(key, summary);
