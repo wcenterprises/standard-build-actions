@@ -12,9 +12,23 @@ inputs:
   command:
     required: true
     default: get
+    description: >
+      get
+      create
+      comment
+
+  key:
+    required: false    
 
 # Define your outputs here.
-# outputs:
+outputs:
+  issue-key:
+    description: >
+      TODO:
+  issue-data:
+    description: >
+      TODO: << compressed json (stringify) >>
+  
 
 runs:
   using: node20
