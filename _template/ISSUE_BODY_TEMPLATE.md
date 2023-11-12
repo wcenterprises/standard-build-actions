@@ -1,7 +1,3 @@
-Description: {description}
----
-
-{body}
 
 ---
 _Created: {date}_
