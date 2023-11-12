@@ -1,5 +1,6 @@
+Description: {description}
+---
 {body}
 ---
-_**Created**: {date}_
-_**Description**: {footer}_
----
+Created: {date}
+Description: {footer}
