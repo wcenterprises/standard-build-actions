@@ -24,7 +24,6 @@ export class JiraClient {
   }
 
   async createIssue(key: string, summary: string, options?: CreateIssueOptions): Promise<string | undefined > {
-    console.log(`options: ${options}`)
     console.log(`markdown: ${options?.markdown}`)
     const adf = options?.markdown ? ch.translateMarkdown(String(options?.markdown)) : null
     console.log(`adf: ${adf}`)
@@ -32,9 +31,10 @@ export class JiraClient {
     const result: jira.IssueObject = await this._api.addNewIssue(
       {
         fields: {
-          issueType: { name: "Task" },
-          project: { key: key },
-          summary: summary
+          issuetype: { name: "Task" },
+          project: { key: `${key}` },
+          summary: `${summary}`,
+          description: adf
         }
     })
     return result?.key as string
