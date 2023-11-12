@@ -1,5 +1,5 @@
 
-import fnTranslate, * as mdToAdf from 'md-to-adf'
+import fnTranslate from 'md-to-adf'
 
 import * as fs from 'fs'
 
@@ -31,5 +31,5 @@ export function transformContent(content: string): string {
 }
 
 export function translateMarkdown(markdown: string): any {
-  return fnTranslate(transformContent(markdown))
+  return fnTranslate(markdown)
 }
