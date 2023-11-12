@@ -31,5 +31,5 @@ export function transformContent(content: string): string {
 }
 
 export function translateMarkdown(markdown: string): any {
-  return fnTranslate(markdown)
+  return fnTranslate(transformContent(markdown))
 }
