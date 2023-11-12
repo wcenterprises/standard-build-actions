@@ -1,8 +1,11 @@
 
+
+<a href="https://github.com">github.com</a>
+
 ---
 
-Repository: {repository}
+Created: {datetime}
 
-Created: {date}
+Repository: {repository}
 
 Description: {footer}
