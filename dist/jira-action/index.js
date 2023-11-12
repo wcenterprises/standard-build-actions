@@ -82544,6 +82544,7 @@ class JiraClient {
     }
     async createIssue(key, summary, options) {
         console.log(`options: ${options}`);
+        console.log(`markdown: ${options?.markdown}`);
         const adf = options?.markdown ? null : ch.translateMarkdown(String(options?.markdown));
         console.log(`adf: ${adf}`);
         const result = await this._api.addNewIssue({
