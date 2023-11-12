@@ -26,7 +26,7 @@ export class JiraClient {
   async createIssue(key: string, summary: string, options?: CreateIssueOptions): Promise<string | undefined > {
     console.log(`options: ${options}`)
     console.log(`markdown: ${options?.markdown}`)
-    const adf = options?.markdown ? null : ch.translateMarkdown(String(options?.markdown))
+    const adf = options?.markdown ? ch.translateMarkdown(String(options?.markdown)) : null
     console.log(`adf: ${adf}`)
 
     const result: jira.IssueObject = await this._api.addNewIssue(
