@@ -2,5 +2,6 @@ Description: {description}
 ---
 {body}
 ---
-Created: {date}
-Description: {footer}
+_Created: {date}_
+
+_Description: {footer}_
