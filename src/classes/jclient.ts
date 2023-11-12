@@ -1,5 +1,5 @@
 
-import JiraApi from 'jira-client'
+import JiraApi,* as jira from 'jira-client'
 
 import { IJiraIssue } from 'src/interfaces/jira'
 
@@ -20,5 +20,12 @@ export class JiraClient {
 
   async getIssue(key: string): Promise<IJiraIssue> {
     return await this._api.findIssue(key, undefined, 'key,summary,status') as IJiraIssue
+  }
+
+  async createIssue(key: string, summary: string): Promise<void> {
+    
+    await this._api.addNewIssue({
+
+    })
   }
 }

@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
-import { runJiraCommand } from './runners/jira-runners'
+import { createIssueCommand, getIssueCommand } from './runners/jira-runners'
+import { IJiraIssue } from './interfaces/jira'
 
 /**
  * The main function for the action.
@@ -11,12 +12,17 @@ export async function run(command: string): Promise<void> {
 
     switch (command) {
       case 'create': {
-        return
+        const key: string = await createIssueCommand(core.getInput('key', { required: true })) as string
+        core.setOutput('issue-key', key)
+        return 
       }
       case 'get': {
-        runJiraCommand('')
+        const issue: IJiraIssue = await getIssueCommand(core.getInput('key', { required: true }))
+        core.setOutput('issue-key', issue.key)
+        core.setOutput('issue-data', JSON.stringify(issue))
+        return
       }
-      case 'update': {
+      case 'command': {
         return
       }
     }
