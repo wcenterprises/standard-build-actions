@@ -22,3 +22,7 @@ export interface IJiraIssueStatus {
   id: string
   statusCategory: any[]
 }
+
+export interface CreateIssueOptions {
+  markdown: string
+}
