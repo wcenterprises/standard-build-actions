@@ -24,7 +24,7 @@ export class JiraClient {
   }
 
   async createIssue(key: string, summary: string, options?: CreateIssueOptions): Promise<string | undefined > {
-
+    console.log(`options: ${options}`)
     const adf = options?.markdown ? null : ch.translateMarkdown(String(options?.markdown))
     console.log(`adf: ${adf}`)
 
