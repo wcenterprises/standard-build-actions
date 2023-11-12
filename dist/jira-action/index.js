@@ -82675,6 +82675,7 @@ async function run(command) {
             case 'create': {
                 const key = await (0, jira_runners_1.createIssueCommand)(core.getInput('project-key', { required: true }), core.getInput('issue-summary'), { markdown: core.getMultilineInput('issue-description', { required: true }).join('\r\n') });
                 core.setOutput('issue-key', key);
+                core.exportVariable("ISSUE-KEY", key);
                 return;
             }
             case 'get': {
