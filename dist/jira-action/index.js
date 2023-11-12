@@ -86846,7 +86846,7 @@ function transformContent(content) {
     return content
         .replace(exports.PATTERN_DATE, new Date().toDateString())
         .replace(exports.PATTERN_DATETIME, String(new Date()))
-        .replace(exports.PATTERN_REPOSITORY, `${github.context.repo.owner}/${github.context.repo.repo}`)
+        .replace(exports.PATTERN_REPOSITORY, `[${github.context.repo.owner}/${github.context.repo.repo}](${github.context.payload.repository?.html_url})`)
         .replace(exports.PATTERN_REPOSITORY_NAME, `${github.context.repo.repo}`)
         .replace(exports.PATTERN_REPOSITORY_OWNER, `${github.context.repo.owner}`);
 }
