@@ -82625,7 +82625,7 @@ function transformContent(content) {
 }
 exports.transformContent = transformContent;
 function translateMarkdown(markdown) {
-    return (0, md_to_adf_1.default)(transformContent(markdown));
+    return (0, md_to_adf_1.default)(markdown);
 }
 exports.translateMarkdown = translateMarkdown;
 
