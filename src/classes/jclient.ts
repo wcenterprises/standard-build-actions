@@ -1,7 +1,8 @@
 
 import JiraApi,* as jira from 'jira-client'
+import * as ch from '../helpers/content-helpers'
 
-import { IJiraIssue } from 'src/interfaces/jira'
+import { CreateIssueOptions, IJiraIssue } from 'src/interfaces/jira'
 
 export class JiraClient {
 
@@ -22,10 +23,19 @@ export class JiraClient {
     return await this._api.findIssue(key, undefined, 'key,summary,status') as IJiraIssue
   }
 
-  async createIssue(key: string, summary: string): Promise<void> {
-    
-    await this._api.addNewIssue({
+  async createIssue(key: string, summary: string, options?: CreateIssueOptions): Promise<string | undefined > {
 
+    const adf = options?.markdown ? null : ch.translateMarkdown(String(options?.markdown))
+
+    const result: jira.IssueObject = await this._api.addNewIssue(
+      {
+        fields: {
+          issueType: { name: "Task" },
+          project: { key: key },
+          summary: summary,
+          description: adf
+        }
     })
+    return result?.key as string
   }
 }

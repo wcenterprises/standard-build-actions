@@ -12,7 +12,10 @@ export async function run(command: string): Promise<void> {
 
     switch (command) {
       case 'create': {
-        const key: string = await createIssueCommand(core.getInput('key', { required: true })) as string
+        const key: string|undefined = await createIssueCommand(
+          core.getInput('project-key', { required: true }),
+          core.getInput('issue-summary'),
+          {markdown: core.getMultilineInput('issue-description', {required: true}).join('\r\n')})
         core.setOutput('issue-key', key)
         return 
       }
