@@ -1,5 +1,8 @@
 
 ---
-_Created: {date}_
 
-_Description: {footer}_
+Repository: {repository}
+
+Created: {date}
+
+Description: {footer}
