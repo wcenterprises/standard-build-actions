@@ -28,7 +28,7 @@ export function readFileContentSync(path: string): string {
 export function transformContent(content: string): string {
   return content
     .replace(PATTERN_DATE, new Date().toDateString())
-    .replace(PATTERN_DATETIME, new Date().toString())
+    .replace(PATTERN_DATETIME, new Date().toLocaleString('en-US'))
     .replace(PATTERN_REPOSITORY, `[${github.context.repo.owner}/${github.context.repo.repo}](${github.context.payload.repository?.html_url})`)
     .replace(PATTERN_REPOSITORY_NAME, `${github.context.repo.repo}`)
     .replace(PATTERN_REPOSITORY_OWNER, `${github.context.repo.owner}`)
