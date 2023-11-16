@@ -17,6 +17,7 @@ inputs:
       get
       create
       comment
+      validate
 
   project-key:
     required: false
