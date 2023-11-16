@@ -1,0 +1,38 @@
+name: 'Setup Action'
+description: 'Setup Action' # TODO: Better description needed!
+author: 'Brian Welsh (@brian-welsh)'
+
+# Define your inputs here.
+inputs:
+  repository: 
+    default: ${{ github.repository }}
+    required: true
+    description: > 
+      should be self-evident what this is. Normally this would need no other value.
+
+  token:
+    default: ${{ github.token }}
+    required: true
+    description: > 
+      should be self-evident what this is. Normally this would need no other value.
+
+  config-file:
+    required: true
+    description: >
+      path to a YAML config file 
+      TBD format TBD
+
+# Define your outputs here.
+outputs:
+  staging-directory:
+    description: 'TODO:'
+  output-directory:
+    description: 'TODO:'
+  artifact-directory:
+    description: 'TODO:'
+  package-directory:
+    description: 'TODO:'
+
+runs:
+  using: node20
+  main: ../../dist/setup-action/index.js
