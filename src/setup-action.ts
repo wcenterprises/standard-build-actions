@@ -1,4 +1,5 @@
 import * as core from '@actions/core'
+import * as github from "@actions/github"
 
 import { IEnvironment } from './interfaces/environment'
 import { loadEnvironment, saveEnvironment } from './helpers/cache-utils'
@@ -12,6 +13,7 @@ import { getTempFile } from './helpers/utility'
 export async function run(): Promise<void> {
   try {
     core.debug('Entering setup-action')
+    console.log(github.context)
     const env: IEnvironment = buildEnvironment()
     const tempFile: string = getTempFile(`${env.directories.temp}`)
     saveEnvironment(tempFile, env)
